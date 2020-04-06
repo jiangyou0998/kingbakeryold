@@ -1,0 +1,17 @@
+.main {
+	width:994px;
+}
+
+.panel-body {
+	padding:5px;
+}
+.table-detail th   {
+	text-align:right;
+	width:15%;
+}
+.table-detail tbody th,.table-detail tbody td {
+	padding:3px;
+}
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+	padding:5px;
+}

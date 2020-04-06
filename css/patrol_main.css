@@ -1,0 +1,322 @@
+*{
+	padding:0;
+	margin:0;
+	font-family:"MingLiU";
+	list-style:none;
+}
+
+h1{
+	text-align:center;
+	padding:20px 0;
+}
+
+.main{
+	width:994px;
+	min-height:580px;
+}
+
+.tblDetail {
+	width:992px;
+	border: solid #ccc 1px;
+	border-top:none;
+	margin-left:2px;
+}
+.tblDetail td, .tblDetail th {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 2px;
+    text-align: center;
+	line-height:40px;
+}
+.tblDetail td:first-child, .tblDetail th:first-child {
+    border-left: none;
+	
+}
+.tblDetail td {
+	text-align:left;
+	padding-left:10px;
+}
+.tblDetail th {
+	width:20%;
+}
+.tblDetail td input[type=text]{
+	width:80%;
+	height:30px;
+	border:1px solid #ccc;
+	padding-left:5px;
+	line-height:30px;
+}
+.tblDetail select{
+	width:300px;
+	height:30px;
+	line-height:30px;
+	padding-left:5px;
+}
+.tblDetail select option{
+	height:25px;
+	line-height:25px;
+	padding-left:5px;
+}
+
+.btnBox{
+	width:100%;
+	padding:20px 0;
+	text-align:center;
+}
+.btnBox input{
+	border:1px solid #ccc;
+	color:#fff;
+	font-size:18px;
+}
+.btnBox input[type=submit]{
+	width:100px;
+	height:50px;
+	background:green;
+}
+.btnBox input[type=button]{
+	width:80px;
+	height:40px;
+	background:red;
+}
+
+.item_list{
+	width:992px;
+	border:0px solid #ccc;
+	margin-left:2px;
+	margin-top:10px;
+	clear:both;
+	overflow:hidden;
+}
+.item_list div,.item_list ul{
+	width:100%;
+	float:left;
+}
+.item_list div.item_title{
+	width:985px;
+	background:#ccffff;
+	height:40px;
+	font: bold 18px/40px MingLiU;
+	padding-left:4px;
+	border:1px solid #ccc;
+}
+.item li{
+	float:left;
+	line-height:33px;
+	height:33px;
+	border-bottom:1px solid #5B5B5B;
+	border-right:0px solid #ccc;
+}
+.item li.with1{
+	width:9%;
+	border-left:0px solid #ccc;
+	text-align:center;
+}
+.item li.with2{
+	width:10%;
+	padding-left:9px;
+}
+.item li.with3{
+	width:59%;
+	padding-left:10px;	
+}
+.item li.with4{
+	width:20%;
+	padding-left:0px;
+	text-align:center;
+}
+.item li.with5{
+	width:10%;
+	padding-left:0px;
+	text-align:center;
+}
+.item_edit hr{
+	width:100%;
+	border:1px solid #000;
+	margin:5px 0;
+}
+.item_edit ul li {
+	border-top:1px solid #ccc;
+	line-height:40px;
+	height:40px;
+	border-color:#ccc;
+	background:#F0F0F0;
+}
+.item li input[type=text]{
+	
+	width:90%;
+	height:30px;
+	padding-left:5px;
+	border:1px solid #ccc;
+	line-height:30px;
+}
+.btnDel,.btnAdd,.btnEdit,.btnOrder,.btnConfirm,.btnCheck{
+	width:32px;
+	height:32px;
+	border:none;
+	cursor:pointer;
+}
+.btnDel{
+	background:url(../images/delete_2.png);
+}
+.btnAdd{
+	background:url(../images/new_doc.png);
+}
+.btnEdit{
+	background:url(../images/edit.png);
+}
+.btnOrder{
+	background:url(../images/btnOrder.png);
+}
+.btnConfirm{
+	background:url(../images/note_accept1.png);
+}
+.btnCheck{
+	background:url(../images/clipboard.png);
+}
+
+.topBtnBox{
+	text-align:right;
+	padding:5px 0;
+}
+
+.classItem {
+	
+	padding:10px 0;
+}
+.classTalbe {
+	width:992px;
+	border: solid #ccc 1px;
+	border-top:none;
+	margin-left:2px;
+}
+.classTalbe td, .classTalbe th {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 2px;
+    text-align: center;
+	line-height:25px;
+}
+.classTalbe th {
+	font-size:12px;
+	font-weight:100;
+	line-height:20px;
+	background:#ffff00
+}
+.classTalbe td {
+	font-size:14px;
+}
+.classTalbe th.title {
+	font-size:20px;
+	font-weight:700;
+	line-height:30px;
+}
+.classTalbe td.left {
+	text-align:left;
+}
+.classTalbe td:first-child, .classTalbe th:first-child {
+    border-left: none;
+	
+}
+.text1{
+	width:90%;
+	padding-left:5px;
+	border:1px solid #ccc;
+	
+}
+.bottonbtn {
+	width:100%;
+	text-align:center;
+	padding:20px 0;
+}
+.btn1{
+	width:100px;
+	height:50px;
+	font-size:20px;
+	background:green;
+	color:#fff;
+}
+.CheckImg {
+	width:98%; 
+	border:1px solid #ccc;
+	margin:1%;
+	height:300px;
+	background-image: URL(images/no_img.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.search{
+	width:100%;
+	text-align:center;
+	padding:10px 0;
+}
+.search select {
+	width:200px;
+	height:25px;
+	font-size:18px;
+}
+
+.foot{
+	width:960px;
+	padding:10px;
+	text-align:left;
+	font-size:24px;
+	line-height:35px;
+	background:#ffff00;
+	margin:10px 2px;
+	border:1px solid #000;
+}
+.foot span{
+	font-size:30px;
+	font-weight:700;
+	
+}
+
+.tblRep td,.tblRep th{
+	line-height:25px;
+}
+.warning{
+	background:red;
+	color:#fff;
+}
+.tips1{
+	width:100%;
+	font-size:14px;
+	color:red;
+	padding-top:10px;
+}
+
+.tips2{
+	width:994px;
+	margin:0 auto;
+	font-size:14px;
+	color:red;
+	padding-top:10px;
+}
+
+.item_title div.left {
+	
+	width:20%;
+	float:left;
+}
+.item_title div.right {
+	width:80%;
+	float:left;
+	text-align:right;
+	font-size:14px;
+	color:red;
+}
+
+.search-excel {
+	width:100%;
+	text-align:center;
+	margin-top:15%;
+	font-size:18px;
+}
+.search-select {
+	width:100px;
+	padding:5px;
+} 
+.search-submit {
+	width:100px;
+	padding:3px;
+}

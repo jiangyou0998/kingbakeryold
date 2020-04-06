@@ -1,0 +1,32 @@
+.main {
+	width:994px;
+	min-height:700px;
+}
+.table thead tr th {
+	background:#E0FFFF
+}
+.search {
+	width:100%;
+	padding:5px 0;
+	position:relative;
+}
+.searchTxt {
+	position:absolute;
+	width:750px;
+	top:5px;
+	left:20px;
+}
+.searchTxt input {
+	display:inline;
+	width:200px;
+}
+#state,#year,#month {
+	display:inline;
+	width:100px;
+}
+.searchTxt label {
+	font-size:18px;
+}
+.table-headColor th {
+	background:#E0FFFF
+}

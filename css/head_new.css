@@ -1,0 +1,36 @@
+.banner {
+    width: 994px;
+    height: 126px;
+    background: url(../images/TaiHing_01.jpg);
+    margin-bottom: 1px;
+}
+.nav-menu {
+    overflow: hidden;
+    width: 994px;
+    height: 46px;
+    padding-left:0;
+    padding-bottom:16px;
+    margin: 0;
+    background: url(../images/TaiHing_11.jpg) no-repeat;
+    background-position: bottom;
+}
+.nav-menu li {
+    float: left;
+    height: 30px;
+    background: url(../images/Head_bg.jpg);
+    width: 70px;
+    margin-right: 1px;
+    border-left:1px solid #000;
+    text-align: center;
+}
+.nav-menu li:hover {
+    background: url(../images/Head_d_bg.jpg);
+}
+.nav-menu li:last-child {
+    width: 71px;
+    margin-right: 0;
+}
+.nav-menu li a {
+    color: #fff;
+    font-size: 20px;
+}

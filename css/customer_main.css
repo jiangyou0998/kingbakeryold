@@ -1,0 +1,31 @@
+.main {
+	width:994px;
+	min-height:650px;
+}
+input[type="file"]  {
+	display:inline;
+}
+.table-headColor thead th {
+	background:#ccffff;
+}
+.search {
+	width:100%;
+	position:relative;
+	padding:10px 0;
+}
+.searchTxt {
+	width:800px;
+	position:absolute;
+	left:10px;
+}
+#searchKey {
+	width:150px;
+	display:inline;
+}
+#year,#month,#line,#shop{
+	display:inline;
+	width:80px;
+}
+.searchTitle {
+	font-size:18px;
+}

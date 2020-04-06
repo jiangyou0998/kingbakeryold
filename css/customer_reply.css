@@ -1,0 +1,21 @@
+.main {
+	width:994px;
+	min-height:650px;
+}
+.form-group {
+	margin-bottom:5px;
+}
+.form-control {
+	height:30px;
+	padding:2px 10px;;
+}
+.form-horizontal .control-label  {
+	font-size:18px;
+	padding-top:0;
+}
+input[type="file"]  {
+	display:none;
+}
+#btnClear {
+	display:none;
+}

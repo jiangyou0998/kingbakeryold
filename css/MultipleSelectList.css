@@ -1,0 +1,97 @@
+* {
+    padding: 0;
+    margin: 0;
+    /*font-size: 12px;*/
+    /*font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;*/
+}
+html,body {
+    width: 100%;
+    height: 100%;
+    /*display: table;*/
+}
+li {
+    list-style: none;
+}
+.multiple-select-list-background {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    /*filter:alpha(opacity:30);  -moz-opacity:0.3;-khtml-opacity: 0.3;opacity:0.5;*/
+    filter:alpha(Opacity=80);-moz-opacity:0.5;opacity: 0.5;
+    display: table;
+    text-align: center;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 90;
+
+}
+.multiple-select-list-table {
+    width: 100%;
+    height: 100%;
+    display: table-cell;
+    /*float: left;*/
+    vertical-align: middle;
+}
+.multiple-select-list-box {
+    width: 500px;
+    height: 300px;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+    position:fixed;
+    margin:auto;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    z-index: 100;
+
+}
+.multiple-select-list-title {
+    width: 100%;
+    /*height: 30px;*/
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    float: left;
+    background: #f0f0f0;
+}
+.multiple-select-list-title ul  li {
+    float: left;
+    padding: 5px 10px;
+    border-right: 1px solid #ccc;
+    cursor: pointer;
+    position: relative;
+    font-size: 15px;
+
+}
+.multiple-select-list-select,.multiple-select-list-show {
+    padding: 10px 0;
+    width: 100%;
+    float:left;
+}
+.multiple-select-list-select li,.multiple-select-list-show li {
+    float: left;
+    padding: 3px 10px;
+    border: 1px solid #ccc;
+    margin:5px;
+    border-radius: 5px;
+    font-size: 14px;
+    background: #F0F0F0;
+    cursor: pointer;
+
+}
+.multiple-select-list-select li {
+    color: #fff;
+    background: #00CC00;
+    border:#00CC00;
+}
+.multiple-select-list-selected-title,.multiple-select-list-title-selected {
+    position: absolute;
+    bottom:-1px;
+    z-index: 100;
+    background: #fff;
+}
+.multiple-select-list-title ul  li.multiple-select-list-close {
+    border:none;
+    float:right;
+}

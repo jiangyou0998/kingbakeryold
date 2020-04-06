@@ -1,0 +1,72 @@
+.main {
+	width:994px;
+}
+.tab {
+	border:1px solid #ddd;
+	border-top:none;
+	padding:5px;
+	padding-top:10px;
+}
+.table tr th {
+	background:#CCFFFF;
+}
+.staffList,.foreigncontractor {
+	padding:0;
+	margin:0;
+	overflow:hidden
+}
+.staffList li,.foreigncontractor li {
+	width:100px;
+	list-style:none;
+	padding:4px 10px;
+	border:1px solid #ddd;
+	margin:2px;
+	float:left;
+	vertical-align:middle;
+}
+input[type="checkbox"] {
+	vertical-align:middle;
+	margin:0;
+}
+
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+    background-color: #f0f0f0;
+}
+
+.rpDetail {
+	width:100%;
+}
+.rpDetail th {
+	width:20%;
+	font-size: 16px;
+    padding-right: 10px;
+    text-align: right;
+}
+.rpDetail td {
+	width:80%;
+}
+
+.rpDetail th,.rpDetail td {
+	line-height:30px;
+}
+.searchText {
+	width:200px;
+	display: inline;
+}
+.tabHead {
+	width:100%;
+	position:relative;
+	padding:10px 0;
+}
+.search {
+	width:700px;
+	position:absolute;
+	left:100px;
+}
+#type,#ctype,#msort,#csort {
+	width:100px;
+	display:inline
+}
+h1 {
+	margin:0;
+}

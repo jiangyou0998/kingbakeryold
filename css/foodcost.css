@@ -1,0 +1,52 @@
+.main {
+	width:994px;
+	min-height:700px;
+}
+.table thead th {
+	background:#ccffff;
+	line-height:40px;
+}
+.table tfoot th {
+	background:#ccffff;
+	line-height:40px;
+}
+.table-detail {
+	border:none;
+	width:100%;
+	padding:5px 0;
+	border-collapse: collapse;
+    border-spacing: 0;
+	border: 1px solid #ddd;
+}
+.table-detail th {
+	width:20%;
+	text-align:right;
+
+}
+.table-detail td,.table-detail th {
+	padding:5px;
+	font-size:18px;
+	font-weight:bold;
+}
+.table-detail td {
+	padding-left:10;
+	text-align:left;
+	width:30%;
+}
+.spacing1 {
+	padding:10px 0;
+}
+.clear-padding {
+	padding:0 !important;
+}
+.panel-body {
+	padding:5px;
+}
+.sapcode,.cost,.yieldRate {
+	height:22px !important;
+	padding: 0 6px !important;
+}
+.table-confirm-data {
+	width:100% !important;
+	min-width:100% !important;
+}

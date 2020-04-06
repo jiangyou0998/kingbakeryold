@@ -1,0 +1,23 @@
+.ms-drop .container.checkbox-help{
+	top: 0px;
+	left: 0px;
+}
+.ms-drop span.text{
+	margin-left:25px;
+}
+.checkmark{
+	height: 18px;
+	width: 18px;
+}
+.container .checkmark:after {
+    left: 6px;
+    top: 1px;
+    width: 5px;
+    height: 11px;
+}
+.ms-drop ul > li{
+	height: 25px;
+}
+.ms-drop ul > li.multiple label{
+	height: 25px;
+}	

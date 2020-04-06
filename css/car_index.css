@@ -1,0 +1,18 @@
+*{ font-family:"MingLiU";margin: 0px;padding: 0px;}
+
+.inputTable { width:100%; line-height:40px;border-left:1px solid #ccc; border-top:1px solid #ccc;margin:0;border-collapse:collapse;}
+.inputTable th { text-align:center; border-right:1px solid #ccc; border-bottom:1px solid #ccc; background-color:#CCFFFF; font-size:30px;}
+.inputTable td{ text-align:center; border-right:1px solid #ccc; border-bottom:1px solid #ccc; padding-left:0px;}
+.inputTable td label {font-size:30px;}
+.btn { width:100%; text-align:center; line-height:60px; height:60px; padding:5px 0;}
+.confirm {background:url(../images/Confirm2.jpg);width:106px; height:60px;border:none; }
+.Cancel {background:url(../images/Return.jpg);width:106px; height:60px;border:none; margin:10px 0;}
+.sel{height:30px; margin-left:5px;font-size:15px;font-weight:bold}
+.txt1{border:1px solid #ccc; height:30px; line-height:30px; width:90%; margin:5px 0;margin-left:5px;font-size:15px;font-weight:bold}
+.del{ background:url(../images/delete_2.png);width:32px; height:32px;border:none;}
+.edit{ background:url(../images/edit.png);width:32px; height:32px;border:none;}
+.add{ background:url(../images/new_doc.png);width:32px; height:32px;border:none;}
+.stop{color:red;background:url(../images/stop.png) no-repeat;line-height:32px;padding-left:34px; height:32px; display:block;width:50px;}
+.ok{color:Green;background:url(../images/clear-green-button.png) no-repeat;line-height:32px;padding-left:34px; height:32px; display:block;width:50px;}
+.search { line-height:30px; width:994px; height:30px; font-size:14px; padding:5px 0;text-align:right;}
+.search input[type=text]{border:1px solid #ccc;}

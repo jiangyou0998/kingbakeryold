@@ -1,0 +1,63 @@
+*{ padding:0; margin:0; list-style:none;text-decoration:none;}
+.main{ width:990px;padding-left:2px;min-height:570px;}
+.tbl_oper { width:100%; font-size:12px; line-height:35px; border-collapse: collapse;border-color:#ddd;}
+.tbl_oper th,.tbl_oper td {border-color:#ddd;}
+.tbl_oper th { text-align:right; font-size:16px;background:#ccffff}
+.tbl_oper th.title {
+	text-align:center;
+	background:#005757;
+	font-size:20px;
+	color:#fff;
+	padding:0;
+	line-height:40px;
+	height:40px;
+}
+.tbl_oper td {font-size:14px;}
+.title{ width:100%; font-size:30px; padding:10px 0; text-align:center;}
+
+.text1 { width:200px; border:1px solid #ccc; height:25px; line-height:25px; padding-left:5px; border-radius:4px;}
+.text2  { width:80%; border:1px solid #ccc; height:20px; line-height:20px; padding-right:5px; text-align:right;border-radius:4px;}
+.tabl_item { width:98%; margin:1%; border:#ccc;}
+.tabl_item  th { text-align:right; line-height:25px; height:25px; background:#fff;}
+.tabl_item  td{line-height:25px; height:25px;width:25%;}
+.tabl_item td.item_title {  background:#005757;text-align:center; line-height:40px;height:40px;}
+.tabl_item td.item_title a { float:right; color:#fff; background:green; padding:0 5px;}
+.tabl_item td.item_title font { color:#fff; font-size:20px; font-weight:bold;}
+
+.items_list { width:100%; float:left;  padding-bottom:5px;}
+.item_list { width:320px; float:left; border:1px solid #ccc; margin-left:6px;overflow-y:scroll; height:300px;}
+.item_list ul li { width:100%; line-height:30px; border-bottom:1px solid #ccc; height:30px;}
+.item_list ul li a { float:right;  margin:5px 5px; background:green; color:#fff; padding: 0 5px; height:20px; line-height:20px; font-size:14px; }
+.item_list ul li a.del { background:red;}
+.item_list ul li font {float:left;}
+.list_title {  background:#ccffff; width:320px; float:left;border:1px solid #ccc; margin-left:6px; border-bottom:none;}
+.list_title a {float:right; background:red; padding:0 5px; color:#fff;display:block; width:50px; height:30px; line-height:30px;text-align:center; margin:5px 0; margin-right:5px;}
+.list_title select { width:240px; height:30px; font-size:18px; float:left; margin-left:10px; margin-top:6px;}
+.items_title { float:left; width:100%;background:#005757; border-top:1px solid #ccc; border-bottom:1px solid #ccc; margin-bottom:5px;text-align:center;}
+.items_title a {float:right; background:green;  color:#fff;display:block; width:90px; height:30px; line-height:30px;text-align:center; margin:5px 0; margin-right:5px;}
+.items_title font{color:#fff;font-size:20px;font-weight:bold;}
+.list_box { width:100%; float:left;}
+
+.btn1{ border:none;margin:5px; background:green; color:#fff; font-size:20px;border-radius:4px; padding:5px 20px; vertical-align:middle;}
+.btn2{ border:none; padding:4px 15px;margin:5px; background:red;color:#fff; font-size:16px;border-radius:4px; vertical-align:middle;}
+.price{ padding:10px 0;}
+.price td{ width:150px; border:none; text-align:center;}
+.price_type {float:left;border-collapse:collapse;border-spacing:0; border:0px solid #ccc; border-right:none; border-bottom:none; width:100%; }
+.price_type th,.price_type td{ border-right:1px solid #ccc; border-bottom:1px solid #ccc; }
+.price_type th{width:33%;text-align:center; background:#ccffff}
+.price_type td{width:33%; }
+
+
+.line_select{width:100px; height:30px; line-height:30px;  margin-left:5px;position:relative}
+.shop_box{ width:710px; border:1px solid #ccc;position:absolute; top:30px;left:0;z-index:2;background:#fff;display:none;}
+.class1{ width:100%; border-bottom:1px solid #ccc; padding:5px 0; float:left;}
+.class1 ul li {float:left; border:1px solid #ccc; width:100px; margin:5px; padding-left:5px; background:#eaeaea}
+
+.class2{ width:100%; float:left;}
+.class2 ul li {float:left; border:1px solid #ccc; width:160px; margin:5px; padding-left:5px; background:#eaeaea;font-size:14px;cursor:pointer}
+.shop_box ul li.check { background:green;color:#fff;}
+.lineCheck{width:100%;border:1px solid #ccc;padding-left:5px;z-index:10;position:absolute; top:0;left:0; background:#fff;}
+
+.sortable{ height:100%;}
+
+#selDept,#print2 {width:207px;height:30px; line-height:30px; font-size:16px;}

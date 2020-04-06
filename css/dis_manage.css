@@ -1,0 +1,15 @@
+.container {
+	margin:0 !important;
+	width:994px !important;
+	
+}
+.table thead th {
+	background:#E0FFFF;
+	text-align:center;
+}
+
+.photo {
+	width:100px;
+	height:100px;
+	margin:5px;
+}
