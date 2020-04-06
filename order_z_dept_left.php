@@ -346,11 +346,11 @@
                  data-min="<?=($record['int_min']);?>"
                  size="3" maxlength="4"
                  autocomplete="off"
-                 <?php if($haveoutdate == 1) echo "disabled";?>
+                 <?php if($haveoutdate == 1 && $_SESSION[type] != 3) echo "disabled";?>
             "></td>
         <td align="center"><?=$record[3];?></td>
         <td align="center">
-            <?php if($haveoutdate == 0)
+            <?php if($haveoutdate == 0 || $_SESSION[type] == 3)
                 echo "<a href=\"#\" class=\"del\"><font color=\"#FF6600\">X</font></a>";
             ?>
 

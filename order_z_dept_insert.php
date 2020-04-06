@@ -72,42 +72,48 @@ if($insertDatas){
 }
 
 //更新數據
-$sql = "";
-$json=$_POST['updateData'];
-$updateDatas = json_decode($json,true);
+$json = $_POST['updateData'];
+$updateDatas = json_decode($json, true);
+if($updateDatas) {
+    $sql = "";
 
-$idsArray = array();
-$sql = "UPDATE tbl_order_z_dept SET int_qty = CASE int_id ";
-foreach ($updateDatas as $updateData) {
-    array_push($idsArray,$updateData['mysqlid']);
-    $sql .= sprintf("WHEN %d THEN %d ", $updateData['mysqlid'], $updateData['qty']);
-}
-$ids = implode(',', array_values($idsArray));
-$sql .= "END WHERE int_id IN ($ids)";
-
-//var_dump($ids);
-//var_dump($sql);
-
-mysqli_query($con, $sql) or die("error update");
-
-//刪除數據(status變為4)
-$sql = "";
-$json=$_POST['delData'];
-$delDatas = json_decode($json,true);
-//var_dump($delDatas);
-//有刪除數據時才執行
-if($delDatas){
     $idsArray = array();
-
-    foreach ($delDatas as $delData) {
-        array_push($idsArray,$delData['mysqlid']);
-//        var_dump($delData['mysqlid']);
+    $sql = "UPDATE tbl_order_z_dept SET int_qty = CASE int_id ";
+    foreach ($updateDatas as $updateData) {
+        array_push($idsArray, $updateData['mysqlid']);
+        $sql .= sprintf("WHEN %d THEN %d ", $updateData['mysqlid'], $updateData['qty']);
     }
     $ids = implode(',', array_values($idsArray));
+    $sql .= "END WHERE int_id IN ($ids)";
 
-    $sql = "UPDATE tbl_order_z_dept SET status = 4, order_date = NOW() WHERE int_id IN ($ids)";
+    //var_dump($ids);
+    //var_dump($sql);
 
-    mysqli_query($con, $sql) or die("error delete");
+    mysqli_query($con, $sql) or die("error update");
+}
+
+$json=$_POST['delData'];
+$delDatas = json_decode($json,true);
+
+//刪除數據(status變為4)
+if($delDatas) {
+    $sql = "";
+
+//var_dump($delDatas);
+//有刪除數據時才執行
+    if ($delDatas) {
+        $idsArray = array();
+
+        foreach ($delDatas as $delData) {
+            array_push($idsArray, $delData['mysqlid']);
+//        var_dump($delData['mysqlid']);
+        }
+        $ids = implode(',', array_values($idsArray));
+
+        $sql = "UPDATE tbl_order_z_dept SET status = 4, order_date = NOW() WHERE int_id IN ($ids)";
+
+        mysqli_query($con, $sql) or die("error delete");
+    }
 }
 
 //var_dump($sql);

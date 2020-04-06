@@ -78,7 +78,7 @@ list.className = "bgImage";
 			LEFT JOIN (
 				SELECT int_group, COUNT(*) as item_count 
 				FROM tbl_order_z_menu MT0
-				WHERE MT0.int_phase-1 <= '$_SESSION[advance]' AND MT0.status IN (1) 
+				WHERE MT0.status IN (1) 
 				GROUP BY int_group
 			) T2 ON T0.int_id = T2.int_group
 		WHERE T0.status <> 4
