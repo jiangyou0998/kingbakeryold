@@ -72,8 +72,10 @@ $type = $report['int_type'] - 1;
 	
 	//prepare shop
 	$aryAllShop = Array();
+	//查詢所有分店
 	$sql = "SELECT int_id, chr_ename, txt_name FROM tbl_user WHERE int_dept = 2 ORDER BY chr_ename ";
 	$result = mysqli_query($con, $sql) or die ($sql);
+	//意義不明?chr_ename並不是數字,跟100比較不知道是什麼意思
 	while($record = mysqli_fetch_assoc($result)){
 		if($record[chr_ename] < 100)
 			$record[type] = "BKG";
@@ -84,8 +86,9 @@ $type = $report['int_type'] - 1;
 		
 		$aryAllShop[] = $record;
 	}
-	//print_r($aryAllShop);
+//	print_r($aryAllShop);
 	$aryDisplayShop = Array();
+	//int_all_shop暫時不知道是什麼,全是等於1的
 	if($report[int_all_shop] != 1){
 		$aryExtra = explode(",", $report[chr_shop_list]);
 		
@@ -145,7 +148,10 @@ $type = $report['int_type'] - 1;
 			
 		}
 	}
-	
+
+//	var_dump($product);
+//	var_dump($aryDisplayShop);
+
 	$Page = Array();
 	$pageID = 1;
 	foreach ($aryDisplayShop as $key => $value) {
@@ -158,6 +164,8 @@ $type = $report['int_type'] - 1;
 		//}
 		}
 	}
+
+//        var_dump($Page);
 	//echo $report[int_hide];
 	//die();
 	//echo "<PRE>";
