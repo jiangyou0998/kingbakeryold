@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0a7f9fd-bfd2-4a41-bb55-e6285be35304" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CMS_order_c_check_history_list.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/down_history_report.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order_z_dept_insert.php" beforeDir="false" afterPath="$PROJECT_DIR$/order_z_dept_insert.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order_z_dept_left.php" beforeDir="false" afterPath="$PROJECT_DIR$/order_z_dept_left.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order_z_dept_middle.php" beforeDir="false" afterPath="$PROJECT_DIR$/order_z_dept_middle.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_order_left.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_left.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testdown.php" beforeDir="false" afterPath="$PROJECT_DIR$/testdown.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +36,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\intranet\wwwroot2" />
+    </key>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -56,7 +61,8 @@
       <workItem from="1585271526647" duration="9287000" />
       <workItem from="1585532452017" duration="7496000" />
       <workItem from="1585726132578" duration="9472000" />
-      <workItem from="1586135480489" duration="6499000" />
+      <workItem from="1586135480489" duration="20654000" />
+      <workItem from="1586221843698" duration="558000" />
     </task>
     <servers />
   </component>
@@ -99,19 +105,20 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="156" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.834@0.0.1536.834" timestamp="1584495569509" />
-    <state x="611" y="120" width="957" height="913" key="find.popup" timestamp="1585207620131">
+    <state x="611" y="120" width="957" height="913" key="find.popup" timestamp="1586222085926">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="473" y="51" width="740" height="732" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1584680640253" />
-    <state x="611" y="120" width="957" height="913" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1585207620131" />
+    <state x="611" y="120" width="957" height="913" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1586222085926" />
     <state x="738" y="187" key="ftp.server.browser" timestamp="1585295065377">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="738" y="187" key="ftp.server.browser/0.0.1920.1040@0.0.1920.1040" timestamp="1585295065377" />
-    <state x="425" y="189" key="run.anything.popup" timestamp="1584092786152">
-      <screen x="0" y="0" width="1536" height="834" />
+    <state x="531" y="236" key="run.anything.popup" timestamp="1586148064925">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="425" y="189" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1584092786152" />
+    <state x="531" y="236" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1586148064925" />
     <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1584520435641">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

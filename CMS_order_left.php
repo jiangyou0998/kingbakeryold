@@ -111,6 +111,7 @@ hideshow('class01ChildComputer')
       <div id="class02ChildApplication" style="cursor:auto" class="exindent"> 
         <ul>
           <li><a href="CMS_order_c_check_list.php" target="subMainFrame">列表</a></li>
+          <li><a href="CMS_order_c_check_history_list.php" target="subMainFrame">歷史</a></li>
         </ul>
       </div>
       <br>

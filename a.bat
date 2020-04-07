@@ -1,1 +1,0 @@
-call auto_send_email_1000.bat > log.txt
