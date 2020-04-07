@@ -300,9 +300,7 @@
 			 
 			AND tbl_order_z_dept.chr_dept = '$_SESSION[OrderDept]'
 			AND tbl_order_z_menu.int_id
-	ORDER BY tbl_order_z_dept.order_date DESC , 
-			 tbl_order_z_group.int_cat , 
-			 tbl_order_z_group.int_sort;";
+	ORDER BY tbl_order_z_menu.chr_no;";
 
   $result = mysqli_query($con, $sql) or die($sql);
   $count = 0;
