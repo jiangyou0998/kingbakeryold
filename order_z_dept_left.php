@@ -366,7 +366,7 @@
 		$record = mysqli_fetch_assoc($result);
 		?>
         <!-- <td colspan="3" valign="middle">分店：<?=$record[txt_name]?><br>柯打日期：<?=date('Y/n/j',$timestamp)?><br>柯打合共：<?=$count;?></td> -->
-        <td colspan="6" align="center"><input name="Input" type="image" src="images/Finish.jpg" border="0" onClick="sss();"></td>
+        <td colspan="6" align="center"><input id="btnsubmit" name="Input" type="image" src="images/Finish.jpg" border="0" onClick="sss();"></td>
       </tr>
     </table>
     </td>
@@ -414,7 +414,8 @@
 
     //點擊完成按鈕提交修改
 	function sss(){
-
+	    //禁止按鈕重複點擊
+        $("#btnsubmit").attr('disabled',true);
         var insertarray = [];
         //insert
         $(".cart").each(function() {
@@ -429,15 +430,6 @@
 
             var item = {'itemid':itemid, 'qty':qty};
             insertarray.push(item);
-            // $.ajax({
-            //     type:"post",
-            //     url:"order_z_dept_insert.php",
-            //     data:{'id':id},
-            //     success:function(data){
-            //         alert(data.data);
-            //     }
-            // });
-
 
         });
 
@@ -457,8 +449,6 @@
 
             var item = {'mysqlid':mysqlID, 'qty':qty};
             updatearray.push(item);
-
-
 
         });
 
@@ -489,7 +479,6 @@
             }
         });
 
-		// alert('已落貨!\n您將會收到電郵確認');
 	}
 </script>
 
