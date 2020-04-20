@@ -150,7 +150,7 @@ function showWkday($date)
   <select style="width:200px;" id="shop">
 	<option value="0">請選擇分店</option>
 	<?php 
-	$sql = "SELECT int_id, txt_name FROM db_intranet.tbl_user WHERE chr_type = 2 AND int_dept = 2 ORDER BY chr_ename;";
+	$sql = "SELECT int_id, txt_name FROM db_intranet.tbl_user WHERE chr_type = 2 AND int_dept = 2 ORDER BY txt_login;";
 	$result = mysqli_query($con, $sql) or die($sql);
 	while($record = mysqli_fetch_assoc($result)){ ?>
 	<option value="<?=$record[int_id]?>"><?=$record[txt_name]?></option>

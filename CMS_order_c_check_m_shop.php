@@ -22,6 +22,9 @@
 		<td align="center"><span class="style3"> <?=$aryMenu[$key][chr_no]?> </span></td>
 		<?php $name = ($aryMenu[$key][chr_reportName] == "") ? $aryMenu[$key][chr_name] : $aryMenu[$key][chr_reportName]; ?>
 		<td align="center"><span class="style3"> <?=$name?> </span></td>
+        <td align="center" bgcolor="#FFFFCC">
+            <span class="style6">&nbsp;<?=$total[$aryMenu[$key][chr_no]]?>&nbsp;</span>
+        </td>
 		<?php foreach ($aryDisplayShop as $shop) { ?>
 		<?php if ($product[$shop][txt_name] != "") { ?>
 		<td align="center"><span class="style6">&nbsp;
@@ -29,9 +32,7 @@
 		&nbsp;</span></td>
 		<?php } ?>
 		<?php } ?>
-		<td align="center" bgcolor="#CCFFFF">
-			<span class="style6">&nbsp;<?=$total[$aryMenu[$key][chr_no]]?>&nbsp;</span>
-		</td>
+
 	</tr>
 	<?php $count++; ?>
 	<?php } ?>

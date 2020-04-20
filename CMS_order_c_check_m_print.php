@@ -73,7 +73,7 @@ $type = $report['int_type'] - 1;
 	//prepare shop
 	$aryAllShop = Array();
 	//查詢所有分店
-	$sql = "SELECT int_id, chr_ename, txt_name FROM tbl_user WHERE int_dept = 2 ORDER BY chr_ename ";
+	$sql = "SELECT int_id, chr_ename, txt_name FROM tbl_user WHERE int_dept = 2 ORDER BY int_sort ";
 	$result = mysqli_query($con, $sql) or die ($sql);
 	//意義不明?chr_ename並不是數字,跟100比較不知道是什麼意思
 	while($record = mysqli_fetch_assoc($result)){

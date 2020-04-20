@@ -56,7 +56,7 @@
 <body>
 	<div align="center" width="100%">
 	<div align="center" style="width:850px;">
-		<h1>查看歷史報表</h1>
+		<h1>查看生產表</h1>
 		<form id="sort" method="POST" >
 		<input type="hidden" name="Sort" value="1">
 		

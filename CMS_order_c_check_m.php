@@ -73,7 +73,7 @@
 	
 	//prepare shop
 	$aryAllShop = Array();
-	$sql = "SELECT int_id, chr_ename, txt_name FROM tbl_user WHERE int_dept = 2 ORDER BY chr_ename ";
+	$sql = "SELECT int_id, chr_ename, txt_name FROM tbl_user WHERE int_dept = 2 ORDER BY int_sort ";
 	$result = mysqli_query($con, $sql) or die ($sql);
 	while($record = mysqli_fetch_assoc($result)){
 		if($record[chr_ename] < 100)
