@@ -11,6 +11,8 @@
     $maxQTY = 300;
 	$timestamp = gettimeofday("sec");
 	$curtime = date('Hi',$timestamp);
+	$deliW = date('w',$timestamp+86400*($_SESSION['advance']+1));
+//	var_dump($deliW);
 	$order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id];
 	//echo $curtime;
 	//echo $_SESSION['advance'];
@@ -198,6 +200,7 @@ body {
 	T0.chr_cuttime,
 	T0.int_base,
 	T0.int_min,
+	T0.chr_canordertime,
 	LEFT(tbl_order_z_cat.chr_name, 2) AS suppName
   FROM
     tbl_order_z_menu T0
@@ -234,6 +237,7 @@ body {
 		T0.int_phase,
 		T0.int_base,
 		T0.int_min,
+		T0.chr_canordertime,
 		LEFT(tbl_order_z_cat.chr_name, 2) AS suppName
 		
 	  FROM
@@ -252,38 +256,79 @@ body {
   $result = mysqli_query($con, $sql) or die();
   $count = 1;
   $countdisplay = 1;
+
   WHILE($record = mysqli_fetch_array($result)) {
 
 	$styleTD = "background-color:#FFFF00; ";
 	$styleFont = "color: black; ";
 	$disableButton = "";
+	$overTime = false;
 
-	if( $record['chr_cuttime'] < $curtime && $_SESSION['advance'] < $record['int_phase']   ){
+      //把字符串分解成 可以下單的日子的數組
+      $canOrderTime = explode(",",$record['chr_canordertime']);
+
+      //獲取今天星期(數字),$dayW用於循環
+      $todayW = $dayW =  date('w');
+
+      $phase = $newPhase = $record['int_phase'];
+
+      //送貨日期不在可下單日期時
+      if (!in_array($deliW,$canOrderTime)){
+          $overTime = true;
+      }
+
+      while($phase > 0){
+          $dayW += 1;
+          if ($dayW >= 7) {
+              $dayW = $dayW - 7;
+          }
+
+          if (in_array($dayW,$canOrderTime)){
+//	      echo 111;
+              $phase -= 1;
+          }else{
+              $newPhase += 1;
+          }
+
+//          var_dump($canOrderTime);
+
+      }
+
+//	var_dump($todayW);
+
+	if( $record['chr_cuttime'] < $curtime && $_SESSION['advance'] < $newPhase ){
 		$overTime = true;
-		$record['status'] = 999;
-		//#7D0101深紅色 截單顏色
-		$styleTD = "background-color:#7D0101; color:white; ";
-		$styleFont = "color: white;";
+//		$record['status'] = 999;
+//		//#7D0101深紅色 截單顏色
+//		$styleTD = "background-color:#7D0101; color:white; ";
+//		$styleFont = "color: white;";
 //		$disableButton = "disabled";
 	}
 
-	if ($record['chr_cuttime'] > $curtime && ($_SESSION['advance']+1) < $record['int_phase'] ){
+	if ($record['chr_cuttime'] > $curtime && ($_SESSION['advance']+1) < $newPhase ){
         $overTime = true;
-        $record['status'] = 999;
-        $styleTD = "background-color:#7D0101; color:white; ";
-        $styleFont = "color: white;";
+//        $record['status'] = 999;
+//        $styleTD = "background-color:#7D0101; color:white; ";
+//        $styleFont = "color: white;";
 //        $disableButton = "disabled";
     }
 
 //	echo $record['status'];
-    
+
+      //$overTime == true 改變樣式
+    if ($overTime == true){
+        $styleTD = "background-color:#7D0101; color:white; ";
+        $styleFont = "color: white;";
+    }
+
+    if ($overTime == true && $_SESSION[type] != 3) continue;
 ?>
 
     <td width="150" height="60" align="center" style="<?=$styleTD?>">
 	<table width="150px" border="0" cellspacing="0" cellpadding="0">
       <tr>
         <td colspan="2" align="center" style="font-size:16px;">
-		<?php IF ($record['status'] <> 2 && $record['status'] <> 999) {?>
+		<?php IF ($record['status'] <> 2 && $overTime == true && $_SESSION[type] == 3) {?>
 		<a id="itm-<?=$record['itemID']?>" href="#" style="<?=$styleFont?>">
 		<?php }else { ?>
 		<a style="<?=$styleFont?>">

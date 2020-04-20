@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f0a7f9fd-bfd2-4a41-bb55-e6285be35304" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMS_order_c_check_history_list.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_c_check_history_list.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMS_order_c_check_m.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_c_check_m.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMS_order_c_check_m_print.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_c_check_m_print.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMS_order_c_check_m_shop.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_c_check_m_shop.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMS_order_left.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_left.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/select_day_dept.php" beforeDir="false" afterPath="$PROJECT_DIR$/select_day_dept.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_z_dept_bottom.php" beforeDir="false" afterPath="$PROJECT_DIR$/order_z_dept_bottom.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +67,7 @@
       <workItem from="1587001032348" duration="8360000" />
       <workItem from="1587028705506" duration="2191000" />
       <workItem from="1587085835768" duration="6919000" />
-      <workItem from="1587345214806" duration="7658000" />
+      <workItem from="1587345214806" duration="16990000" />
     </task>
     <servers />
   </component>
@@ -114,11 +110,11 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="156" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.834@0.0.1536.834" timestamp="1584495569509" />
-    <state x="611" y="120" width="957" height="913" key="find.popup" timestamp="1587345731746">
+    <state x="611" y="120" width="957" height="913" key="find.popup" timestamp="1587372013961">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="473" y="51" width="740" height="732" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1584680640253" />
-    <state x="611" y="120" width="957" height="913" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1587345731746" />
+    <state x="611" y="120" width="957" height="913" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1587372013961" />
     <state x="738" y="187" key="ftp.server.browser" timestamp="1585295065377">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

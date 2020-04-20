@@ -12,74 +12,79 @@
 <meta http-equiv="Content-Type" content="text/html; charset=big5">
 <title>內聯網</title>
 <style type="text/css">
-<!--
-li {
-	font-size: 12pt;
-}
+    <!--
+    li {
+        font-size: 12pt;
+    }
 
-.exheading {cursor: hand; background-color:#EB8201; color:#FFFFFF; padding:3;}
-.exindent {padding-left: 10px}
-a:link {
-	color: #EB8201;
-}
-a:visited {
-	color: #EB8201;
-}
-a:hover {
-	color: #FF0000;
-}
-a:active {
-	color: #EB8201;
-}
--->
+    ul {
+
+        padding:10;
+    }
+
+    .exheading {cursor: hand; background-color:#EB8201; color:#FFFFFF; padding:3;}
+    .exindent {padding-left: 10px}
+    a:link {
+        color: #EB8201;
+    }
+    a:visited {
+        color: #EB8201;
+    }
+    a:hover {
+        color: #FF0000;
+    }
+    a:active {
+        color: #EB8201;
+    }
+    -->
 </style>
 <script language="JavaScript">
-function hideshow(which)
-{
-if (!document.getElementById|document.all)
-	{
-	return
-	}
-else
-	{
-	if (document.getElementById)
-		{
-		oWhich = eval ("document.getElementById('" + which + "')")
-		}
-	else
-		{
-		oWhich = eval ("document.all." + which)
-		}
-	}
+    function hideshow(which)
+    {
+    if (!document.getElementById|document.all)
+        {
+        return
+        }
+    else
+        {
+        if (document.getElementById)
+            {
+            oWhich = eval ("document.getElementById('" + which + "')")
+            }
+        else
+            {
+            oWhich = eval ("document.all." + which)
+            }
+        }
 
-	window.focus()
+        window.focus()
 
-	if (oWhich.style.display=="none")
-		{
-		oWhich.style.display=""
-		}
-	else
-		{
-		oWhich.style.display="none"
-		}
-}
+        if (oWhich.style.display=="none")
+            {
+            oWhich.style.display=""
+            }
+        else
+            {
+            oWhich.style.display="none"
+            }
+    }
 
-function initclass02Expandible()
-{
-hideshow('class02ChildDreamweaver')
-hideshow('class02ChildUltraDev')
-hideshow('class02ChildOthers')
-hideshow('class02ChildApplication')
-}
+    function initclass02Expandible()
+    {
+        hideshow('class02ChildDreamweaver')
+        hideshow('class02ChildUltraDev')
+        hideshow('class02ChildOthers')
+        hideshow('class02ChildApplication')
+    }
 
-function initclass01Expandible()
-{
-hideshow('class01ChildGraphic')
-hideshow('class01ChildFlash')
-hideshow('class01ChildBasic')
-hideshow('class01ChildHTML')
-hideshow('class01ChildComputer')
-}
+    function initclass01Expandible()
+    {
+        hideshow('class01ChildGraphic')
+        hideshow('class01ChildFlash')
+        hideshow('class01ChildBasic')
+        hideshow('class01ChildHTML')
+        hideshow('class01ChildComputer')
+    }
 
 </script>
 </head>
@@ -109,7 +114,7 @@ hideshow('class01ChildComputer')
 
       <div id="class02ParentApplication" onClick="javascript:hideshow('class02ChildApplication')" class="exheading">報表</div>
       <div id="class02ChildApplication" style="cursor:auto" class="exindent"> 
-        <ul>
+        <ul style="text-align: left;">
           <li><a href="CMS_order_c_check_list.php" target="subMainFrame">列表</a></li>
           <li><a href="CMS_order_c_check_history_list.php" target="subMainFrame">生產表</a></li>
           <li><a href="CMS_order_c_check_order_sort.php" target="subMainFrame">車期排序</a></li>
