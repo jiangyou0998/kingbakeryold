@@ -18,11 +18,10 @@
     }
 
     ul {
-
-        padding:10;
+        padding:10px;
     }
 
-    .exheading {cursor: hand; background-color:#EB8201; color:#FFFFFF; padding:3;}
+    .exheading {cursor: hand; background-color:#EB8201; color:#FFFFFF; padding:3px;}
     .exindent {padding-left: 10px}
     a:link {
         color: #EB8201;

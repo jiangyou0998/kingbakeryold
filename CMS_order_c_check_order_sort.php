@@ -50,6 +50,10 @@ while($record  = mysqli_fetch_assoc($result)){
         .cssTable1 td{  padding:0px; text-align:center; border: 2px solid black;}
         -->
 
+        td {
+            height:35px;
+        }
+
     </style>
 </head>
 <body>

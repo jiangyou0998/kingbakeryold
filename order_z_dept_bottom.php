@@ -277,6 +277,11 @@ body {
           $overTime = true;
       }
 
+      //phase小於等於0,表示沒有截單時間,只能管理員下單
+      if($phase <= 0){
+          $overTime = true;
+      }
+
       while($phase > 0){
           $dayW += 1;
           if ($dayW >= 7) {
@@ -293,6 +298,8 @@ body {
 //          var_dump($canOrderTime);
 
       }
+
+
 
 //	var_dump($todayW);
 
