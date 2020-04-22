@@ -213,12 +213,13 @@ body {
     T0.int_group = '$_REQUEST[groupid]'
         AND T0.status NOT IN(2, 4)
 		AND T2.int_user_id  = '$order_user'
-		AND (
-		    (T0.int_phase-1 <= '$_SESSION[advance]' AND DATE_FORMAT(NOW(),\"%H%i\") < T0.chr_cuttime)
-		    OR (T0.int_phase <= '$_SESSION[advance]' AND DATE_FORMAT(NOW(),\"%H%i\") > T0.chr_cuttime)
-		    )
   GROUP BY T0.int_id
   ORDER BY T0.int_sort, T0.int_id";
+
+//  AND (
+//		    (T0.int_phase-1 <= '$_SESSION[advance]' AND DATE_FORMAT(NOW(),\"%H%i\") < T0.chr_cuttime)
+//		    OR (T0.int_phase <= '$_SESSION[advance]' AND DATE_FORMAT(NOW(),\"%H%i\") > T0.chr_cuttime)
+//		    )
 //  die($sql);
   //用戶等級是管理員
   if($_SESSION[type] == 3){
@@ -282,37 +283,33 @@ body {
           $overTime = true;
       }
 
-      while($phase > 0){
-          $dayW += 1;
-          if ($dayW >= 7) {
-              $dayW = $dayW - 7;
-          }
-
-          if (in_array($dayW,$canOrderTime)){
-//	      echo 111;
-              $phase -= 1;
-          }else{
-              $newPhase += 1;
-          }
-
-//          var_dump($canOrderTime);
-
+      if ($record['chr_cuttime'] < $curtime){
+          $newPhase += 1;
       }
 
+//      $dayW = 5;
 
+      if (($dayW + $newPhase) >= 7 && !in_array('0',$canOrderTime)){
+          $newPhase += 1;
+      }
 
-//	var_dump($todayW);
+//      echo $newPhase;
 
-	if( $record['chr_cuttime'] < $curtime && $_SESSION['advance'] < $newPhase ){
-		$overTime = true;
-//		$record['status'] = 999;
-//		//#7D0101深紅色 截單顏色
-//		$styleTD = "background-color:#7D0101; color:white; ";
-//		$styleFont = "color: white;";
-//		$disableButton = "disabled";
-	}
+//
+//	if( $record['chr_cuttime'] < $curtime && $_SESSION['advance'] < $newPhase ){
+//		$overTime = true;
+////		$record['status'] = 999;
+////		//#7D0101深紅色 截單顏色
+////		$styleTD = "background-color:#7D0101; color:white; ";
+////		$styleFont = "color: white;";
+////		$disableButton = "disabled";
+//	}
+//
+////      var_dump($newPhase);
+////      var_dump($overTime);
 
-	if ($record['chr_cuttime'] > $curtime && ($_SESSION['advance']+1) < $newPhase ){
+//	if ($record['chr_cuttime'] > $curtime && ($_SESSION['advance']+1) < $newPhase ){
+	if (($_SESSION['advance']+1) < $newPhase ){
         $overTime = true;
 //        $record['status'] = 999;
 //        $styleTD = "background-color:#7D0101; color:white; ";
@@ -327,6 +324,9 @@ body {
         $styleTD = "background-color:#7D0101; color:white; ";
         $styleFont = "color: white;";
     }
+
+
+//    var_dump($record['itemName']);
 
     if ($overTime == true && $_SESSION[type] != 3) continue;
 ?>

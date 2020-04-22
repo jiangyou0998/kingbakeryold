@@ -95,7 +95,7 @@ list.className = "bgImage";
 	WHILE($record = mysqli_fetch_array($result)) {
 
 
-    IF ($count <= 6) {
+    IF ($count <= 5) {
 ?>
     <td width="106" height="38" align="center" background="<?=$bgimage;?>" style="max-height:38px; max-width:106px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr id="tblist">
