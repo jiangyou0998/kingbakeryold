@@ -1,5 +1,4 @@
 <?php
-	session_start();
 	/*
 	if (!($_SESSION[authenticated])) {
 		$_SESSION['status'] = 'neverLogin';
@@ -7,6 +6,10 @@
 		header('Location: login.php');
 	}
 	*/
+
+    //檢查是否登錄,是否管理員
+    require ("check_login.php");
+
 	require($DOCUMENT_ROOT . "connect.inc");
 	$timestamp = gettimeofday("sec")+28800;
 	$type = 1;

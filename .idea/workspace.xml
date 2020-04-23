@@ -3,9 +3,43 @@
   <component name="ChangeListManager">
     <list default="true" id="f0a7f9fd-bfd2-4a41-bb55-e6285be35304" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order_z_dept_bottom.php" beforeDir="false" afterPath="$PROJECT_DIR$/order_z_dept_bottom.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order_z_dept_middle.php" beforeDir="false" afterPath="$PROJECT_DIR$/order_z_dept_middle.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testimport.php" beforeDir="false" afterPath="$PROJECT_DIR$/testimport.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_RepairProject_manage.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_RepairProject_manage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_brand.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_brand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_brand2.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_brand2.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_dept.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_dept.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_dept2.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_dept2.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_form_2.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_form_2.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_form_3.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_form_3.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_itsupport_manage.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_itsupport_manage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_lib_class.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_lib_class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_lib_list.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_lib_list.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_library.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_library.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_library_do.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_library_do.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_manage.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_manage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_manage_left.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_manage_left.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_notice.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_notice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_notice_2.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_notice_2.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_notice_new_no.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_notice_new_no.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_order.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_order_c_check_add.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_c_check_add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_order_c_check_crud.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_c_check_crud.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_order_c_check_history_list.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_c_check_history_list.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_order_c_check_list.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_c_check_list.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_order_c_check_m.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_c_check_m.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_order_c_check_order_sort.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_c_check_order_sort.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_order_c_check_save.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_c_check_save.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_order_group.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_group.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_order_group2.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_group2.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_order_left.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_left.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_order_menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_order_menu2.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_menu2.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_order_z_area_ajax.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_order_z_area_ajax.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_salesdata.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_salesdata.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_salesdata_manage.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_salesdata_manage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_user.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_user.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMS_user2.php" beforeDir="false" afterPath="$PROJECT_DIR$/CMS_user2.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CRM.php" beforeDir="false" afterPath="$PROJECT_DIR$/CRM.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +104,8 @@
       <workItem from="1587085835768" duration="6919000" />
       <workItem from="1587345214806" duration="19728000" />
       <workItem from="1587431557389" duration="10481000" />
-      <workItem from="1587517739471" duration="22452000" />
+      <workItem from="1587517739471" duration="23020000" />
+      <workItem from="1587604256172" duration="3820000" />
     </task>
     <servers />
   </component>
@@ -86,11 +121,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="750" y="289" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1585102305001" />
-    <state x="755" y="434" key="NewPhpFileDialog" timestamp="1587432373767">
+    <state x="755" y="434" key="NewPhpFileDialog" timestamp="1587606478812">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="604" y="348" key="NewPhpFileDialog/0.0.1536.834@0.0.1536.834" timestamp="1584672518706" />
-    <state x="755" y="434" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587432373767" />
+    <state x="755" y="434" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587606478812" />
     <state x="687" y="161" key="RollbackChangesDialog" timestamp="1587374856390">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

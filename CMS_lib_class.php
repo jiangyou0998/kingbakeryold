@@ -1,12 +1,17 @@
 <?php 
-  session_start();   
-  require($DOCUMENT_ROOT . "connect.inc");   
-  if (!($_SESSION[authenticated])) {
-    $_SESSION['status'] = 'neverLogin';
-    $_SESSION[UrlRedirect] = 'CMS_library.php';
-    header('Location: login.php');
-  }
-  
+//  session_start();
+//  require($DOCUMENT_ROOT . "connect.inc");
+//  if (!($_SESSION[authenticated])) {
+//    $_SESSION['status'] = 'neverLogin';
+//    $_SESSION[UrlRedirect] = 'CMS_library.php';
+//    header('Location: login.php');
+//  }
+
+//檢查是否登錄,是否管理員
+require ("check_login.php");
+
+require($DOCUMENT_ROOT . "connect.inc");
+
   if($_REQUEST[action]=='DALETE_M'){
 	  $sql = "select count(*) from tbl_lib_group where main_id = $_REQUEST[int_id]";
   	  $res = mysqli_query($con, $sql) or die("invalid query_m: ".$sql);

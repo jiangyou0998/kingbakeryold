@@ -1,11 +1,16 @@
 <?php 
-  session_start();   
-  require($DOCUMENT_ROOT . "connect.inc");      
-  if (!($_SESSION[authenticated])) {
-    $_SESSION['status'] = 'neverLogin';
-    $_SESSION[UrlRedirect] = 'CMS_library.php';
-    header('Location: login.php');
-  }
+//  session_start();
+//  require($DOCUMENT_ROOT . "connect.inc");
+//  if (!($_SESSION[authenticated])) {
+//    $_SESSION['status'] = 'neverLogin';
+//    $_SESSION[UrlRedirect] = 'CMS_library.php';
+//    header('Location: login.php');
+//  }
+
+//檢查是否登錄,是否管理員
+require ("check_login.php");
+
+require($DOCUMENT_ROOT . "connect.inc");
 ?>
 <html>
 <head>

@@ -1,10 +1,14 @@
 <?
-  session_start();
-  if (!($_SESSION[authenticated])) {
-    $_SESSION['status'] = 'neverLogin';
-    $_SESSION[UrlRedirect] = 'CMS_order.php';
-    header('Location: login.php');
-  }
+//  session_start();
+//  if (!($_SESSION[authenticated])) {
+//    $_SESSION['status'] = 'neverLogin';
+//    $_SESSION[UrlRedirect] = 'CMS_order.php';
+//    header('Location: login.php');
+//  }
+
+//檢查是否登錄,是否管理員
+require ("check_login.php");
+
 ?>
 <html>
 <head>

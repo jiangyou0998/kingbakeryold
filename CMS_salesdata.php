@@ -1,10 +1,14 @@
 <?php
-session_start();
-if (!($_SESSION[authenticated])) {
-	$_SESSION['status'] = 'neverLogin';
-	$_SESSION[UrlRedirect] = 'CMS_salesdata_manage.php';
-	header('Location: login.php');
-}
+//session_start();
+//if (!($_SESSION[authenticated])) {
+//	$_SESSION['status'] = 'neverLogin';
+//	$_SESSION[UrlRedirect] = 'CMS_salesdata_manage.php';
+//	header('Location: login.php');
+//}
+
+//檢查是否登錄,是否管理員
+require ("check_login.php");
+
 require($DOCUMENT_ROOT . "connect.inc");
 if($_POST[action] == "search"){
 	$date = $_POST[date];

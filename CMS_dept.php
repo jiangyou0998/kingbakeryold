@@ -1,19 +1,23 @@
 <?php
-  session_start();
-  if (!($_SESSION[authenticated])) {
-    $_SESSION['status'] = 'neverLogin';
-    $_SESSION[UrlRedirect] = 'CMS_dept.php';
-    header('Location: login.php');
-  }
-  require($DOCUMENT_ROOT . "connect.inc");
-  if($_REQUEST[action] == 'update'){
-	  foreach($_REQUEST as $key=>$value){
-		  if(is_numeric($key)){
-			  $sql = "UPDATE tbl_order_z_group SET int_sort = $value WHERE int_id = $key;";
-			  mysqli_query($con, $sql);
-		  }
-	  }
-  }
+//  session_start();
+//  if (!($_SESSION[authenticated])) {
+//    $_SESSION['status'] = 'neverLogin';
+//    $_SESSION[UrlRedirect] = 'CMS_dept.php';
+//    header('Location: login.php');
+//  }
+
+    //檢查是否登錄,是否管理員
+    require ("check_login.php");
+
+    require($DOCUMENT_ROOT . "connect.inc");
+    if($_REQUEST[action] == 'update'){
+        foreach($_REQUEST as $key=>$value){
+            if(is_numeric($key)){
+                $sql = "UPDATE tbl_order_z_group SET int_sort = $value WHERE int_id = $key;";
+                mysqli_query($con, $sql);
+            }
+        }
+    }
   
 ?>
 <html>

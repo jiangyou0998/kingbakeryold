@@ -1,7 +1,9 @@
-<?php  
+<?php
+
+//檢查是否登錄,是否管理員
+require ("check_login.php");
+
   require($DOCUMENT_ROOT . "connect.inc");
-  session_start();
-  
 
   if (!($_SESSION[authenticated])) {
     $_SESSION['status'] = 'neverLogin';

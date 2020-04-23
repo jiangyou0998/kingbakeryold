@@ -1,5 +1,8 @@
 <?php
-  session_start();   
+
+//檢查是否登錄,是否管理員
+require ("check_login.php");
+
 require($DOCUMENT_ROOT . "connect.inc");
  if($_REQUEST[action] =="AddLibrary"){
 		//print_r($_FILES);

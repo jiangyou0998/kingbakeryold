@@ -1,5 +1,10 @@
-<?php require($DOCUMENT_ROOT . "connect.inc");?>
-<?php session_start();?>
+<?php
+    //檢查是否登錄,是否管理員
+    require ("check_login.php");
+
+    require($DOCUMENT_ROOT . "connect.inc");
+?>
+
 <?php  
 $dept = $_SESSION['dept'];
 $reqDept = isset($_GET['dept']) ? $_GET['dept'] : 10;
