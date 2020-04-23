@@ -61,6 +61,7 @@ list.className = "bgImage";
                 OR (MT0.int_phase <= '$_SESSION[advance]' 
                 AND DATE_FORMAT(NOW(),\"%H%i\") > MT0.chr_cuttime)
 				    AND MT0.status IN (1) 
+				    AND MT0.int_phase > 0 
 					AND MT1.int_user_id = '$order_user'
 				GROUP BY int_group
 			) T2 ON T0.int_id = T2.int_group

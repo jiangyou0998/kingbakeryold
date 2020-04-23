@@ -336,7 +336,7 @@
         ?>        
 		</td>
         <td width="100" align="center">x 
-          <input class="qty"
+          <input class="qty" type="tel"
                  id="qty<?="$record[chr_no]";?>"
                  name="<?=$record['orderID'];?>"
                  type="text" value="<?=round($record['int_qty'],2);?>"
@@ -374,6 +374,20 @@
 </table>
 <!-- </form>-->
 <script>
+    $(document).on('click', '.qty', function() {
+
+        var u = navigator.userAgent;
+        if (u.indexOf('iPhone') > -1 || u.indexOf('iPad') > -1){
+            // ios端的方法
+            this.selectionStart = 0;
+            this.selectionEnd = this.val().length;
+        }else{
+            // pc和安卓端的方法
+            $(this).focus().select();
+        }
+
+    });
+
     $(document).on('change', '.qty', function() {
         var qty = $(this).val();
         var maxQty = <?=$maxQTY?>;
