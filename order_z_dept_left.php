@@ -420,8 +420,7 @@
     $(document).on('click', '.delnew', function() {
         var parent = $(this).parents(".cart");
         var parentClass = parent.attr("class");
-        parent.removeClass(parentClass).addClass("cartdelnew");
-        parent.hide();
+        parent.remove();
         // console.log(parent.attr("class"));
 
     });

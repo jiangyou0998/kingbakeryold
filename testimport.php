@@ -26,8 +26,8 @@ function excelToArray()
     $cate_arr = array(
       '3' => '包部',
       '2' => '餅部',
-      '1' => '廚務部',
-      '5' => '轉手貨'
+      '1' => '廚部',
+      '5' => '貨倉'
     );
 
     $group_arr = array();
@@ -79,6 +79,12 @@ function excelToArray()
                     $val = preg_replace('/[^0-9]/', '', $val);
                 }
 
+            }
+
+            if ($arr[$column] == 'K' || $arr[$column] == 'L') {
+                if ($val == ""){
+                    $val = 1;
+                }
             }
 
             //時間導入為小數 例如12:00 導入值為0.5 ,10:00導入值為0.41666666666667
@@ -229,7 +235,7 @@ function setDefultVisual(){
     $sql .= ";";
 
 //    var_dump($sql);
-//    mysqli_query($con, $sql) or die($sql);
+    mysqli_query($con, $sql) or die($sql);
 
     $sql = "INSERT INTO tbl_order_z_group_v_shop (int_user_id,int_group_id) VALUES ";
     foreach ($branchIDs as $branchID){

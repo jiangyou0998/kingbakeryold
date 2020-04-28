@@ -46,6 +46,10 @@ body {
 .ss { color:blue; }
 .item {color:black !important; }
 
+a {
+    text-decoration:none
+}
+
 </style>
 <script src="js/jquery.min.js"></script>
 <script>
@@ -67,7 +71,17 @@ body {
         // count += $(topWin.document).find(".cartold").length;
         // alert(count);
 
-        if (topWin.document.getElementById("qty"+id)){
+        var item = topWin.document.getElementById("qty"+id);
+        if (item){
+            // console.log($(item).hasClass('cartdel'));
+            var parent = $(item).parents(".cartdel");
+            // console.log(parent.attr("class"));
+            if (parent.attr("class")){
+                parent.removeClass('cartdel').addClass("cartold");
+                parent.show();
+                item.value = base;
+                return true;
+            }
             // qty = topWin.document.getElementById(id).style.display='none';
             var qty = topWin.document.getElementById("qty"+id).value;
             topWin.document.getElementById("qty"+id).value = parseInt(qty) + base;

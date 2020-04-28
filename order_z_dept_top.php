@@ -69,6 +69,11 @@ ul.checked li {
 	color:#000;
 	text-align:left;
 }
+
+a {
+    text-decoration:none
+}
+
 </style>
 <script>
 function openwindow(aa){

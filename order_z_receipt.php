@@ -107,19 +107,19 @@
 		$count = 0;
         $qtyTotal = 0;
         $priceTotal = 0;
-		while($record = mysqli_fetch_array($result)){
+		while($record = mysqli_fetch_array($result)) {
 //		    var_dump($record);
-			if($count == 0){
-				$dept = $record[dept];
-				$deptName = $record[deptName];
-				$count++;
-			}
-		?>
-		<?php
-			if($record[dept] != $dept){
-				$qtyTotal = number_format($qtyTotal,2);
-				$priceTotal = number_format($priceTotal,2);
-				echo "<tr style='border-bottom:4px solid black'>
+            if ($count == 0) {
+                $dept = $record[dept];
+                $deptName = $record[deptName];
+                $count++;
+            }
+            ?>
+            <?php
+            if ($record[dept] != $dept) {
+                $qtyTotal = number_format($qtyTotal, 2);
+                $priceTotal = number_format($priceTotal, 2);
+                echo "<tr style='border-bottom:4px solid black'>
 					<td></td>
 					<td align='right'>總件數=</td>
 					<td align='right' style='border-right:0px'>$qtyTotal</td>
@@ -127,7 +127,7 @@
 					<td align='right' colspan='2'>$deptName 金額=</td>
 					<td align='right'>$$priceTotal</td>
 				</tr>";
-				echo '<tr>
+                echo '<tr>
 					<td style="font-weight:bold;" width="12%">編號</td>
 					<td style="font-weight:bold;" width="30%">貨名</td>
 					<td style="font-weight:bold;" width="12%" align="center">數量</td>
@@ -136,28 +136,31 @@
 					<td style="font-weight:bold;" width="12%" align="center">折扣</td>
 					<td style="font-weight:bold;" width="14%" align="center">實額</td>
 				</tr>';
-				$dept = $record[dept];
-				$deptName = $record[deptName];
-				//部門不同,重新計算數量,總價
-				$qtyTotal = 0;
-				$priceTotal = 0;
+                $dept = $record[dept];
+                $deptName = $record[deptName];
+                //部門不同,重新計算數量,總價
+                $qtyTotal = 0;
+                $priceTotal = 0;
                 $qtyTotal += $record[qty];
                 $priceTotal += $record[qty] * $record[int_default_price];
-			}else{
+            } else {
                 $qtyTotal += $record[qty];
                 $priceTotal += $record[qty] * $record[int_default_price];
             }
-		?>
-			<tr>
-				<td><?=$record[chr_no]?></td>
-				<td><?=$record[itemName]?></td>
-				<td align="right"><?=$record[qty]?></td>
-				<td align="center"><?=$record[unitName]?></td>
-				<td align="right">$<?=$record[int_default_price]?></td>
-				<td align="right">$0.00</td>
-				<td align="right">$<?=number_format($record[qty] * $record[int_default_price],2)?></td>
-			</tr>
-		<?php }
+
+            if ($record[qty]) {
+                ?>
+                <tr>
+                    <td><?= $record[chr_no] ?></td>
+                    <td><?= $record[itemName] ?></td>
+                    <td align="right"><?= $record[qty] ?></td>
+                    <td align="center"><?= $record[unitName] ?></td>
+                    <td align="right">$<?= $record[int_default_price] ?></td>
+                    <td align="right">$0.00</td>
+                    <td align="right">$<?= number_format($record[qty] * $record[int_default_price], 2) ?></td>
+                </tr>
+            <?php }
+        }
 		$qtyTotal = number_format($qtyTotal,2);
 		$priceTotal = number_format($priceTotal,2);
 		?>

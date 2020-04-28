@@ -27,6 +27,10 @@ background-image:url("images/1_02.gif");
 width:105px;
 height:35px;
 }
+
+a {
+    text-decoration:none
+}
 -->
 </style>
 <script>
