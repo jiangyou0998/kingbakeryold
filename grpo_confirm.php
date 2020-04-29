@@ -15,15 +15,18 @@ require("connect.inc");
     }
     $ids = implode(',', array_values($idsArray));
     $sql .= "END,";
-    $sql .= " reason = CASE int_id ";
+
+    $sqlWhen = '';
     foreach ($updateDatas as $updateData) {
-
         if($updateData['reason'] != ""){
-            $sql .= sprintf("WHEN %d THEN '%s' ", $updateData['mysqlid'], $updateData['reason']);
+            $sqlWhen .= sprintf("WHEN %d THEN '%s' ", $updateData['mysqlid'], $updateData['reason']);
         }
-
     }
-    $sql .= "END,";
+    if($sqlWhen != ''){
+        $sql .= " reason = CASE int_id ";
+        $sql .= $sqlWhen;
+        $sql .= "END,";
+    }
     $sql .= sprintf("received_date = '%s' ,", date('Y-m-d H:i:s'));
     $sql .= sprintf("status = %d ", 99);
 
@@ -32,4 +35,4 @@ require("connect.inc");
     //var_dump($ids);
 //    var_dump($sql);die;
 
-    mysqli_query($con, $sql) or die("error update");
+    mysqli_query($con, $sql) or die("error update:".$sql);

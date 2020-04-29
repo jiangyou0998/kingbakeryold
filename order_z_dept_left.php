@@ -486,7 +486,7 @@
                 'delData':JSON.stringify(delarray)
             },
             success: function(msg){
-                alert('已落貨!\n您將會收到電郵確認');
+                alert('已落貨!');
                 window.location.reload();
                 // console.log(msg);
             }

@@ -164,6 +164,8 @@ $po_header = mysqli_fetch_assoc($po_header);
 
         });
 
+        // console.log(updatearray);return true;
+
         $.ajax({
             type: "POST",
             url: "grpo_confirm.php",
@@ -171,13 +173,17 @@ $po_header = mysqli_fetch_assoc($po_header);
                 'updateData':JSON.stringify(updatearray)
             },
             success: function(msg){
-                alert('已確認收貨!\n');
-                location.href  ='grpo.php';
-                console.log(msg);
+                if(msg){
+                    alert('發生錯誤!\n');
+                    console.log(msg);
+                }else{
+                    alert('已確認收貨!\n');
+                    location.href  ='grpo.php';
+                }
             }
         });
 
-        console.log(updatearray);
+        // console.log(updatearray);
 
 		// alert('1111');
 		// return true;

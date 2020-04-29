@@ -27,6 +27,7 @@
 	$shop = mysqli_fetch_array($result);
 	
 	$sql = "SELECT T1.chr_no, T1.chr_name as itemName, 
+        SUM(T0.int_qty) as orderQty, 
 		SUM(T0.int_qty_received) as qty, 
 		T1.int_default_price,
 		T4.int_id as dept,
@@ -94,15 +95,21 @@
 	</table>
 	<br/>
 	<table id="content" style="width:100%" cellspacing="0" cellpadding="0" border="2">
-		<tr>
+		<?php $tableHeaderHtml = '<tr>
 			<td style="font-weight:bold;" width="12%">編號</td>
-			<td style="font-weight:bold;" width="30%">貨名</td>
-			<td style="font-weight:bold;" width="12%" align="center">數量</td>
-			<td style="font-weight:bold;" width="8%" align="center">單位</td>
-			<td style="font-weight:bold;" width="12%" align="center">單價</td>
-			<td style="font-weight:bold;" width="12%" align="center">折扣</td>
-			<td style="font-weight:bold;" width="14%" align="center">實額</td>
-		</tr>
+			<td style="font-weight:bold;" width="26%">貨名</td>
+			<td style="font-weight:bold;" width="12%" align="center">下單數量</td>
+            <td style="font-weight:bold;" width="12%" align="center">數量</td>
+			<td style="font-weight:bold;" width="6%" align="center">單位</td>
+			<td style="font-weight:bold;" width="10%" align="center">單價</td>
+			<td style="font-weight:bold;" width="10%" align="center">折扣</td>
+			<td style="font-weight:bold;" width="12%" align="center">實額</td>
+		</tr>';
+
+        echo $tableHeaderHtml;
+
+        ?>
+
 		<?php 
 		$count = 0;
         $qtyTotal = 0;
@@ -122,20 +129,13 @@
                 echo "<tr style='border-bottom:4px solid black'>
 					<td></td>
 					<td align='right'>總件數=</td>
-					<td align='right' style='border-right:0px'>$qtyTotal</td>
-					<td style='border-left:0px'></td>
-					<td align='right' colspan='2'>$deptName 金額=</td>
+					<td align='right' colspan='3' style='border-right:0px'>$qtyTotal</td>
+					
+					<td align='right' colspan='3'>$deptName 金額=</td>
 					<td align='right'>$$priceTotal</td>
 				</tr>";
-                echo '<tr>
-					<td style="font-weight:bold;" width="12%">編號</td>
-					<td style="font-weight:bold;" width="30%">貨名</td>
-					<td style="font-weight:bold;" width="12%" align="center">數量</td>
-					<td style="font-weight:bold;" width="8%" align="center">單位</td>
-					<td style="font-weight:bold;" width="12%" align="center">單價</td>
-					<td style="font-weight:bold;" width="12%" align="center">折扣</td>
-					<td style="font-weight:bold;" width="14%" align="center">實額</td>
-				</tr>';
+                echo $tableHeaderHtml;
+
                 $dept = $record[dept];
                 $deptName = $record[deptName];
                 //部門不同,重新計算數量,總價
@@ -153,7 +153,8 @@
                 <tr>
                     <td><?= $record[chr_no] ?></td>
                     <td><?= $record[itemName] ?></td>
-                    <td align="right"><?= $record[qty] ?></td>
+                    <td align="right"><?= $record[orderQty] ?></td>
+                    <td align="right" <?php if($record[orderQty] != $record[qty]) echo "style=\"color:red;\""  ?>><?= $record[qty] ?></td>
                     <td align="center"><?= $record[unitName] ?></td>
                     <td align="right">$<?= $record[int_default_price] ?></td>
                     <td align="right">$0.00</td>
@@ -167,8 +168,8 @@
 		<tr style='border-bottom:4px solid black'>
 			<td></td>
 			<td align='right'>總件數=</td>
-			<td align='right' style='border-right:0px'><?=$qtyTotal?></td>
-			<td style='border-left:0px'></td>
+			<td align='right' colspan='3' style='border-right:0px'><?=$qtyTotal?></td>
+
 			<td align='right' colspan='2'><?=$deptName?> 金額=</td>
 			<td align='right'>$<?=$priceTotal?></td>
 		</tr>

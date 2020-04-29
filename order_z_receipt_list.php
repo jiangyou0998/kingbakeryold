@@ -1,12 +1,18 @@
 <?php 
 	require($DOCUMENT_ROOT . "connect.inc");
 	$timestamp = gettimeofday("sec")+28800;
-	$sql = "SELECT DISTINCT DATE(DATE_ADD(T0.order_date, INTERVAL 1+T0.chr_phase DAY)) as date, T0.int_user, T1.int_no, T2.txt_name
-	FROM tbl_order_z_dept T0
-		LEFT JOIN tbl_order_z_receipt T1 ON DATE(DATE_ADD(T0.order_date, INTERVAL 1+T0.chr_phase DAY)) = T1.order_date AND T0.int_user = T1.int_user
-		LEFT JOIN tbl_user T2 ON T0.int_user =  T2.int_id
-	WHERE T0.status = 99
-	order BY int_no, date, int_user;";
+	$sql = "SELECT T3.*,group_concat(T3.reason) as reasons FROM
+    (SELECT DATE(DATE_ADD(T0.order_date, INTERVAL 1+T0.chr_phase DAY)) as date, T0.int_user, T1.int_no, T2.txt_name,T0.reason
+        FROM tbl_order_z_dept T0
+            LEFT JOIN tbl_order_z_receipt T1 ON 
+            DATE(DATE_ADD(T0.order_date, INTERVAL 1+T0.chr_phase DAY)) = T1.order_date 
+            AND T0.int_user = T1.int_user
+            LEFT JOIN tbl_user T2 ON T0.int_user =  T2.int_id
+        WHERE T0.status = 99
+    ) T3
+    
+    group by date,txt_name
+    order BY int_no, date, int_user;";
 
 	$result = mysqli_query($con, $sql) or die($sql);
 ?>
@@ -43,7 +49,7 @@
 			<?php 
 			$count = 1;
 			while($record = mysqli_fetch_array($result)){?>
-			<tr>
+			<tr <?php if($record['reasons']) echo 'style="background: #ffe599"'?>>
 				<td><?=$count?></td>
 				<td align="center"><?=$record[date]?></td>
 				<td><?=$record[txt_name]?></td>
