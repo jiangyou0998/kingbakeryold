@@ -33,39 +33,53 @@ $(function(){
 -->
 </style>
 
-<script type="text/javascript">
-function isNumber(event) {
-  if (event) {
-    var charCode = (event.which) ? event.which : event.keyCode;
-    if (charCode > 31 && 
-       (charCode < 48 || charCode > 57) && 
-       (charCode < 96 || charCode > 105) && 
-       (charCode < 37 || charCode > 40) && 
-        charCode != 8 && charCode != 46 || event.shiftKey || charCode == 190)
-       return false;
-  }
-  return true;
-}
-function isPrice(target, event) {
-  if (event) {
-	var charCode = (event.which) ? event.which : event.keyCode;
-	//alert(charCode);
-	if ( (charCode == 190 || charCode == 110) && target.value.indexOf('.') == -1)
-		return true;
+<script type="text/javascript"> 
+
+
+	function isNumber(event) {
+	  if (event) {
+	    var charCode = (event.which) ? event.which : event.keyCode;
+	    if (charCode > 31 && 
+	       (charCode < 48 || charCode > 57) && 
+	       (charCode < 96 || charCode > 105) && 
+	       (charCode < 37 || charCode > 40) && 
+	        charCode != 8 && charCode != 46 || event.shiftKey || charCode == 190)
+	       return false;
+	  }
+	  return true;
+	}
+
+	function isPrice(target, event) {
+	  if (event) {
+		var charCode = (event.which) ? event.which : event.keyCode;
+		//alert(charCode);
+		if ( (charCode == 190 || charCode == 110) && target.value.indexOf('.') == -1)
+			return true;
+		
+	    if (charCode > 31 && 
+	       (charCode < 48 || charCode > 57) && 
+	       (charCode < 96 || charCode > 105) && 
+	       (charCode < 37 || charCode > 40) && 
+	        charCode != 8 && charCode != 46 || event.shiftKey || charCode == 190)
+	       return false;
+	  }
+	  return true;
+	}
+
+	function timePick(){
+		WdatePicker({ dateFmt:'HH:mm' });
+	}
+
+	//鉤選或取消時,修改canordertimestr(隱藏)的值
+	$(document).on('change','input[type=checkbox]',function(){
+		var canordertimestr = $('input[type=checkbox]:checked').map(function(){return this.value}).get().join(',');
+		$('#canordertimestr').val(canordertimestr);
+		// alert(canordertimestr);
+	});
+
+	function checksubmit(){
 	
-    if (charCode > 31 && 
-       (charCode < 48 || charCode > 57) && 
-       (charCode < 96 || charCode > 105) && 
-       (charCode < 37 || charCode > 40) && 
-        charCode != 8 && charCode != 46 || event.shiftKey || charCode == 190)
-       return false;
-  }
-  return true;
-}
-function timePick(){
-	WdatePicker({ dateFmt:'HH:mm' });
-}
-function checksubmit(){
+
 	var base = $('#base').val();
 	var min = $('#min').val();
 	var cuttime = $('#cuttime').val();
@@ -86,11 +100,24 @@ function checksubmit(){
 </head>
 <body>
 <?php
+
+	$weekArr = [
+			'0' => '星期日',
+			'1' => '星期一',
+			'2' => '星期二',
+			'3' => '星期三',
+			'4' => '星期四',
+			'5' => '星期五',
+			'6' => '星期六',
+		];
+
+
   switch ($_REQUEST[action]) {
     case "new":
 ?>
 <form name="search" action="" method="post" onsubmit="return checksubmit()">
 <input type="hidden" name="action" value="add">
+<input type="hidden" name="canordertimestr" id="canordertimestr" value=""/>
 <table width="90%" border="0" cellspacing="1" cellpadding="6">
   <tr>
     <td bgcolor="#EB8201"><span class="style1">設定 &gt; 貨品 &gt; 修改</span></td>
@@ -169,6 +196,25 @@ WHILE($unit_record = mysqli_fetch_array($unit_result)) {
 		※ 0000 - 2359 （24小時制）
 	</td>
   </tr>
+
+   <tr>
+    <td bgcolor="#EEEEEE">出貨期　
+        
+	<?php
+
+		//星期日到星期六多選框
+		foreach ($weekArr as $key => $value) {
+			$check = '<label style="padding-right:15px;">';
+			$check .= '<input type="checkbox" name="canordertime" value="'.$key.'" />'.$value;
+			$check .= '</label>';
+			
+			echo $check;
+		}
+	 // var_dump(explode(',', $record[chr_canordertime]));  
+	 ?>
+       
+	</td>
+  </tr>
   
   <tr>
 	<td align="left" bgcolor="#EEEEEE">可　視</td>
@@ -214,7 +260,8 @@ WHILE($unit_record = mysqli_fetch_array($unit_result)) {
 			T0.chr_cuttime,
 			T0.int_default_price,
 			T1.int_cat,
-			T0.int_phase
+			T0.int_phase,
+			T0.chr_canordertime
 		FROM tbl_order_z_menu T0
 			LEFT JOIN tbl_order_z_group T1 ON T0.int_group = T1.int_id
 			LEFT JOIN tbl_order_z_cat T2 ON T1.int_cat = T2.int_id
@@ -267,6 +314,7 @@ WHILE($unit_record = mysqli_fetch_array($unit_result)) {
 ?>
 <form name="search" action="" method="post" onsubmit="return checksubmit()">
 <input type="hidden" name="action" value="confirm">
+<input type="hidden" name="canordertimestr" id="canordertimestr" value=""/>
 <input type="hidden" name="id" value="<?php echo $_REQUEST[id];?>">
 <input name='chkcuttime' value='0' type='hidden' />
 <table width="90%" border="0" cellspacing="1" cellpadding="6">
@@ -347,6 +395,31 @@ WHILE($unit_record = mysqli_fetch_array($unit_result)) {
 		※ 0000 - 2359 （24小時制）
 	</td>
   </tr>
+  <tr>
+    <td bgcolor="#EEEEEE">出貨期　
+        
+	<?php
+
+		$canordertimeArr = explode(',', $record[chr_canordertime]);
+
+		//星期日到星期六多選框
+		foreach ($weekArr as $key => $value) {
+			$check = '<label style="padding-right:15px;">';
+			if (in_array($key, $canordertimeArr)) {
+				$check .= '<input type="checkbox" name="canordertime" value="'.$key.'" checked/>'.$value;
+			} else {
+				$check .= '<input type="checkbox" name="canordertime" value="'.$key.'" />'.$value;
+			}
+
+			$check .= '</label>';
+			
+			echo $check;
+		}
+	 // var_dump(explode(',', $record[chr_canordertime]));  
+	 ?>
+       
+	</td>
+  </tr>
   
   <tr>
 	<td align="left" bgcolor="#EEEEEE">可　視</td>
@@ -370,6 +443,8 @@ WHILE($unit_record = mysqli_fetch_array($unit_result)) {
   <tr>
 	<td bgcolor="#EEEEEE">最後修改　<?=$record['last_modify']?></td>
   </tr>
+
+  		
   
   <tr>
     <td bgcolor="#EEEEEE">　　　　　
@@ -399,10 +474,10 @@ WHILE($unit_record = mysqli_fetch_array($unit_result)) {
     case "add":
 	  
 	  $last_update = "($_SESSION[user_id]) $_SESSION[user_login] ";
-	  $sql  = "INSERT INTO tbl_order_z_menu(chr_name, chr_no, int_group, int_unit, int_base, int_min, int_default_price, int_sort, chr_cuttime, status, last_modify) VALUE ";
+	  $sql  = "INSERT INTO tbl_order_z_menu(chr_name, chr_no, int_group, int_unit, int_base, int_min, int_default_price, int_sort, chr_cuttime, status, last_modify, chr_canordertime) VALUE ";
 	  $sql .= "('$_REQUEST[name]', '$_REQUEST[no]', '$_REQUEST[group]', '$_REQUEST[unit]', '$_REQUEST[base]', '$_REQUEST[min]', '$_REQUEST[price]', '$_REQUEST[sorting]', ";
-	  $sql .= "'$_REQUEST[cuttime]', '$_REQUEST[status]', CONCAT('$last_update', NOW()) )";
-	  //die($sql);
+	  $sql .= "'$_REQUEST[cuttime]', '$_REQUEST[status]', CONCAT('$last_update', NOW()), '$_REQUEST[canordertimestr]')";
+	  // die($sql);
       mysqli_query($con, $sql) or die($sql);
 	  
 	  $data = json_decode($_REQUEST['data'], true);
@@ -441,7 +516,9 @@ WHILE($unit_record = mysqli_fetch_array($unit_result)) {
       $sql .= ", int_phase = '$_REQUEST[phase]' ";
       $sql .= ", status = '$_REQUEST[status]' ";
       $sql .= ", last_modify = CONCAT('$last_update', NOW()) ";
+      $sql .= ", chr_canordertime = '$_REQUEST[canordertimestr]' ";
       $sql .= "WHERE int_id = $_REQUEST[id] ";
+      // var_dump($_REQUEST['canordertimestr']);die;
 	  mysqli_query($con, $sql) or die($sql);
 	  
 	  $data = json_decode($_REQUEST['data'], true);
@@ -453,7 +530,7 @@ WHILE($unit_record = mysqli_fetch_array($unit_result)) {
 			foreach($item['item'] as $val){
 				$code  = $val['code'];
 				$sql = " insert INTO tbl_order_z_menu_v_shop(int_user_id,int_menu_id) VALUES ('".$code."',".$fid.")";
-//                die($sql);
+               // die($sql);
 				mysqli_query($con, $sql) or die($sql);
 			}		
 		} 

@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f0a7f9fd-bfd2-4a41-bb55-e6285be35304" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grpo2.php" beforeDir="false" afterPath="$PROJECT_DIR$/grpo2.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grpo_confirm.php" beforeDir="false" afterPath="$PROJECT_DIR$/grpo_confirm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order_z_dept_left.php" beforeDir="false" afterPath="$PROJECT_DIR$/order_z_dept_left.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order_z_receipt.php" beforeDir="false" afterPath="$PROJECT_DIR$/order_z_receipt.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order_z_receipt_list.php" beforeDir="false" afterPath="$PROJECT_DIR$/order_z_receipt_list.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +71,8 @@
       <workItem from="1587604256172" duration="12153000" />
       <workItem from="1587711320783" duration="600000" />
       <workItem from="1588042167726" duration="4217000" />
-      <workItem from="1588063170370" duration="14217000" />
+      <workItem from="1588063170370" duration="14842000" />
+      <workItem from="1588560431421" duration="275000" />
     </task>
     <servers />
   </component>
