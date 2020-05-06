@@ -250,7 +250,13 @@
 <title>內聯網</title>
     <script src="js/jquery.min.js"></script>
 </head>
+<style type="text/css">
+<!--
+input.qty {width:40%}
 
+}
+-->
+</style>
 <body>
 <div align="left"><a target="_top" href="select_day_dept.php?advDays=14" >返回</a></div>
 <!-- <form action="order_z_dept_2.php?action=confirm&dept=<?=$dept?>" method="post" id="cart" name="cart" target="_top">-->

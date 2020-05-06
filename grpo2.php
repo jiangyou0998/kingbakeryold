@@ -71,6 +71,9 @@ $po_header = mysqli_fetch_assoc($po_header);
 
 		$(".dept-input").on("input", function(e){
 			var v = $(this).val();
+			if(v == ''){
+				$(this).val(0);
+			}
 			//不是數字 => 還原
 			if(isNaN(v)){
 				$(this).val(e.target.defaultValue);

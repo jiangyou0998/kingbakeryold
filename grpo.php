@@ -89,7 +89,7 @@ a:active {
 			<td align="center" bgcolor="#CCCCCC" width="22%"><strong>樓面($)</strong></td>
 		</tr>		
 		<tr align="right">
-			<td align="center">貨倉</td>
+			<td align="center">中央工場</td>
 			<?php
 			$sql = "SELECT chr_dept, SUM(int_qty * int_default_price) as dept_price
 					FROM db_intranet.tbl_order_z_dept T0
@@ -187,7 +187,7 @@ a:active {
 			</td>
 			<td align="left" bgcolor="#FFFFFF">
 				<span class="style3">&nbsp;&nbsp;&nbsp;&nbsp;
-				<? if($record[order_type] == 'warehouse') echo '貨倉';?>
+				<? if($record[order_type] == 'warehouse') echo '中央工場';?>
 				</span>
 			</td>
             <td align="center" bgcolor="#FFFFFF"><?=$record[deli_date]?></td>
