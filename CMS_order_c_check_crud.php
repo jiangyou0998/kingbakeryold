@@ -8,17 +8,17 @@
 //}
 
 //檢查是否登錄,是否管理員
-require ("check_login.php");
+require("check_login.php");
 
 require("connect.inc");
 $timestamp = gettimeofday("sec");
 
-$method=$_POST['method'];
-$id=$_POST['id'];
+$method = $_POST['method'];
+$id = $_POST['id'];
 
-switch ($method){
+switch ($method) {
     case "delete":
-        $sql = "UPDATE tbl_order_check SET disabled = 1 WHERE int_id = ".$id;
+        $sql = "UPDATE tbl_order_check SET disabled = 1 WHERE int_id = " . $id;
         mysqli_query($con, $sql) or die("error delete");
         break;
 }

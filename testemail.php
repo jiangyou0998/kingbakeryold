@@ -1,4 +1,5 @@
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -9,7 +10,7 @@ require 'PHPMailer/src/SMTP.php';
 $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
 try {
     //服务器配置
-    $mail->CharSet ="UTF-8";                     //设定邮件编码
+    $mail->CharSet = "UTF-8";                     //设定邮件编码
     $mail->SMTPDebug = 0;                        // 调试模式输出
     $mail->isSMTP();                             // 使用SMTP
 
@@ -58,7 +59,7 @@ try {
     $mail->AddAddress("jianli@kingbakery.com.hk");
     $mail->AddAddress("fs378354476@outlook.com");
     //$mail->AddBCC("yuecheung.lau@gmail.com");
-    $mail->CharSet="utf-8";
+    $mail->CharSet = "utf-8";
     $mail->Encoding = "base64";
     $mail->WordWrap = 50;                                 // set word wrap to 50 characters
     $mail->IsHTML(true);
@@ -67,7 +68,7 @@ try {
     //Content
     $mail->isHTML(true);                                  // 是否以HTML文档格式发送  发送后客户端可直接显示对应HTML内容
     $mail->Subject = '这里是邮件标题' . time();
-    $mail->Body    = '<h1>这里是邮件内容</h1>' . date('Y-m-d H:i:s');
+    $mail->Body = '<h1>这里是邮件内容</h1>' . date('Y-m-d H:i:s');
     $mail->AltBody = '如果邮件客户端不支持HTML则显示此内容';
 
     $mail->send();

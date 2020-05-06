@@ -13,8 +13,8 @@
             width: 100%;
             display: table;
             font-weight: 100;
-            font-family: "Helvetica Neue", NotoSansHans-Regular,AvenirNext-Regular,arial,Hiragino Sans GB,"Microsoft Yahei","Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;
-            color:#777;
+            font-family: "Helvetica Neue", NotoSansHans-Regular, AvenirNext-Regular, arial, Hiragino Sans GB, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+            color: #777;
         }
 
         .container {

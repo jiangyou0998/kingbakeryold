@@ -1,219 +1,252 @@
 <?php
 
-  class FileUpload { 
-    private $path = "./uploads";         
-    private $allowtype = array('jpg','gif','png'); 
-    private $maxsize = 1000000;           
-    private $israndname = true;          
-  
-    private $originName;            
-    private $tmpFileName;             
-    private $fileType;              
-    private $fileSize;              
-    private $newFileName;              
-    private $errorNum = 0;             
-    private $errorMess="";             
- 
-    function set($key, $val){
-      $key = strtolower($key); 
-      if( array_key_exists( $key, get_class_vars(get_class($this) ) ) ){
-        $this->setOption($key, $val);
-      }
-      return $this;
+class FileUpload
+{
+    private $path = "./uploads";
+    private $allowtype = array('jpg', 'gif', 'png');
+    private $maxsize = 1000000;
+    private $israndname = true;
+
+    private $originName;
+    private $tmpFileName;
+    private $fileType;
+    private $fileSize;
+    private $newFileName;
+    private $errorNum = 0;
+    private $errorMess = "";
+
+    function set($key, $val)
+    {
+        $key = strtolower($key);
+        if (array_key_exists($key, get_class_vars(get_class($this)))) {
+            $this->setOption($key, $val);
+        }
+        return $this;
     }
-  
 
-  
-    function upload($fileField) {
-      $return = true;
 
-      if( !$this->checkFilePath() ) {       
-        $this->errorMess = $this->getError();
-        return false;
-      }
+    function upload($fileField)
+    {
+        $return = true;
 
-      $name = $_FILES[$fileField]['name'];
-      $tmp_name = $_FILES[$fileField]['tmp_name'];
-      $size = $_FILES[$fileField]['size'];
-      $error = $_FILES[$fileField]['error'];
-  
-
-      if(is_Array($name)){    
-        $errors=array();
-
-        for($i = 0; $i < count($name); $i++){ 
-        
-          if($this->setFiles($name[$i],$tmp_name[$i],$size[$i],$error[$i] )) {
-            if(!$this->checkFileSize() || !$this->checkFileType()){
-              $errors[] = $this->getError();
-              $return=false; 
-            }
-          }else{
-            $errors[] = $this->getError();
-            $return=false;
-          }
-      
-          if(!$return)          
-            $this->setFiles();
+        if (!$this->checkFilePath()) {
+            $this->errorMess = $this->getError();
+            return false;
         }
-  
-        if($return){
-       
-          $fileNames = array();      
-       
-          for($i = 0; $i < count($name); $i++){ 
-            if($this->setFiles($name[$i], $tmp_name[$i], $size[$i], $error[$i] )) {
-              $this->setNewFileName(); 
-              if(!$this->copyFile()){
-                $errors[] = $this->getError();
-                $return = false;
-              }
-              $fileNames[] = $this->newFileName;  
-            }          
-          }
-          $this->newFileName = $fileNames;
-        }
-        $this->errorMess = $errors;
-        return $return;
-    
-      } else {
-       
-        if($this->setFiles($name,$tmp_name,$size,$error)) {
-       
-          if($this->checkFileSize() && $this->checkFileType()){ 
-          
-            $this->setNewFileName(); 
-        
-            if($this->copyFile()){ 
-              return true;
-            }else{
-              $return=false;
+
+        $name = $_FILES[$fileField]['name'];
+        $tmp_name = $_FILES[$fileField]['tmp_name'];
+        $size = $_FILES[$fileField]['size'];
+        $error = $_FILES[$fileField]['error'];
+
+
+        if (is_Array($name)) {
+            $errors = array();
+
+            for ($i = 0; $i < count($name); $i++) {
+
+                if ($this->setFiles($name[$i], $tmp_name[$i], $size[$i], $error[$i])) {
+                    if (!$this->checkFileSize() || !$this->checkFileType()) {
+                        $errors[] = $this->getError();
+                        $return = false;
+                    }
+                } else {
+                    $errors[] = $this->getError();
+                    $return = false;
+                }
+
+                if (!$return)
+                    $this->setFiles();
             }
-          }else{
-            $return=false;
-          }
+
+            if ($return) {
+
+                $fileNames = array();
+
+                for ($i = 0; $i < count($name); $i++) {
+                    if ($this->setFiles($name[$i], $tmp_name[$i], $size[$i], $error[$i])) {
+                        $this->setNewFileName();
+                        if (!$this->copyFile()) {
+                            $errors[] = $this->getError();
+                            $return = false;
+                        }
+                        $fileNames[] = $this->newFileName;
+                    }
+                }
+                $this->newFileName = $fileNames;
+            }
+            $this->errorMess = $errors;
+            return $return;
+
         } else {
-          $return=false; 
+
+            if ($this->setFiles($name, $tmp_name, $size, $error)) {
+
+                if ($this->checkFileSize() && $this->checkFileType()) {
+
+                    $this->setNewFileName();
+
+                    if ($this->copyFile()) {
+                        return true;
+                    } else {
+                        $return = false;
+                    }
+                } else {
+                    $return = false;
+                }
+            } else {
+                $return = false;
+            }
+
+            if (!$return)
+                $this->errorMess = $this->getError();
+
+            return $return;
         }
-      
-        if(!$return)
-          $this->errorMess=$this->getError();  
-  
-        return $return;
-      }
     }
-  
 
-    public function getFileName(){
-      return $this->newFileName;
-    }
-  
 
-    public function getErrorMsg(){
-      return $this->errorMess;
+    public function getFileName()
+    {
+        return $this->newFileName;
     }
-  
 
-    private function getError() {
-      $str = "¤W¸ü¤åÀÉ<font color='red'>{$this->originName}</font>®É¥X¿ù : ";
-      switch ($this->errorNum) {
-        case 4: $str .= "¨S¦³¤åÀÉ³Q¤W¸ü"; break;
-        case 3: $str .= "¤åÀÉ¥u¦³³¡¤À³Q¤W¸ü?"; break;
-        case 2: $str .= "¤W¸ü¤åÀÉ¹L¤j"; break;
-        case 1: $str .= "¤W¸ü¤åÀÉ¶W®É"; break;
-        case -1: $str .= "¤W¸ü¤åÀÉÃþ«¬¿ù»~"; break;
-        case -2: $str .= "¤åÀÉ¹L¤j,¤£¯à¶W¹L{$this->maxsize}­Ó¦r¸`"; break;
-        case -3: $str .= "¤W¸ü¥¢±Ñ"; break;
-        case -4: $str .= "¤W¸ü¤å¥ó§¨¤£¦s¦b"; break;
-        case -5: $str .= "¥²¶·«ü©w¸ô®|"; break;
-        default: $str .= "¥¼ª¾¿ù»~";
-      }
-      return $str.'<br>';
-    }
-  
-   
-    private function setFiles($name="", $tmp_name="", $size=0, $error=0) {
-      $this->setOption('errorNum', $error);
-      if($error)
-        return false;
-      $this->setOption('originName', $name);
-      $this->setOption('tmpFileName',$tmp_name);
-      $aryStr = explode(".", $name);
-      $this->setOption('fileType', strtolower($aryStr[count($aryStr)-1]));
-      $this->setOption('fileSize', $size);
-      return true;
-    }
-  
 
-    private function setOption($key, $val) {
-      $this->$key = $val;
+    public function getErrorMsg()
+    {
+        return $this->errorMess;
     }
-  
 
-    private function setNewFileName() {
-      if ($this->israndname) {
-        $this->setOption('newFileName', $this->proRandName());  
-      } else{ 
-        $this->setOption('newFileName', $this->originName);
-      } 
+
+    private function getError()
+    {
+        $str = "ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½<font color='red'>{$this->originName}</font>ï¿½É¥Xï¿½ï¿½ : ";
+        switch ($this->errorNum) {
+            case 4:
+                $str .= "ï¿½Sï¿½ï¿½ï¿½ï¿½ï¿½É³Qï¿½Wï¿½ï¿½";
+                break;
+            case 3:
+                $str .= "ï¿½ï¿½ï¿½É¥uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Qï¿½Wï¿½ï¿½?";
+                break;
+            case 2:
+                $str .= "ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½É¹Lï¿½j";
+                break;
+            case 1:
+                $str .= "ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½É¶Wï¿½ï¿½";
+                break;
+            case -1:
+                $str .= "ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~";
+                break;
+            case -2:
+                $str .= "ï¿½ï¿½ï¿½É¹Lï¿½j,ï¿½ï¿½ï¿½ï¿½Wï¿½L{$this->maxsize}ï¿½Ó¦rï¿½`";
+                break;
+            case -3:
+                $str .= "ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+                break;
+            case -4:
+                $str .= "ï¿½Wï¿½ï¿½ï¿½ï¿½ó§¨¤ï¿½ï¿½sï¿½b";
+                break;
+            case -5:
+                $str .= "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½wï¿½ï¿½ï¿½|";
+                break;
+            default:
+                $str .= "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~";
+        }
+        return $str . '<br>';
     }
-  
 
-    private function checkFileType() {
-      if (in_array(strtolower($this->fileType), $this->allowtype)) {
+
+    private function setFiles($name = "", $tmp_name = "", $size = 0, $error = 0)
+    {
+        $this->setOption('errorNum', $error);
+        if ($error)
+            return false;
+        $this->setOption('originName', $name);
+        $this->setOption('tmpFileName', $tmp_name);
+        $aryStr = explode(".", $name);
+        $this->setOption('fileType', strtolower($aryStr[count($aryStr) - 1]));
+        $this->setOption('fileSize', $size);
         return true;
-      }else {
-        $this->setOption('errorNum', -1);
-        return false;
-      }
     }
-  
 
-    private function checkFileSize() {
-      if ($this->fileSize > $this->maxsize) {
-        $this->setOption('errorNum', -2);
-        return false;
-      }else{
+
+    private function setOption($key, $val)
+    {
+        $this->$key = $val;
+    }
+
+
+    private function setNewFileName()
+    {
+        if ($this->israndname) {
+            $this->setOption('newFileName', $this->proRandName());
+        } else {
+            $this->setOption('newFileName', $this->originName);
+        }
+    }
+
+
+    private function checkFileType()
+    {
+        if (in_array(strtolower($this->fileType), $this->allowtype)) {
+            return true;
+        } else {
+            $this->setOption('errorNum', -1);
+            return false;
+        }
+    }
+
+
+    private function checkFileSize()
+    {
+        if ($this->fileSize > $this->maxsize) {
+            $this->setOption('errorNum', -2);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    private function checkFilePath()
+    {
+        if (empty($this->path)) {
+            $this->setOption('errorNum', -5);
+            return false;
+        }
+        if (!file_exists($this->path) || !is_writable($this->path)) {
+            if (!@mkdir($this->path, 0755)) {
+                $this->setOption('errorNum', -4);
+                return false;
+            }
+        }
         return true;
-      }
     }
-  
 
-    private function checkFilePath() {
-      if(empty($this->path)){
-        $this->setOption('errorNum', -5);
-        return false;
-      }
-      if (!file_exists($this->path) || !is_writable($this->path)) {
-        if (!@mkdir($this->path, 0755)) {
-          $this->setOption('errorNum', -4);
-          return false;
+
+    private function proRandName()
+    {
+        $fileName = date('YmdHis') . "_" . rand(100, 999);
+        return $fileName . '.' . $this->fileType;
+    }
+
+
+    private function copyFile()
+    {
+        if (!$this->errorNum) {
+            $path = rtrim($this->path, '/') . '/';
+            $path .= $this->newFileName;
+            // iconv('big5','GBK',$path)
+            if (@move_uploaded_file($this->tmpFileName, $path)) {
+                return true;
+            } else {
+                $this->setOption('errorNum', -3);
+                return false;
+            }
+        } else {
+            return false;
         }
-      }
-      return true;
     }
-  
+}
 
-    private function proRandName() {    
-      $fileName = date('YmdHis')."_".rand(100,999);    
-      return $fileName.'.'.$this->fileType; 
-    }
-  
-
-    private function copyFile() {
-      if(!$this->errorNum) {
-        $path = rtrim($this->path, '/').'/';
-        $path .= $this->newFileName;
-		// iconv('big5','GBK',$path)
-        if (@move_uploaded_file($this->tmpFileName, $path)) {
-          return true;
-        }else{
-          $this->setOption('errorNum', -3);
-          return false;
-        }
-      } else {
-        return false;
-      }
-    }
-  }
- ?>
+?>

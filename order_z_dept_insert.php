@@ -13,11 +13,11 @@ $maxQTY = 300;
 $action = $_REQUEST[action];
 $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id];
 
-$json=$_POST['insertData'];
-$insertDatas = json_decode($json,true);
+$json = $_POST['insertData'];
+$insertDatas = json_decode($json, true);
 
 //有插入數據時才執行
-if($insertDatas){
+if ($insertDatas) {
     $usersql = "SELECT chr_pocode FROM db_intranet.tbl_user WHERE int_id = '$order_user';";
 //  die($sql);
     $u_result = mysqli_query($con, $usersql) or die($usersql);
@@ -30,12 +30,12 @@ if($insertDatas){
     $insertDatasLength = count($insertDatas);
     foreach ($insertDatas as $key => $insertData) {
 //    var_dump($insertData);
-        if($key != 0){
-            $sql .=",";
+        if ($key != 0) {
+            $sql .= ",";
         }
-        $sql .="('";
+        $sql .= "('";
         //order_date
-        $sql .= date('Y/n/j G:i:s',$timestamp);
+        $sql .= date('Y/n/j G:i:s', $timestamp);
         $sql .= "','";
         //int_user
         $sql .= $order_user;
@@ -59,11 +59,11 @@ if($insertDatas){
         $sql .= $_SESSION['OrderDept'];
         $sql .= "','";
         //chr_po_no
-        $sql .= date("ymd",strtotime("+".($_SESSION['advance']+1)." day")).$user['chr_pocode'];
+        $sql .= date("ymd", strtotime("+" . ($_SESSION['advance'] + 1) . " day")) . $user['chr_pocode'];
         //int_qty_init, insert_date
         $sql .= "', 1, NOW()) ";
 
-        if($key == ($insertDatasLength-1) ){
+        if ($key == ($insertDatasLength - 1)) {
             $sql .= ";";
         }
     }
@@ -74,7 +74,7 @@ if($insertDatas){
 //更新數據
 $json = $_POST['updateData'];
 $updateDatas = json_decode($json, true);
-if($updateDatas) {
+if ($updateDatas) {
     $sql = "";
 
     $idsArray = array();
@@ -92,11 +92,11 @@ if($updateDatas) {
     mysqli_query($con, $sql) or die("error update");
 }
 
-$json=$_POST['delData'];
-$delDatas = json_decode($json,true);
+$json = $_POST['delData'];
+$delDatas = json_decode($json, true);
 
 //刪除數據(status變為4)
-if($delDatas) {
+if ($delDatas) {
     $sql = "";
 
 //var_dump($delDatas);
