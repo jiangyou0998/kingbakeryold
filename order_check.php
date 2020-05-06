@@ -56,8 +56,10 @@
 			LEFT JOIN tbl_district T6 ON T5.int_district = T6.int_id
 	WHERE T0.status IN (1,98,99)
 EOT;
-	  $sql .= "AND order_date >= '$search_date 00:00' ";
-	  $sql .= "AND order_date <= '$search_date 23:59' ";
+	  // $sql .= "AND order_date >= '$search_date 00:00' ";
+	  // $sql .= "AND order_date <= '$search_date 23:59' ";
+	//根據送貨日期搜
+		$sql .= "AND DATE_ADD(DATE(T0.order_date), INTERVAL (T0.chr_phase + 1) DAY) = '$search_date' ";
 	  //$sql .= "AND T5.int_dept = 2 ";
 	  
 	  if(isset($_GET[shop]) && $_GET[shop] != -1){
@@ -230,10 +232,10 @@ function filterSupplier(){
 	</tr>
 </table>
 <div align="center" style="width:995px;">
-<h1>翻查過去柯打</h1>
+<h1>翻查柯打</h1>
 <div align="center" style="width:100%;margin:auto;">
-	<b>落單日期： </b>
-	<input type="text" class="form-control" value="<?=$search_date?>" id="datepicker" onclick="WdatePicker({maxDate:'<?=$today?>',isShowClear:false})" style="width:125px" readonly>
+	<b>送貨日期： </b>
+	<input type="text" class="form-control" value="<?=$search_date?>" id="datepicker" onclick="WdatePicker({isShowClear:false})" style="width:125px" readonly>
 	
 	<?php if($_SESSION[dept] != 2) { ?>
 	<span style="margin-left:15px"></span>

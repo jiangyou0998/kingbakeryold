@@ -83,7 +83,7 @@ function openwindow(){
 		<!-- <a href="select_day_dept.php?advDays=14"><img src="images/Order_Button_Stock.jpg" width="150" height="150" border="0"></a> -->
 		<a href="select_day_dept.php?advDays=14"><span class="btn" style="font-size: 40px;line-height: 50px;">中央<br/>工場</span></a>
 		<br/>
-		<a href="order_check.php?head=5">翻查過去柯打</a>
+		<a href="order_check.php?head=5">翻查柯打</a>
 	</div>
 	<div class="col-sm-6">
 		<!-- <a href="#"><img src="images/Order_Button_Supplier.jpg" width="150" height="150" border="0"></a> -->
