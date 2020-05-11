@@ -91,8 +91,7 @@ $sql = "SELECT T3.*,group_concat(T3.reason) as reasons FROM
                             <td><?= $record[txt_name] ?></td>
                             <td colspan="2" style="text-align:center; color:red;">未確認</td>
                             <td align="center">
-                                <a target="_blank"
-                                   href="order_z_receipt.php?receiptNo=<?= $record[int_no] ?>&shop=<?= $record[int_user] ?>&date=<?= $record[date] ?>">
+                                <a href="order_z_receipt.php?receiptNo=<?= $record[int_no] ?>&shop=<?= $record[int_user] ?>&date=<?= $record[date] ?>">
                                     <button>瀏覽</button>
                                 </a>
                             </td>

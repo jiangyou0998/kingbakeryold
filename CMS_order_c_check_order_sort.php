@@ -20,7 +20,7 @@ if (isset($_POST["Sort"])) {
 }
 
 $aryOR = Array();
-$sql = "SELECT int_id,txt_name,int_sort FROM tbl_user WHERE int_dept = 2 order by int_sort, txt_login";
+$sql = "SELECT int_id,txt_name,int_sort FROM tbl_user WHERE chr_type = 2 order by int_sort, txt_login";
 $result = mysqli_query($con, $sql) or die($sql);
 while ($record = mysqli_fetch_assoc($result)) {
     $aryOR[] = $record;

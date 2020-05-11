@@ -349,7 +349,7 @@ $supplierHTML .= '</select>';
 
         <button onclick="search()" id="submitBtn" style="width:75px;">提交</button>
         <?php if (isset($_GET[date])) { ?>
-            <h2>落單日期: <?= $_GET[date] ?></h2>
+            <h2>送貨日期: <?= $_GET[date] ?></h2>
         <?php } ?>
         <?php if (isset($aryList)) { ?>
 

@@ -70,7 +70,7 @@ session_start();
                     <?php } ?>
 
                     <?php if ($_REQUEST['head'] == 5) { ?>
-                        <td><img src="images/Header_d_05.jpg" width="69" height="30" border="0"/></td>
+                        <td><a href="order.php?head=5" onClick="redirectPage('order.php?head=5')"><img src="images/Header_d_05.jpg" width="69" height="30" border="0"/></td>
                     <?php } else { ?>
                         <td><a href="order.php?head=5" onClick="redirectPage('order.php?head=5')"><img
                                         src="images/Header_05.jpg" width="69" height="30" border="0"
@@ -123,7 +123,7 @@ session_start();
                                         onmouseout="ImgOut(this,'11')" width="89" height="30" border="0"/></a></td>
                     <?php } ?>
                     <?php if ($_REQUEST['head'] == 12) { ?>
-                        <td><img src="images/Head_d_12.jpg" width="65" height="30" border="0"/></td>
+                        <td><a href="report.php?head=12" onClick="redirectPage('report.php?head=12')"><img src="images/Head_d_12.jpg" width="65" height="30" border="0"/></td>
                     <?php } else { ?>
                         <td><a href="report.php?head=12" onClick="redirectPage('report.php?head=12')"><img
                                         src="images/Head_12.jpg" onmouseover="ImgOver_a(this,'12')"

@@ -88,6 +88,9 @@ $timestamp = gettimeofday("sec") + 28800;
             var base = $('#base').val();
             var min = $('#min').val();
             var cuttime = $('#cuttime').val();
+            var canordertimestr = $('input[type=checkbox]:checked').map(function () {
+                return this.value
+            }).get().join(',');
 
             if (min < base) {
                 alert("最低消費不能少於單位數量");
@@ -95,6 +98,10 @@ $timestamp = gettimeofday("sec") + 28800;
             }
             if (cuttime > 2359) {
                 alert("截單時間不符合標準，請重新輸入。");
+                return false;
+            }
+            if (canordertimestr == "") {
+                alert("請選擇出貨期！");
                 return false;
             }
 
@@ -330,7 +337,7 @@ switch ($_REQUEST[action]) {
         ?>
         <form name="search" action="" method="post" onsubmit="return checksubmit()">
             <input type="hidden" name="action" value="confirm">
-            <input type="hidden" name="canordertimestr" id="canordertimestr" value=""/>
+            <input type="hidden" name="canordertimestr" id="canordertimestr" value="<?php echo $record[chr_canordertime]; ?>"/>
             <input type="hidden" name="id" value="<?php echo $_REQUEST[id]; ?>">
             <input name='chkcuttime' value='0' type='hidden'/>
             <table width="90%" border="0" cellspacing="1" cellpadding="6">
