@@ -50,6 +50,8 @@ $sql_1 = "create temporary table tmp( sort int, id int);";
 $sql_2 = "insert into tmp VALUES $search_id;";
 $sql_3 = "SELECT sort, menu.chr_name, menu.chr_no FROM tmp LEFT JOIN tbl_order_z_menu menu ON menu.int_id = tmp.id WHERE menu.status <> 4 ORDER BY sort;";
 
+// var_dump($sql_d);
+
 mysqli_query($con, $sql_d) or die ($sql_d);
 mysqli_query($con, $sql_1) or die ($sql_1);
 mysqli_query($con, $sql_2) or die ($sql_2);
@@ -257,6 +259,7 @@ while ($pageCount <= count($Page)) { ?>
             </tr>
             <?php
             $count = 1;
+            // var_dump($aryMenu);
             foreach ($aryMenu as $key => $value) {
                 if (strpos($key, "-") === false) {
                     $bg = ($count % 2 == 0) ? "#EEEEEE" : "#FFFFFF" ?>

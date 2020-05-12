@@ -1,9 +1,11 @@
 <?php
 
-//excelToArray();
-//setDefultVisual();
+// importGroupAndMenu();
+// setDefultVisual();
+// writeCheck();
 
-function excelToArray()
+//導入group和menu數據
+function importGroupAndMenu()
 {
 
     require_once dirname(__FILE__) . '/PHPExcel/Classes/PHPExcel/IOFactory.php';
@@ -114,6 +116,7 @@ function excelToArray()
 
 //    return $res_arr;
 //    return $group_arr;
+    // var_dump($group_arr);die();
 
     //插入group數據
     $sql = "INSERT INTO tbl_order_z_group (chr_name,int_sort,status,int_cat,chr_name_long) VALUES ";
@@ -251,4 +254,125 @@ function setDefultVisual()
 //    var_dump($sql);
     mysqli_query($con, $sql) or die($sql);
 
+}
+
+//將產品寫入生產表
+function writeCheck(){
+
+require_once dirname(__FILE__) . '/PHPExcel/Classes/PHPExcel/IOFactory.php';
+
+
+    //加载excel文件
+    $filename = dirname(__FILE__) . '/xls/import.xls';
+
+
+    $objPHPExcelReader = PHPExcel_IOFactory::load($filename);
+
+    $sheet = $objPHPExcelReader->getSheet(0);        // 读取第一个工作表(编号从 0 开始)
+    $highestRow = $sheet->getHighestRow();           // 取得总行数
+    $highestColumn = $sheet->getHighestColumn();     // 取得总列数
+
+    $arr = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+    // 一次读取一列
+    $res_arr = array();
+
+
+//    var_dump($cateArray);die;
+
+    $cateName = '';
+    $groupName = '';
+    $cateID = '';
+
+    $checkArr = array();
+    for ($row = 2; $row <= $highestRow; $row++) {
+        $row_arr = array();
+        $menuNo = "";
+        for ($column = 0; $arr[$column] != 'N'; $column++) {
+            $val = $sheet->getCellByColumnAndRow($column, $row)->getValue();
+
+            if ($arr[$column] == 'C' && $val == '產品編號') {
+                 continue;
+            }
+
+            if ($arr[$column] == 'C') {
+                 $row_arr[] = $val;
+            }
+
+            if ($arr[$column] == 'G' && $val == '生產表') {
+                 continue;
+            }
+
+            if ($arr[$column] == 'G') {
+                $val = str_replace("-", "", $val);
+                $row_arr[] = $val;
+            }
+               
+        }
+
+        //表頭跟空行不需要
+        if ( $row_arr[0] != '') {
+            $res_arr[$row_arr[1]][] = $row_arr[0];
+        }
+
+
+    }
+
+
+    $con = mysqli_connect("localhost", "root", "Behv6953gl", "db_intranet");
+    //查詢menu數據
+    $sql = "SELECT int_id,chr_no FROM tbl_order_z_menu";
+
+    $result = mysqli_query($con, $sql) or die($sql);
+
+    $menus = array();
+    WHILE ($record = mysqli_fetch_array($result)) {
+        $menus[$record['int_id']] = $record['chr_no'];
+    }
+
+    //查詢check數據
+    $sql = "SELECT int_id,chr_report_name FROM tbl_order_check";
+
+    $result = mysqli_query($con, $sql) or die($sql);
+
+    $checks = array();
+    WHILE ($record = mysqli_fetch_array($result)) {
+        
+        $reportName = $record['chr_report_name'];
+        //空格位置
+        $spacePos = strpos($record['chr_report_name'], " ");
+        if($spacePos){
+            $reportName = substr($record['chr_report_name'], 0,$spacePos);
+        }
+
+        $checks[$record['int_id']] = $reportName;
+    }
+
+    // var_dump($checks);
+    //編輯tbl_order_check表的chr_item_list字符串
+    $checkItemArr = array();
+    foreach ($res_arr as $checksName => $c) {
+        $tempArr = array();
+        foreach ($c as $key => $value) {
+            $str = ($key+1).":".array_search($value, $menus);
+            $tempArr[] = $str;
+        }
+        $checkID = array_search($checksName,$checks);
+        //用逗號+空格隔開
+        $checkItemArr[$checkID] = join(", ", array_values($tempArr));
+    }
+
+    //更新tbl_order_check表數據
+    $sql = "UPDATE tbl_order_check SET chr_item_list = CASE int_id ";
+    foreach ($checkItemArr as $key => $value) {
+        $sql .= sprintf("WHEN %d THEN \"%s\" ", $key, $value);
+    }
+    $sql .= "END;";
+//      var_dump($_POST);die;
+   // die($sql);
+    mysqli_query($con, $sql) or die($sql);
+
+    // var_dump($checks);
+    // var_dump($checkItemArr);
+// var_dump($menus);
+    // var_dump($res_arr);die();
 }
