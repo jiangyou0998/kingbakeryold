@@ -353,7 +353,9 @@ require_once dirname(__FILE__) . '/PHPExcel/Classes/PHPExcel/IOFactory.php';
     foreach ($res_arr as $checksName => $c) {
         $tempArr = array();
         foreach ($c as $key => $value) {
-            $str = ($key+1).":".array_search($value, $menus);
+            //排序默認1
+            $str = "1:".array_search($value, $menus);
+            // $str = ($key+1).":".array_search($value, $menus);
             $tempArr[] = $str;
         }
         $checkID = array_search($checksName,$checks);

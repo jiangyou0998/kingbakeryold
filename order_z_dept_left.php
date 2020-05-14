@@ -11,6 +11,7 @@ $timestamp = gettimeofday("sec");
 $maxQTY = 300;
 $action = $_REQUEST[action];
 $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id];
+$dateofweek = date('w', $timestamp + 86400 * ($_SESSION['advance'] + 1));
 
 switch ($_SESSION['OrderDept']) {
     case "R":
@@ -28,7 +29,7 @@ switch ($_SESSION['OrderDept']) {
         break;
 }
 
-switch (date('N', $timestamp + 86400 * ($_SESSION['advance'] + 1))) {
+switch ($dateofweek) {
     case "1":
         $week = "一";
         break;
@@ -47,7 +48,7 @@ switch (date('N', $timestamp + 86400 * ($_SESSION['advance'] + 1))) {
     case "6":
         $week = "六";
         break;
-    case "7":
+    case "0":
         $week = "日";
         break;
 }
@@ -369,6 +370,97 @@ switch ($action) {
                         </td>
                     </tr>
                     <?php
+                }
+                // var_dump($count);
+
+        //沒有產品時,加載範本內容
+                if ($count == 0){
+                    $sql = "
+        SELECT 
+        
+        tbl_order_z_menu.int_id AS itemID,
+        tbl_order_z_menu.chr_name AS itemName,
+        tbl_order_z_menu.chr_no,
+        tbl_order_z_unit.chr_name AS UoM,
+        tbl_order_z_menu.chr_cuttime,
+        tbl_order_z_menu.int_phase,
+        LEFT(tbl_order_z_cat.chr_name, 2) AS suppName,
+        tbl_order_sample_item.qty,
+        tbl_order_z_menu.int_base,
+        tbl_order_z_menu.int_min
+        
+    FROM
+        tbl_order_sample_item
+            INNER JOIN tbl_order_sample ON tbl_order_sample_item.sample_id = tbl_order_sample.id
+            INNER JOIN tbl_order_z_menu ON tbl_order_sample_item.menu_id = tbl_order_z_menu.int_id
+            INNER JOIN tbl_order_z_unit ON tbl_order_z_menu.int_unit = tbl_order_z_unit.int_id
+            INNER JOIN tbl_order_z_group ON tbl_order_z_menu.int_group = tbl_order_z_group.int_id
+            INNER JOIN tbl_order_z_cat ON tbl_order_z_group.int_cat = tbl_order_z_cat.int_id
+    WHERE
+        tbl_order_sample.user_id = $order_user
+        AND tbl_order_sample.sampledate like '%$dateofweek%'
+            
+    ORDER BY tbl_order_z_menu.chr_no;";
+
+    // var_dump($sql);
+
+    $result = mysqli_query($con, $sql) or die($sql);
+                $count = 0;
+
+                while ($record = mysqli_fetch_assoc($result)) {
+                    if ($count & 1) {
+                        $bg = "#ffcc33";
+                    } else {
+                        $bg = "#ff9933";
+                    }
+                    $count += 1;
+                    ?>
+                    <tr bgcolor="<?php echo $bg; ?>" class="cart" id="<?= "$record[chr_no]"; ?>"
+                        data-itemid="<?= $record['itemID']; ?>">
+                        <td width="10" align="right"><?= $count; ?>.</td>
+                        <td><font color="blue"
+                                  size=-1><?= $record['suppName']; ?> </font><?= "$record[itemName], $record[chr_no]"; ?>
+                        </td>
+                        <td align="center">
+                            <?php
+                            $curtime = date('Hi', $timestamp);
+                            //if ($record['status'] == 1) echo "<font color=blue size=-1>(已落)</font>";
+                            if ($record[chr_cuttime] < $curtime && $_SESSION[advance] < $record[int_phase]) {
+                                //if (date('Hi',$timestamp) > $record['chr_cuttime']) {
+                                echo "<img title='已超過截單時間' src='images/alert.gif' width='20' height='20'>";
+                                $haveoutdate = 1;
+                            }
+
+                            if ($record[chr_cuttime] > $curtime && ($_SESSION[advance] + 1) < $record[int_phase]) {
+                                //if (date('Hi',$timestamp) > $record['chr_cuttime']) {
+                                echo "<img title='已超過截單時間' src='images/alert.gif' width='20' height='20'>";
+                                $haveoutdate = 1;
+                            }
+
+                            ?>
+                        </td>
+                        <td width="100" align="center">x
+                            <input class="qty" type="tel"
+                                   id="qty<?= "$record[chr_no]"; ?>"
+                                   name=""
+                                   type="text" value="<?php if ($haveoutdate == 1 && $_SESSION[type] != 3){echo "0";}else{echo round($record['qty'], 2);}  ?>"
+                                   data-base="<?= ($record['int_base']); ?>"
+                                   data-min="<?= ($record['int_min']); ?>"
+                                   size="3" maxlength="4"
+                                   autocomplete="off"
+                            <?php if ($haveoutdate == 1 && $_SESSION[type] != 3) echo "disabled"; ?>
+                            ">
+                        </td>
+                        <td align="center"><?= $record[3]; ?></td>
+                        <td align="center">
+                            <?php if ($haveoutdate == 0 || $_SESSION[type] == 3)
+                                echo "<a href=\"#\" class=\"delnew\"><font color=\"#FF6600\">X</font></a>";
+                            ?>
+
+                        </td>
+                    </tr>
+                <?php  
+                    }
                 }
                 ?>
                 <tr class="blankline">

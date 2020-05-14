@@ -86,6 +86,13 @@ if ($_SESSION[authenticated]) {
         <a href="select_day_dept.php?advDays=14"><span class="btn" style="font-size: 40px;line-height: 50px;">中央<br/>工場</span></a>
         <br/>
         <a href="order_check.php?head=5">翻查柯打</a>
+        <br/>
+        <?php 
+            if ($_SESSION[type] == 2){
+                echo "<a href='order_sample.php'>創建範本</a>";
+            }
+        ?>
+        
     </div>
     <div class="col-sm-6">
         <!-- <a href="#"><img src="images/Order_Button_Supplier.jpg" width="150" height="150" border="0"></a> -->
