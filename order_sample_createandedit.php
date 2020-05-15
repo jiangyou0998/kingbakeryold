@@ -5,11 +5,13 @@ if (!($_SESSION[authenticated])) {
     $_SESSION[UrlRedirect] = 'order_z_dept.php';
     header('Location: login.php');
 }
+
 if ($_SESSION[type] == 3 && $_GET['shop'] != 0) {
     $_SESSION[order_user] = $_GET['shop'];
 }
-$_SESSION['OrderDept'] = $_REQUEST['dept'];
-$_SESSION['advance'] = $_REQUEST['advance'] + 0;
+// $_SESSION['OrderDept'] = $_REQUEST['dept'];
+$_SESSION['action'] = $_REQUEST['action'];
+$_SESSION['sampleid'] = $_REQUEST['id'];
 ?>
 <html>
 <head>

@@ -248,7 +248,8 @@ switch ($action) {
     <META name="ROBOTS" content="NOINDEX,NOFOLLOW">
     <meta http-equiv="Content-Type" content="text/html; charset=big5"/>
     <title>內聯網</title>
-    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.min.js"></script> 
+
 </head>
 <style type="text/css">
     <!--
@@ -260,7 +261,7 @@ switch ($action) {
     -->
 </style>
 <body>
-<div align="left"><a target="_top" href="select_day_dept.php?advDays=14">返回</a></div>
+<div align="left"><a target="_top" href="select_day_dept.php?advDays=14" style="font-size: larger;">返回</a></div>
 <!-- <form action="order_z_dept_2.php?action=confirm&dept=<?= $dept ?>" method="post" id="cart" name="cart" target="_top">-->
 <div align="right"><strong><font color="#FF0000" size="+3">分店：
             <?php
@@ -359,7 +360,7 @@ switch ($action) {
                                    size="3" maxlength="4"
                                    autocomplete="off"
                             <?php if ($haveoutdate == 1 && $_SESSION[type] != 3) echo "disabled"; ?>
-                            ">
+                            >
                         </td>
                         <td align="center"><?= $record[3]; ?></td>
                         <td align="center">
@@ -399,6 +400,7 @@ switch ($action) {
     WHERE
         tbl_order_sample.user_id = $order_user
         AND tbl_order_sample.sampledate like '%$dateofweek%'
+        AND tbl_order_sample_item.disabled = 0
             
     ORDER BY tbl_order_z_menu.chr_no;";
 
@@ -449,9 +451,9 @@ switch ($action) {
                                    size="3" maxlength="4"
                                    autocomplete="off"
                             <?php if ($haveoutdate == 1 && $_SESSION[type] != 3) echo "disabled"; ?>
-                            ">
+                            >
                         </td>
-                        <td align="center"><?= $record[3]; ?></td>
+                        <td align="center"><?= $record['UoM']; ?> </td>
                         <td align="center">
                             <?php if ($haveoutdate == 0 || $_SESSION[type] == 3)
                                 echo "<a href=\"#\" class=\"delnew\"><font color=\"#FF6600\">X</font></a>";

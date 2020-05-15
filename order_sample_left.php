@@ -10,6 +10,19 @@ $timestamp = gettimeofday("sec");
 $maxQTY = 300;
 $action = $_REQUEST[action];
 $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id];
+$action = $_SESSION['action'];
+$sampleid = $_SESSION['sampleid'];
+
+switch ($action) {
+    case 'insert':
+        $url = 'order_sample_insert.php';
+        break;
+    
+    case 'edit':
+        $url = 'order_sample_edit.php';
+        break;
+}
+
 
 $weekArr = [
     '0' => '星期日',
@@ -35,52 +48,120 @@ $weekArr = [
         width: 40%
     }
 
+    input[type="checkbox"]{
+  width: 30px; /*Desired width*/
+  height: 30px; /*Desired height*/
+}
+
+    .checkbox{
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+
     }
     -->
 </style>
 <body>
-<div align="left"><a target="_top" href="order_sample.php">返回</a></div>
+<div align="left"><a target="_top" href="order_sample.php" style="font-size: larger;">返回</a></div>
 <!-- <form action="order_z_dept_2.php?action=confirm&dept=<?= $dept ?>" method="post" id="cart" name="cart" target="_top">-->
-<div align="right"><strong><font color="#FF0000" size="+3">創建範本
+<div align="middle"><strong><font color="#FF0000" size="+15">創建範本
         </font></strong></div>
-<div align="right"><strong><font color="#FF0000" size="+3">選擇星期
+<div align="left" style="padding-top: 15px;"><strong><font color="#FF0000" size="+3">選擇星期:
         </font></strong></div>
-
-<input type="hidden" name="weekstr" id="weekstr" value=""/>
 
 <?php
 
-$sql = "SELECT group_concat(sampledate) as sampledate FROM db_intranet.tbl_order_sample 
+switch ($action) {
+    //insert時,查找所有已經增加的星期,查詢結果不顯示
+    case 'insert':
+        $sql = "SELECT group_concat(sampledate) as sampledate FROM db_intranet.tbl_order_sample 
         where user_id = $order_user;";
 
-$result = mysqli_query($con, $sql);
-$sampledateResult = mysqli_fetch_array($result);
-//已新增的天數字符串
-$sampledate = $sampledateResult[0];
-        // var_dump($sql);
-$sampledateArr = array();
-if ($sampledate != null){
-    $sampledateArr =  explode(',', $sampledate);
-}
+        $result = mysqli_query($con, $sql);
+        $sampledateResult = mysqli_fetch_array($result);
+        //已新增的天數字符串
+        $sampledate = $sampledateResult[0];
+                // var_dump($sql);
+        $sampledateArr = array();
+        if ($sampledate != null){
+            $sampledateArr =  explode(',', $sampledate);
+        }
 
-// var_dump(count($sampledateArr));
+        // var_dump(count($sampledateArr));
 
-//星期日到星期六多選框
-foreach ($weekArr as $key => $value) {
+        //星期日到星期六多選框
+        foreach ($weekArr as $key => $value) {
 
-    if(in_array($key,$sampledateArr)){
-            continue;
-    }  
+            if(in_array($key,$sampledateArr)){
+                continue;
+            }  
+            
+            $check = '<label style="padding-right:15px;">';
+            $check .= '<input type="checkbox" name="week" value="' . $key . '" /><span class="checkbox">' . $value.'</span>';
+            $check .= '</label>';
 
-    if(count($sampledateArr) > 0){
-        
-    }
+            echo $check;
+            
+        }
+
+        echo '<input type="hidden" name="weekstr" id="weekstr" value=""/>';
+        break;
     
-    $check = '<label style="padding-right:15px;">';
-    $check .= '<input type="checkbox" name="week" value="' . $key . '" />' . $value;
-    $check .= '</label>';
+    //edit時,不顯示除該id外所有星期
+    case 'edit':
+        $sql = "SELECT group_concat(sampledate) as sampledate FROM tbl_order_sample 
+        where user_id = ".$order_user." and id <> ".$sampleid.";";
 
-    echo $check;
+        $result = mysqli_query($con, $sql);
+        $sampledateResult = mysqli_fetch_array($result);
+        //已新增的天數字符串
+        $sampledate = $sampledateResult[0];
+                // var_dump($sql);
+        $sampledateArr = array();
+        if ($sampledate != null){
+            $sampledateArr =  explode(',', $sampledate);
+        }
+
+        $sql = "SELECT sampledate as sampledate FROM tbl_order_sample 
+        where user_id = ".$order_user." and id = ".$sampleid.";";
+
+        $result = mysqli_query($con, $sql);
+        $currentdateResult = mysqli_fetch_array($result);
+        //當前範本的天數字符串
+        $currentdate = $currentdateResult[0];
+                // var_dump($sql);
+        $currentdateArr = array();
+        if ($currentdate != null){
+            $currentdateArr =  explode(',', $currentdate);
+        }
+
+        // var_dump($sampledateArr);
+        // var_dump($currentdateArr);
+
+        //星期日到星期六多選框
+        foreach ($weekArr as $key => $value) {
+
+            if(in_array($key,$sampledateArr)){
+                continue;
+            }  
+            
+            if(in_array($key,$currentdateArr)){
+                $check = '<label style="padding-right:15px;">';
+                $check .= '<input type="checkbox" name="week" value="' . $key . '" checked /><span class="checkbox">' . $value.'</span>';
+                $check .= '</label>';
+                echo $check;
+            }else{
+                $check = '<label style="padding-right:15px;">';
+                $check .= '<input type="checkbox" name="week" value="' . $key . '" /><span class="checkbox">' . $value.'</span>';
+                $check .= '</label>';
+                echo $check;
+            }
+                
+        }
+
+        echo '<input type="hidden" name="weekstr" id="weekstr" value="'.$currentdate.'"/>';
+        break;
+
 }
 
 ?>
@@ -88,7 +169,82 @@ foreach ($weekArr as $key => $value) {
     <tr>
         <td valign="top">
             <table width="100%" border="0" cellspacing="2" cellpadding="2">
- 
+
+<?php
+    if ($action == 'edit'){
+        $sql = "
+            SELECT 
+            
+            tbl_order_z_menu.int_id AS itemID,
+            tbl_order_sample_item.id AS sampleItemID,
+            tbl_order_z_menu.chr_name AS itemName,
+            tbl_order_z_menu.chr_no,
+            tbl_order_z_unit.chr_name AS UoM,
+            tbl_order_z_menu.chr_cuttime,
+            tbl_order_z_menu.int_phase,
+            LEFT(tbl_order_z_cat.chr_name, 2) AS suppName,
+            tbl_order_sample_item.qty,
+            tbl_order_z_menu.int_base,
+            tbl_order_z_menu.int_min
+            
+            FROM
+                tbl_order_sample_item
+                    INNER JOIN tbl_order_sample ON tbl_order_sample_item.sample_id = tbl_order_sample.id
+                    INNER JOIN tbl_order_z_menu ON tbl_order_sample_item.menu_id = tbl_order_z_menu.int_id
+                    INNER JOIN tbl_order_z_unit ON tbl_order_z_menu.int_unit = tbl_order_z_unit.int_id
+                    INNER JOIN tbl_order_z_group ON tbl_order_z_menu.int_group = tbl_order_z_group.int_id
+                    INNER JOIN tbl_order_z_cat ON tbl_order_z_group.int_cat = tbl_order_z_cat.int_id
+            WHERE
+                tbl_order_sample.user_id = $order_user
+                AND tbl_order_sample.id = $sampleid
+                AND tbl_order_sample_item.disabled = 0
+                    
+            ORDER BY tbl_order_z_menu.chr_no;";
+
+    // var_dump($sql);
+
+        $result = mysqli_query($con, $sql) or die($sql);
+            $count = 0;
+
+                while ($record = mysqli_fetch_assoc($result)) {
+                    if ($count & 1) {
+                        $bg = "#F0F0F0";
+                    } else {
+                        $bg = "#FFFFFF";
+                    }
+                    $count += 1;
+                    ?>
+                    <tr bgcolor="<?php echo $bg; ?>" class="cartold" id="<?= "$record[chr_no]"; ?>"
+                        data-itemid="<?= $record['itemID']; ?>"
+                        data-mysqlid="<?= $record['sampleItemID'];?>">
+                        <td width="10" align="right"><?= $count; ?>.</td>
+                        <td><font color="blue"
+                                  size=-1><?= $record['suppName']; ?> </font><?= "$record[itemName], $record[chr_no]"; ?>
+                        </td>
+                        <td align="center"></td>
+                        <td width="100" align="center">x
+                            <input class="qty" type="tel"
+                                   id="qty<?= "$record[chr_no]"; ?>"
+                                   name=""
+                                   type="text" value="<?= round($record['qty'], 2)?>"
+                                   data-base="<?= ($record['int_base']); ?>"
+                                   data-min="<?= ($record['int_min']); ?>"
+                                   size="3" maxlength="4"
+                                   autocomplete="off"
+                            >
+                        </td>
+                        <td align="center"><?= $record['UoM']; ?></td>
+                        <td align="center">
+                            <?php if ($haveoutdate == 0 || $_SESSION[type] == 3)
+                                echo "<a href=\"#\" class=\"del\"><font color=\"#FF6600\">X</font></a>";
+                            ?>
+
+                        </td>
+                    </tr>
+                <?php  
+                    }
+        }
+                ?>
               <tr class="blankline">
                     <td colspan="6">&nbsp;</td>
                 </tr>
@@ -98,7 +254,8 @@ foreach ($weekArr as $key => $value) {
                     $record = mysqli_fetch_assoc($result);
                     ?>
                     <!-- <td colspan="3" valign="middle">分店：<?= $record[txt_name] ?><br>柯打日期：<?= date('Y/n/j', $timestamp) ?><br>柯打合共：<?= $count; ?></td> -->
-                    <td colspan="6" align="center"><input id="btnsubmit" name="Input" type="image"
+                    <td colspan="6" align="center">
+                        <input id="btnsubmit" name="Input" type="image"
                                                           src="images/Finish.jpg" border="0" onClick="sss();"></td>
                 </tr>
             </table>
@@ -231,18 +388,22 @@ foreach ($weekArr as $key => $value) {
         console.log(JSON.stringify(updatearray));
         console.log(JSON.stringify(delarray));
 
+
         $.ajax({
             type: "POST",
-            url: "order_sample_insert.php",
+            url: "<?= $url ?>",
             data: {
+                'sampleid'  : "<?= $sampleid ?>",
                 'sampledate': weekstr,
                 'insertData': JSON.stringify(insertarray),
                 'updateData': JSON.stringify(updatearray),
                 'delData'   : JSON.stringify(delarray)
             },
             success: function (msg) {
-                // alert('已落貨!');
-                // window.location.reload();
+                alert('範本設置成功!');
+                // $(location).attr('href', 'order_sample.php');
+                // window.location.reload('order_sample.php');
+                top.location.href = 'order_sample.php';
                 console.log(msg);
             }
         });

@@ -29,14 +29,8 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
                 }
             }
             var shop = 0;
-            <?php if($_SESSION[type] == 3){ ?>
-            if ((shop = $("#shop").val()) == '0') {
-                alert("請先選擇分店");
-                return;
-            }
-            <?}?>
             if (bool) {
-                location.href = "order_z_dept.php?shop=" + shop + "&dept=" + Obj[i].value + "&advance=" + aa;
+                location.href = "order_sample_createandedit.php?action=edit&id="+aa;
                 //this.close();
             } else {
                 alert("請先選擇部門");
@@ -55,7 +49,8 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
         }
 
         .style4 {
-            color: #FF0000
+            color: #FF0000;
+            font-size:50px;
         }
 
         .style5 {
@@ -71,31 +66,47 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
 
 <?php
 
+$weekArr = [
+    '0' => '星期日',
+    '1' => '星期一',
+    '2' => '星期二',
+    '3' => '星期三',
+    '4' => '星期四',
+    '5' => '星期五',
+    '6' => '星期六',
+];
 
 ?>
-<div align="left"><a target="_top" href="order.php">返回</a></div>
+<div align="left"><a target="_top" href="order.php" style="font-size: larger;">返回</a></div>
 <center class="style5">
     <span class="style4">創建範本</span>
-    <input type="radio" name="dept" id="radio" value="R" checked>烘焙
+    <!-- <input type="radio" name="dept" id="radio" value="R" checked>烘焙
     <input type="radio" name="dept" id="radio" value="B">水吧
     <input type="radio" name="dept" id="radio" value="K">廚房
-    <input type="radio" name="dept" id="radio" value="F">樓面
+    <input type="radio" name="dept" id="radio" value="F">樓面 -->
 </center>
 <table width="100%" border="1" align="center" cellpadding="3" cellspacing="0">
-        <button><a href="order_sample_createandedit.php">新建範本</a></button>
+        <button><a href="order_sample_createandedit.php?action=insert">新建範本</a></button>
         <?php 
 
             $sql = "SELECT * FROM tbl_order_sample WHERE user_id = ".$order_user.";";
             $result = mysqli_query($con, $sql);
-            while ($record = mysqli_fetch_array($result)) { ?>
-                <tr>
-                    <td align="right"><strong></strong></td>
-                    <td align="left"><a
-                        href="javascript:opensupplier(<?= $count; ?>);"><strong><?=$record['sampledate'] ?></strong></a>
-                </td>
-        </tr>
-        <?php    }
+            while ($record = mysqli_fetch_array($result)) { 
+                $sampledate = $record['sampledate'];
+                foreach ($weekArr as $key => $value) {
+                    //將數字轉換為星期
+                    $sampledate = str_replace($key, $value, $sampledate);
+                }
 
+        ?>
+                <tr>
+                    <td align="right"><strong>#</strong></td>
+                    <td align="left"><a
+                        href="order_sample_createandedit.php?action=edit&id=<?=$record['id'] ?>"><strong><?= $sampledate ?></strong></a>
+                    </td>
+                </tr>
+        <?php    
+            }
         ?>
         
      

@@ -134,7 +134,7 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
                 // "        <img src="images/alert.gif" width="20" height="20">        \n" +
                 tr += "\t\t</td>\n" +
                     "        <td width=\"100\" align=\"center\">x \n" +
-                    "          <input class=\"qty\" type=\"tel\" id=\"qty" + id + "\" name=\"1136\" type=\"text\" value=" + min + " data-base=" + base + " data-min=" + min + " size=\"3\" maxlength=\"4\" autocomplete=\"off\"</td>\n" +
+                    "          <input class=\"qty\" type=\"tel\" id=\"qty" + id + "\" name=\"1136\" type=\"text\" value=" + min + " data-base=" + base + " data-min=" + min + " size=\"3\" maxlength=\"4\" autocomplete=\"off\"></td>\n" +
                     "        <td align=\"center\">" + uom + "</td>\n" +
                     "        <td align=\"center\">\n" +
                     "\t\t\t<a href=\"#\" class=\"delnew\"><font color=\"#FF6600\">X</font></a>\n" +

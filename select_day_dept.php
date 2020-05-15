@@ -145,7 +145,7 @@ function showWkday($date)
 }
 
 ?>
-<div align="left"><a target="_top" href="order.php">返回</a></div>
+<div align="left"><a target="_top" href="order.php" style="font-size: larger;">返回</a></div>
 <center class="style5">
     請選<span class="style4">送貨日</span>及<span class="style4">部門</span>
     <? if ($_SESSION[type] == 3) { ?>
