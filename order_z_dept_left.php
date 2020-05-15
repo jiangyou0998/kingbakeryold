@@ -551,8 +551,12 @@ switch ($action) {
             var qty = $("#qty" + id).val();
             // console.log($qty);
 
-            var item = {'itemid': itemid, 'qty': qty};
-            insertarray.push(item);
+            if(qty > 0){
+                var item = {'itemid': itemid, 'qty': qty};
+                insertarray.push(item);
+            }
+
+            
 
         });
 
@@ -570,8 +574,11 @@ switch ($action) {
             var qty = $("#qty" + id).val();
             // console.log($qty);
 
-            var item = {'mysqlid': mysqlID, 'qty': qty};
-            updatearray.push(item);
+            if(qty > 0){
+                var item = {'mysqlid': mysqlID, 'qty': qty};
+                updatearray.push(item);
+            }
+            
 
         });
 
