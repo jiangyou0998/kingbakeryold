@@ -165,7 +165,7 @@ foreach ($aryDisplayShop as $key => $value) {
 }
 
 //        var_dump($Page);
-echo $report[int_hide];
+//echo $report[int_hide];
 //die();
 //echo "<PRE>";
 //print_r($Page);
