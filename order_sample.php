@@ -89,7 +89,7 @@ $weekArr = [
         <button><a href="order_sample_createandedit.php?action=insert">新建範本</a></button>
         <?php 
 
-            $sql = "SELECT * FROM tbl_order_sample WHERE user_id = ".$order_user.";";
+            $sql = "SELECT * FROM tbl_order_sample WHERE user_id = ".$order_user." AND disabled = 0;";
             $result = mysqli_query($con, $sql);
             while ($record = mysqli_fetch_array($result)) { 
                 $sampledate = $record['sampledate'];
@@ -99,11 +99,12 @@ $weekArr = [
                 }
 
         ?>
-                <tr>
-                    <td align="right"><strong>#</strong></td>
+                <tr style="margin-top: 60px">
+                    <td align="right" width="4%"><strong>#</strong></td>
                     <td align="left"><a
                         href="order_sample_createandedit.php?action=edit&id=<?=$record['id'] ?>"><strong><?= $sampledate ?></strong></a>
                     </td>
+                    <td align="middle" width="10%"><strong><button onclick="delsample(<?=$record['id'] ?>);">刪除範本</button></strong></td>
                 </tr>
         <?php    
             }
@@ -113,5 +114,25 @@ $weekArr = [
   
 </table>
 <br>
+
+<script>
+    function delsample(id){
+        // alert(id);
+        $.ajax({
+            type: "POST",
+            url: "order_sample_delete.php",
+             data: {
+                'id'  : id
+            },
+            success: function (msg) {
+                // console.log(msg);
+                alert('範本刪除成功!');
+                window.location.reload('order_sample.php');
+                // top.location.href = 'order_sample.php';
+            }
+        });
+    }
+</script>
+
 </body>
 </html>

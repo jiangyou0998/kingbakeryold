@@ -18,7 +18,7 @@ $insertDatas = json_decode($json, true);
 
 //有插入數據時才執行
 if ($insertDatas) {
-    $usersql = "SELECT chr_pocode FROM db_intranet.tbl_user WHERE int_id = '$order_user';";
+    $usersql = "SELECT chr_pocode FROM tbl_user WHERE int_id = '$order_user';";
 //  die($sql);
     $u_result = mysqli_query($con, $usersql) or die($usersql);
     $user = mysqli_fetch_assoc($u_result);

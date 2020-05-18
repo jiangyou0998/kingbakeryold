@@ -382,7 +382,7 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4" align="center" style="font-size:16px;">
-                                                            <span style="<?= $styleFont ?>"><?= $record['itemName']; ?></span>
+                                                            <span style="<?= $styleFont ?>"><?= $record['itemName']; ?>(<?= $record['int_min']; ?>)</span>
                                                         </td>
                                                     </tr>
                                                     <tr>

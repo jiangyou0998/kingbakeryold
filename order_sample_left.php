@@ -74,8 +74,8 @@ $weekArr = [
 switch ($action) {
     //insert時,查找所有已經增加的星期,查詢結果不顯示
     case 'insert':
-        $sql = "SELECT group_concat(sampledate) as sampledate FROM db_intranet.tbl_order_sample 
-        where user_id = $order_user;";
+        $sql = "SELECT group_concat(sampledate) as sampledate FROM tbl_order_sample 
+        where user_id = $order_user AND disabled = 0;";
 
         $result = mysqli_query($con, $sql);
         $sampledateResult = mysqli_fetch_array($result);
@@ -110,7 +110,7 @@ switch ($action) {
     //edit時,不顯示除該id外所有星期
     case 'edit':
         $sql = "SELECT group_concat(sampledate) as sampledate FROM tbl_order_sample 
-        where user_id = ".$order_user." and id <> ".$sampleid.";";
+        where user_id = ".$order_user." and id <> ".$sampleid." AND disabled = 0;";
 
         $result = mysqli_query($con, $sql);
         $sampledateResult = mysqli_fetch_array($result);
@@ -123,7 +123,7 @@ switch ($action) {
         }
 
         $sql = "SELECT sampledate as sampledate FROM tbl_order_sample 
-        where user_id = ".$order_user." and id = ".$sampleid.";";
+        where user_id = ".$order_user." and id = ".$sampleid." AND disabled = 0;";
 
         $result = mysqli_query($con, $sql);
         $currentdateResult = mysqli_fetch_array($result);
