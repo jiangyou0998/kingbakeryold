@@ -88,7 +88,7 @@ switch ($action) {
         }
 
         // var_dump(count($sampledateArr));
-
+        $linecount = 1;
         //星期日到星期六多選框
         foreach ($weekArr as $key => $value) {
 
@@ -98,7 +98,13 @@ switch ($action) {
             
             $check = '<label style="padding-right:15px;">';
             $check .= '<input type="checkbox" name="week" value="' . $key . '" /><span class="checkbox">' . $value.'</span>';
-            $check .= '</label>';
+            $check .= '</label>';  
+
+            $linecount++;
+            if ($linecount >= 4) {
+                $check .= '<br>';
+                $linecount = 1;
+            } 
 
             echo $check;
             
@@ -138,6 +144,7 @@ switch ($action) {
         // var_dump($sampledateArr);
         // var_dump($currentdateArr);
 
+        $linecount = 1;
         //星期日到星期六多選框
         foreach ($weekArr as $key => $value) {
 
@@ -149,13 +156,20 @@ switch ($action) {
                 $check = '<label style="padding-right:15px;">';
                 $check .= '<input type="checkbox" name="week" value="' . $key . '" checked /><span class="checkbox">' . $value.'</span>';
                 $check .= '</label>';
-                echo $check;
+
             }else{
                 $check = '<label style="padding-right:15px;">';
                 $check .= '<input type="checkbox" name="week" value="' . $key . '" /><span class="checkbox">' . $value.'</span>';
                 $check .= '</label>';
-                echo $check;
+                
             }
+
+            $linecount++;
+            if ($linecount >= 4) {
+                $check .= '<br>';
+                $linecount = 1;
+            } 
+            echo $check;
                 
         }
 

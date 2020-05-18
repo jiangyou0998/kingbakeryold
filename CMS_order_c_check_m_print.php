@@ -74,7 +74,7 @@ $code .= "'";
 //prepare shop
 $aryAllShop = Array();
 //查詢所有分店
-$sql = "SELECT int_id, chr_ename, txt_name FROM tbl_user WHERE int_dept = 2 ORDER BY int_sort ";
+$sql = "SELECT int_id, chr_ename, txt_name FROM tbl_user WHERE chr_type = 2 ORDER BY int_sort ";
 $result = mysqli_query($con, $sql) or die ($sql);
 //意義不明?chr_ename並不是數字,跟100比較不知道是什麼意思
 while ($record = mysqli_fetch_assoc($result)) {
@@ -148,8 +148,8 @@ foreach ($aryInfo as $value) {
     }
 }
 
-//	var_dump($product);
-//	var_dump($aryDisplayShop);
+	// var_dump($product);
+	// var_dump($aryDisplayShop);
 
 $Page = Array();
 $pageID = 1;
@@ -260,9 +260,15 @@ while ($pageCount <= count($Page)) { ?>
             <?php
             $count = 1;
             // var_dump($aryMenu);
+            // var_dump($report);
             foreach ($aryMenu as $key => $value) {
                 if (strpos($key, "-") === false) {
-                    $bg = ($count % 2 == 0) ? "#EEEEEE" : "#FFFFFF" ?>
+                    //隱藏總數為0的項目,1為隱藏,0為不隱藏
+                    if ($total[$aryMenu[$key][chr_no]] + 0 == 0 && $report[int_hide] == 1) {
+                        continue;
+                    }
+                    $bg = ($count % 2 == 0) ? "#EEEEEE" : "#FFFFFF";
+                    ?>
                     <tr bgcolor="<?= $bg ?>">
                         <td class="data style3" align="center"><?= $count ?></td>
                         <td class="data style3" align="center"><?= $aryMenu[$key][chr_no] ?></td>

@@ -18,7 +18,7 @@ $json = $_POST['insertData'];
 $insertDatas = json_decode($json, true);
 
 // var_dump($_POST['insertData']);die();
-if($sampleid && $sampledate){
+if($sampleid && ($sampledate !== "")){
 
     $sql = "UPDATE tbl_order_sample SET sampledate = '$sampledate' WHERE id = $sampleid";
 
