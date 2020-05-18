@@ -62,7 +62,7 @@ $weekArr = [
     -->
 </style>
 <body>
-<div align="left"><a target="_top" href="order_sample.php" style="font-size: larger;">返回</a></div>
+<div align="left"><a target="_top" href="order_sample.php" style="font-size: xx-large;">返回</a></div>
 <!-- <form action="order_z_dept_2.php?action=confirm&dept=<?= $dept ?>" method="post" id="cart" name="cart" target="_top">-->
 <div align="middle"><strong><font color="#FF0000" size="+15">創建範本
         </font></strong></div>

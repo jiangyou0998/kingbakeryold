@@ -18,6 +18,7 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
     <META name="ROBOTS" content="NOINDEX,NOFOLLOW">
     <title>內聯網</title>
     <script src="js/jquery-1.11.0.min.js"></script>
+
     <script>
         function opensupplier(aa) {
             var Obj = document.getElementsByName("dept");
@@ -44,10 +45,6 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
             background-color: #FFFFCC;
         }
 
-        .style3 {
-            font-size: 250%;
-        }
-
         .style4 {
             color: #FF0000;
             font-size:50px;
@@ -56,6 +53,10 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
         .style5 {
             font-size: medium;
             font-weight: bold;
+        }
+
+        .sizefont {
+             font-size: 130%;
         }
 
         -->
@@ -77,7 +78,7 @@ $weekArr = [
 ];
 
 ?>
-<div align="left"><a target="_top" href="order.php" style="font-size: larger;">返回</a></div>
+<div align="left"><a target="_top" href="order.php" style="font-size: xx-large;">返回</a></div>
 <center class="style5">
     <span class="style4">創建範本</span>
     <!-- <input type="radio" name="dept" id="radio" value="R" checked>烘焙
@@ -86,7 +87,7 @@ $weekArr = [
     <input type="radio" name="dept" id="radio" value="F">樓面 -->
 </center>
 <table width="100%" border="1" align="center" cellpadding="3" cellspacing="0">
-        <button><a href="order_sample_createandedit.php?action=insert">新建範本</a></button>
+        <div style="margin-bottom: 10px;"><button class="sizefont"><a href="order_sample_createandedit.php?action=insert">新建範本</a></button></div>
         <?php 
 
             $sql = "SELECT * FROM tbl_order_sample WHERE user_id = ".$order_user." AND disabled = 0;";
@@ -99,7 +100,7 @@ $weekArr = [
                 }
 
         ?>
-                <tr style="margin-top: 60px">
+                <tr style="margin-top: 60px" class="sizefont">
                     <td align="right" width="4%"><strong>#</strong></td>
                     <td align="left"><a
                         href="order_sample_createandedit.php?action=edit&id=<?=$record['id'] ?>"><strong><?= $sampledate ?></strong></a>

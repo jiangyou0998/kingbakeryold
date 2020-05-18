@@ -261,7 +261,7 @@ switch ($action) {
     -->
 </style>
 <body>
-<div align="left"><a target="_top" href="select_day_dept.php?advDays=14" style="font-size: larger;">返回</a></div>
+<div align="left"><a target="_top" href="select_day_dept.php?advDays=14" style="font-size: xx-large;">返回</a></div>
 <!-- <form action="order_z_dept_2.php?action=confirm&dept=<?= $dept ?>" method="post" id="cart" name="cart" target="_top">-->
 <div align="right"><strong><font color="#FF0000" size="+3">分店：
             <?php

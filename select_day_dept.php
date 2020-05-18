@@ -55,12 +55,16 @@ $advDays = $_REQUEST[advDays];
         }
 
         .style4 {
-            color: #FF0000
+            color: #FF0000;
         }
 
         .style5 {
-            font-size: medium;
+            font-size: 150%;
             font-weight: bold;
+        }
+
+        .daylist {
+            font-size: 160%;
         }
 
         -->
@@ -145,7 +149,7 @@ function showWkday($date)
 }
 
 ?>
-<div align="left"><a target="_top" href="order.php" style="font-size: larger;">返回</a></div>
+<div align="left"><a target="_top" href="order.php" style="font-size: xx-large;">返回</a></div>
 <center class="style5">
     請選<span class="style4">送貨日</span>及<span class="style4">部門</span>
     <? if ($_SESSION[type] == 3) { ?>
@@ -177,9 +181,9 @@ function showWkday($date)
     for ($count = 0; $count < $advDays; $count++) {
         $selDate = $timestamp + 86400 * ($count + 1);
         ?>
-        <tr <?php echo(isSunday($selDate) ? "style=\"background-color:Red\"" : ""); ?>>
-            <td align="right"><strong><?= showDayStr($count, $selDate); ?></strong></td>
-            <td align="left"><a
+        <tr class="daylist" <?php echo(isSunday($selDate) ? "style=\"background-color:Red\"" : ""); ?>>
+            <td align="right" width="48%"><strong><?= showDayStr($count, $selDate); ?></strong></td>
+            <td align="left" width="52%"><a
                         href="javascript:opensupplier(<?= $count; ?>);"><strong><?= showWkday($selDate); ?></strong></a>
             </td>
         </tr>
