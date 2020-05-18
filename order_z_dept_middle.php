@@ -53,31 +53,31 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
         <?php
         require($DOCUMENT_ROOT . "connect.inc");
 
-        $sql = "
-		SELECT T0.int_id, T0.chr_name
-		FROM tbl_order_z_group T0
-			LEFT JOIN tbl_order_z_group_v_shop T1 ON T1.int_group_id = T0.int_id
-			LEFT JOIN (
-				SELECT int_group, COUNT(*) as item_count 
-				FROM tbl_order_z_menu MT0
-					LEFT JOIN tbl_order_z_menu_v_shop MT1 ON MT1.int_menu_id = MT0.int_id
-				WHERE (MT0.int_phase-1 <= '$_SESSION[advance]' 
-                AND DATE_FORMAT(NOW(),\"%H%i\") < MT0.chr_cuttime)
-                OR (MT0.int_phase <= '$_SESSION[advance]' 
-                AND DATE_FORMAT(NOW(),\"%H%i\") > MT0.chr_cuttime)
-				    AND MT0.status IN (1) 
-				    AND MT0.int_phase > 0 
-					AND MT1.int_user_id = '$order_user'
-				GROUP BY int_group
-			) T2 ON T0.int_id = T2.int_group
-		WHERE T0.status <> 4
-			AND T0.int_cat = '$_REQUEST[catid]'
-			AND T1.int_user_id = '$order_user'
-			AND T2.item_count > 0 AND T2.item_count IS NOT NULL
-		GROUP BY T0.int_id
-		ORDER BY T0.int_sort;";
-        //die($sql);
-        if ($_SESSION[type] == 3) {
+  //       $sql = "
+		// SELECT T0.int_id, T0.chr_name
+		// FROM tbl_order_z_group T0
+		// 	LEFT JOIN tbl_order_z_group_v_shop T1 ON T1.int_group_id = T0.int_id
+		// 	LEFT JOIN (
+		// 		SELECT int_group, COUNT(*) as item_count 
+		// 		FROM tbl_order_z_menu MT0
+		// 			LEFT JOIN tbl_order_z_menu_v_shop MT1 ON MT1.int_menu_id = MT0.int_id
+		// 		WHERE (MT0.int_phase-1 <= '$_SESSION[advance]' 
+  //               AND DATE_FORMAT(NOW(),\"%H%i\") < MT0.chr_cuttime)
+  //               OR (MT0.int_phase <= '$_SESSION[advance]' 
+  //               AND DATE_FORMAT(NOW(),\"%H%i\") > MT0.chr_cuttime)
+		// 		    AND MT0.status IN (1) 
+		// 		    AND MT0.int_phase > 0 
+		// 			AND MT1.int_user_id = '$order_user'
+		// 		GROUP BY int_group
+		// 	) T2 ON T0.int_id = T2.int_group
+		// WHERE T0.status <> 4
+		// 	AND T0.int_cat = '$_REQUEST[catid]'
+		// 	AND T1.int_user_id = '$order_user'
+		// 	AND T2.item_count > 0 AND T2.item_count IS NOT NULL
+		// GROUP BY T0.int_id
+		// ORDER BY T0.int_sort;";
+  //       //die($sql);
+  //       if ($_SESSION[type] == 3) {
             $sql = "
 		SELECT T0.int_id, T0.chr_name
 		FROM tbl_order_z_group T0
@@ -92,7 +92,7 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
 			AND T2.item_count > 0 AND T2.item_count IS NOT NULL
 		GROUP BY T0.int_id
 		ORDER BY T0.int_sort;";
-        }
+        // }
         //die($sql);
         $result = mysqli_query($con, $sql) or die($sql);
         $count = 1;

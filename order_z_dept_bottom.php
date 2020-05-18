@@ -217,44 +217,44 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
                 <tr>
                     <?php
                     //分店查看,已截單內容不顯示
-                    $sql = "
-  SELECT 
-    T0.int_id AS itemID,
-    T0.chr_name AS itemName,
-    T0.chr_no,
-    T1.chr_name AS UoM,
-    T0.status,
-    T0.txt_detail_1,
-    T0.txt_detail_2,
-    T0.txt_detail_3,
-    T0.chr_image,
-	T0.int_phase,
-	T0.chr_cuttime,
-	T0.int_base,
-	T0.int_min,
-	T0.chr_canordertime,
-	LEFT(tbl_order_z_cat.chr_name, 2) AS suppName
-  FROM
-    tbl_order_z_menu T0
-        INNER JOIN tbl_order_z_unit T1 ON T1.int_id = T0.int_unit
-        LEFT JOIN tbl_order_z_menu_v_shop T2 ON T2.int_menu_id = T0.int_id
-        INNER JOIN tbl_order_z_group ON T0.int_group = tbl_order_z_group.int_id
-		INNER JOIN tbl_order_z_cat ON tbl_order_z_group.int_cat = tbl_order_z_cat.int_id
+ //                    $sql = "
+ //  SELECT 
+ //    T0.int_id AS itemID,
+ //    T0.chr_name AS itemName,
+ //    T0.chr_no,
+ //    T1.chr_name AS UoM,
+ //    T0.status,
+ //    T0.txt_detail_1,
+ //    T0.txt_detail_2,
+ //    T0.txt_detail_3,
+ //    T0.chr_image,
+	// T0.int_phase,
+	// T0.chr_cuttime,
+	// T0.int_base,
+	// T0.int_min,
+	// T0.chr_canordertime,
+	// LEFT(tbl_order_z_cat.chr_name, 2) AS suppName
+ //  FROM
+ //    tbl_order_z_menu T0
+ //        INNER JOIN tbl_order_z_unit T1 ON T1.int_id = T0.int_unit
+ //        LEFT JOIN tbl_order_z_menu_v_shop T2 ON T2.int_menu_id = T0.int_id
+ //        INNER JOIN tbl_order_z_group ON T0.int_group = tbl_order_z_group.int_id
+	// 	INNER JOIN tbl_order_z_cat ON tbl_order_z_group.int_cat = tbl_order_z_cat.int_id
              
-  WHERE
-    T0.int_group = '$_REQUEST[groupid]'
-        AND T0.status NOT IN(2, 4)
-		AND T2.int_user_id  = '$order_user'
-  GROUP BY T0.int_id
-  ORDER BY T0.int_sort, T0.int_id";
+ //  WHERE
+ //    T0.int_group = '$_REQUEST[groupid]'
+ //        AND T0.status NOT IN(2, 4)
+	// 	AND T2.int_user_id  = '$order_user'
+ //  GROUP BY T0.int_id
+ //  ORDER BY T0.int_sort, T0.int_id";
 
-                    //  AND (
-                    //		    (T0.int_phase-1 <= '$_SESSION[advance]' AND DATE_FORMAT(NOW(),\"%H%i\") < T0.chr_cuttime)
-                    //		    OR (T0.int_phase <= '$_SESSION[advance]' AND DATE_FORMAT(NOW(),\"%H%i\") > T0.chr_cuttime)
-                    //		    )
-                    //  die($sql);
-                    //用戶等級是管理員
-                    if ($_SESSION[type] == 3) {
+ //                    //  AND (
+ //                    //		    (T0.int_phase-1 <= '$_SESSION[advance]' AND DATE_FORMAT(NOW(),\"%H%i\") < T0.chr_cuttime)
+ //                    //		    OR (T0.int_phase <= '$_SESSION[advance]' AND DATE_FORMAT(NOW(),\"%H%i\") > T0.chr_cuttime)
+ //                    //		    )
+ //                    //  die($sql);
+ //                    //用戶等級是管理員
+ //                    if ($_SESSION[type] == 3) {
                         $sql = "
 	  SELECT 
 		T0.int_id AS itemID,
@@ -283,7 +283,7 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
 			AND T0.status NOT IN(2, 4)
 	  GROUP BY T0.int_id
 	  ORDER BY T0.int_sort, T0.int_id";
-                    }
+                    // }
 
                     //die($sql);
                     $result = mysqli_query($con, $sql) or die();
@@ -360,15 +360,15 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
 
 //    var_dump($record['itemName']);
 
-                        if ($overTime == true && $_SESSION[type] != 3) continue;
+                        // if ($overTime == true && $_SESSION[type] != 3) continue;
                         ?>
 
                         <td width="150" height="60" align="center" style="<?= $styleTD ?>">
                             <table width="150px" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td colspan="2" align="center" style="font-size:16px;">
-                                        <?php IF ($record['status'] <> 2 && $overTime == true && $_SESSION[type] == 3) { ?>
-                                        <a id="itm-<?= $record['itemID'] ?>" href="#" style="<?= $styleFont ?>">
+                                        <?php IF ($record['status'] <> 2 && $overTime == true && $_SESSION[type] != 3) { ?>
+                                        <a id="itm-<?= $record['itemID'] ?>" href="javascript:alert('該商品已截單,請聯繫管理員下單!!!');" style="<?= $styleFont ?>">
                                             <?php }else { ?>
                                             <a style="<?= $styleFont ?>">
                                                 <?php } ?>
@@ -386,6 +386,7 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
                                                         </td>
                                                     </tr>
                                                     <tr>
+                                                        <?php if(($overTime == false) or ($_SESSION[type] == 3)) { ?>
                                                         <td style="height:20px; width:50%; font-size:24px; text-align:center"
                                                             colspan="2">
                                                             <!-- <a id="itm-<?= $record['itemID'] ?>" target="leftFrame" href="order_z_dept_left.php?action=add&productid=<?= $record['itemID']; ?>">-->
@@ -397,6 +398,7 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
                                                                 </button>
                                                             </a>
                                                         </td>
+
                                                         <td style="height:20px; width:50%; text-align:center"
                                                             colspan="2">
                                                             <a id="itm-<?= $record['itemID'] ?>" href="#"
@@ -408,6 +410,7 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
                                                                 </button>
                                                             </a>
                                                         </td>
+                                                         <?php } ?>
                                                     </tr>
                                                 </table>
                                             </a>
