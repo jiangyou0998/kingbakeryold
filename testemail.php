@@ -17,7 +17,7 @@ try {
     $mail->Host = 'smtp.office365.com';                // SMTP服务器
     $mail->SMTPAuth = true;                      // 允许 SMTP 认证
     $mail->Username = 'fs378354476@outlook.com';                // SMTP 用户名  即邮箱的用户名
-    $mail->Password = 'jian3344';             // SMTP 密码  部分邮箱是授权码(例如163邮箱)
+    $mail->Password = '';             // SMTP 密码  部分邮箱是授权码(例如163邮箱)
     $mail->SMTPSecure = 'STARTTLS';                    // 允许 TLS 或者ssl协议
     $mail->Port = 587;                            // 服务器端口 25 或者465 具体要看邮箱服务器支持
 //

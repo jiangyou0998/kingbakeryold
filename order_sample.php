@@ -18,7 +18,6 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
     <META name="ROBOTS" content="NOINDEX,NOFOLLOW">
     <title>內聯網</title>
     <script src="js/jquery-1.11.0.min.js"></script>
-
     <script>
         function opensupplier(aa) {
             var Obj = document.getElementsByName("dept");

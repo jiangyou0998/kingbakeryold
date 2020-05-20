@@ -10,9 +10,9 @@
     <title></title>
 </head>
 <frameset rows="18%,*" noresize="noresize" frameborder="0" framespacing="0">
-    <frame src="order_z_dept_middle.php" name="middleFrame" noresize="noresize" id="middleFrame" title="middleFrame"
+    <frame src="order_sample_group.php" name="middleFrame" noresize="noresize" id="middleFrame" title="middleFrame"
            frameborder="0"/>
-    <frame src="order_z_dept_bottom.php" name="mainFrame" id="mainFrame" title="mainFrame" frameborder="0"/>
+    <frame src="order_sample_menu.php" name="mainFrame" id="mainFrame" title="mainFrame" frameborder="0"/>
 </frameset>
 <noframes></noframes>
 </html>

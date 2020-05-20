@@ -111,7 +111,7 @@ if ($report[int_all_shop] != 1) {
 $addOrder = $_GET[addOrder];
 $aryInfo = Array();
 $sql = "SELECT tbl_user.int_id as shop_id, a.int_user, a.int_qty, tbl_user.txt_name, tbl_user.chr_report_name, tbl_user.chr_ename, a.chr_no FROM ";
-$sql .= "(SELECT o.int_user, o.int_qty, i.chr_no FROM tbl_order_z_dept o LEFT JOIN tbl_order_z_menu i ";
+$sql .= "(SELECT o.int_user, sum(o.int_qty) as int_qty, i.chr_no FROM tbl_order_z_dept o LEFT JOIN tbl_order_z_menu i ";
 $sql .= "ON o.int_product = i.int_id WHERE i.chr_no in ($code) AND DATE(DATE_ADD(o.order_date, INTERVAL 1+o.chr_phase DAY)) = '$deli_date' ";
 $sql .= "AND (o.status IN (0,1,5,98,99,3))";
 

@@ -158,7 +158,7 @@ if($_SESSION[user_id] == 147
 </table>
 
 <br/>
-<iframe src="order_z_dept_left_bottom.php" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+<iframe src="order_sample_left_bottom.php" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
         style="visibility:inherit; width:100%;z-index:1;height:88%;">
 </iframe>
 

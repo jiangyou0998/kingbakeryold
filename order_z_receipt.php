@@ -147,7 +147,7 @@ $result = mysqli_query($con, $sql) or die($sql);
 					<td align='right'>總件數=</td>
 					<td align='right' colspan='3' style='border-right:0px'>$qtyTotal</td>
 					
-					<td align='right' colspan='3'>$deptName 金額=</td>
+					<td align='right' colspan='2'>$deptName 金額=</td>
 					<td align='right'>$$priceTotal</td>
 				</tr>";
             echo $tableHeaderHtml;

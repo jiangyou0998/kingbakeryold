@@ -202,11 +202,11 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
                 <td align="left">&nbsp;
 
                 </td>
-                <td width="50" align="center" bgcolor="#FFFF00" style="color:black;">現貨</td>
+                <!-- <td width="50" align="center" bgcolor="#FFFF00" style="color:black;">現貨</td> -->
                 <!-- <td width="50" align="center" bgcolor="#D7710D">新貨</td>
                 <td width="50" align="center" bgcolor="#008081">季節貨</td>
                 -->
-                <td width="50" align="center" bgcolor="#7D0101">已截單</td>
+                <!-- <td width="50" align="center" bgcolor="#7D0101">已截單</td> -->
                 <!--<td width="50" align="center" bgcolor="#666666">暫停</td>-->
             </tr>
         </table>
@@ -301,10 +301,10 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
 //	echo $record['status'];
 
                         //$overTime == true 改變樣式
-                        if ($overTime == true) {
-                            $styleTD = "background-color:#7D0101; color:white; ";
-                            $styleFont = "color: white;";
-                        }
+                        // if ($overTime == true) {
+                        //     $styleTD = "background-color:#7D0101; color:white; ";
+                        //     $styleFont = "color: white;";
+                        // }
 
 
 //    var_dump($record['itemName']);
