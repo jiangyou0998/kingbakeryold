@@ -167,6 +167,13 @@ switch ($_REQUEST[action]) {
                         <input name="fax" type="text" id="name" value="<?php echo $record[chr_ename]; ?>" size="50">
                     </td>
                 </tr>
+
+                <tr class="tr-shop" <?php if ($record[chr_type] == 2) echo "style='display:table-row;'"; ?>>
+                    <td bgcolor="#EEEEEE">PO編號　　
+                        <input name="pocode" type="text" id="name" value="<?php echo $user[chr_pocode]; ?>" size="50">
+                    </td>
+                </tr>
+
                 <tr class="tr-shop" <?php if ($record[chr_type] == 2) echo "style='display:table-row;'"; ?>>
                     <td bgcolor="#EEEEEE">中文地址　
                         <input name="addr1" type="text" id="name" value="<?php echo $record[chr_ename]; ?>" size="50">
@@ -360,7 +367,7 @@ switch ($_REQUEST[action]) {
         break;
     case "add":
         if ($_REQUEST['type'] == 2) {
-            $sql = "INSERT INTO tbl_district (chr_name, int_area, chr_code, chr_tel, chr_fax, chr_address, chr_eng_address, chr_oper_time , chr_pocode) VALUE ('$_REQUEST[name]', '$_REQUEST[area]', '$_REQUEST[code]', '$_REQUEST[tel]', '$_REQUEST[fax]', '$_REQUEST[addr1]', '$_REQUEST[addr2]', '$_REQUEST[oper_time]', '$_REQUEST[pocode]')";
+            $sql = "INSERT INTO tbl_district (chr_name, int_area, chr_code, chr_tel, chr_fax, chr_address, chr_eng_address, chr_oper_time ) VALUE ('$_REQUEST[name]', '$_REQUEST[area]', '$_REQUEST[code]', '$_REQUEST[tel]', '$_REQUEST[fax]', '$_REQUEST[addr1]', '$_REQUEST[addr2]', '$_REQUEST[oper_time]')";
             mysqli_query($con, $sql) or die($sql);
         }
         if ($_REQUEST['type'] == 2) {
@@ -372,8 +379,8 @@ switch ($_REQUEST[action]) {
             $code = "NULL";
             $district = "NULL";
         }
-        $sql = "INSERT INTO tbl_user(chr_type, txt_name, txt_login, chr_email, int_dept, chr_ename, txt_password, int_district) ";
-        $sql .= "VALUE('$_REQUEST[type]','$_REQUEST[name]', '$_REQUEST[login]', '$_REQUEST[email]', '$dept', '$code', '123456', $district);";
+        $sql = "INSERT INTO tbl_user(chr_type, txt_name, txt_login, chr_email, int_dept, chr_ename, txt_password, int_district , chr_pocode) ";
+        $sql .= "VALUE('$_REQUEST[type]','$_REQUEST[name]', '$_REQUEST[login]', '$_REQUEST[email]', '$dept', '$code', '123456', $district , '$_REQUEST[pocode]');";
         mysqli_query($con, $sql) or die($sql);
 
         if ($_REQUEST['type'] == 2) {

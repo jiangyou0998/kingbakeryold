@@ -8,10 +8,15 @@ if (!($_SESSION[authenticated])) {
 require("connect.inc");
 $timestamp = gettimeofday("sec");
 
-$maxQTY = 300;
+$maxQTY = 600;
 $action = $_REQUEST[action];
 $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id];
 $dateofweek = date('w', $timestamp + 86400 * ($_SESSION['advance'] + 1));
+
+$sql_select = "SELECT txt_name FROM tbl_user WHERE int_id = " . $order_user;
+$result_select = mysqli_query($con, $sql_select);
+$record_select = mysqli_fetch_array($result_select);
+$shopname = $record_select[0];
 
 switch ($_SESSION['OrderDept']) {
     case "R":
@@ -258,22 +263,44 @@ switch ($action) {
     }
 
     }
+
+    #topDiv {
+        position:absolute;
+        bottom:0px;
+        right:16px;
+        width:100%;
+        height:20px;
+    }
+
+    #cart{
+        font-size: 24px;
+
+    }
+
     -->
 </style>
 <body>
-<div align="left"><a target="_top" href="select_day_dept.php?advDays=14" style="font-size: xx-large;">返回</a></div>
-<!-- <form action="order_z_dept_2.php?action=confirm&dept=<?= $dept ?>" method="post" id="cart" name="cart" target="_top">-->
-<div align="right"><strong><font color="#FF0000" size="+3">分店：
-            <?php
-            $sql_select = "SELECT txt_name FROM tbl_user WHERE int_id = " . $order_user;
-            $result_select = mysqli_query($con, $sql_select);
-            $record_select = mysqli_fetch_array($result_select);
-            echo $record_select[0];
-            ?>
-        </font></strong></div>
-<div align="right"><strong><font color="#FF0000" size="+3">部門：<?= $dept ?>
-            <br>送貨日期：<?= date('n月d日 (', $timestamp + 86400 * ($_SESSION['advance'] + 1)) . $week . ")"; ?>
-        </font></strong></div>
+
+<div class="topDiv">
+    <div align="left">
+        <a target="_top" href="select_day_dept.php?advDays=14" style="font-size: xx-large;">返回</a>
+    </div>
+    <!-- <form action="order_z_dept_2.php?action=confirm&dept=<?= $dept ?>" method="post" id="cart" name="cart" target="_top">-->
+    <div align="right">
+        <strong>
+            <font color="#FF0000" size="+3">分店：<?= $shopname ?>
+            </font>
+        </strong>
+    </div>
+    <div align="right">
+        <strong>
+            <font color="#FF0000" size="+3">部門：<?= $dept ?>
+                <br>送貨日期：<?= date('n月d日 (', $timestamp + 86400 * ($_SESSION['advance'] + 1)) . $week . ")"; ?>
+            </font>
+        </strong>
+    </div>
+</div>
+
 <table width="100%" height="89%" border="1" cellpadding="10" cellspacing="2" id="shoppingcart">
     <tr>
         <td valign="top">
@@ -475,8 +502,24 @@ switch ($action) {
                     $record = mysqli_fetch_assoc($result);
                     ?>
                     <!-- <td colspan="3" valign="middle">分店：<?= $record[txt_name] ?><br>柯打日期：<?= date('Y/n/j', $timestamp) ?><br>柯打合共：<?= $count; ?></td> -->
-                    <td colspan="6" align="center"><input id="btnsubmit" name="Input" type="image"
-                                                          src="images/Finish.jpg" border="0" onClick="sss();"></td>
+                    <td colspan="6" align="center">
+                        <input id="btnsubmit" name="Input" type="image"
+                            src="images/Confirm.jpg" border="0" onClick="sss();">
+                        <input type="image"
+                            src="images/Return.jpg" border="0" onclick="top.location.href='select_day_dept.php?advDays=14'">
+                        <div align="right">
+                            <strong>
+                                <font color="#FF0000" size="-2">分店：<?= $shopname ?></font>
+                            </strong>
+                        </div>
+
+                        <div align="right">
+                            <strong><font color="#FF0000" size="-2">部門：<?= $dept ?>
+                                <br>送貨日期：<?= date('n月d日 (', $timestamp + 86400 * ($_SESSION['advance'] + 1)) . $week . ")"; ?></font>
+                            </strong>
+                        </div>
+                    </td>
+
                 </tr>
             </table>
         </td>

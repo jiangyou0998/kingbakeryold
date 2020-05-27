@@ -162,10 +162,10 @@ if ($_SESSION[authenticated]) {
         <br/>
         <br/>
         <div>
-            <a href="https://192.168.0.40/photo/?t=Albums/album_4b696e672042616b657279/video_4b696e672042616b657279_e6a99fe5a0b4e9a3b2e9a39fe694bbe795a52e6d7034#Albums/album_4b696e672042616b657279/video_4b696e672042616b657279_e6a99fe5a0b4e9a3b2e9a39fe694bbe795a52e6d7034">J2
+            <a href="http://192.168.0.40/photo/?t=Albums/album_4b696e672042616b657279/video_4b696e672042616b657279_e6a99fe5a0b4e9a3b2e9a39fe694bbe795a52e6d7034#Albums/album_4b696e672042616b657279/video_4b696e672042616b657279_e6a99fe5a0b4e9a3b2e9a39fe694bbe795a52e6d7034">J2
                 - 機場飲食攻略</a></div>
         <iframe width="300" height="240"
-                src="https://192.168.0.40/photo/webapi/embed.php?id=video_4b696e672042616b657279_e6a99fe5a0b4e9a3b2e9a39fe694bbe795a52e6d7034&quality=orig_h264"
+                src="http://192.168.0.40/photo/webapi/embed.php?id=video_4b696e672042616b657279_e6a99fe5a0b4e9a3b2e9a39fe694bbe795a52e6d7034&quality=orig_h264"
                 frameborder="0" allowfullscreen></iframe>
         <div>
             <a href="http://192.168.0.40/photo/?t=Albums/album_4b696e672042616b657279/album_4b696e672042616b6572792f32303230e89b8be692bbe78e8b3238e980b1e5b9b4e881afe6ada1e6999ae5aeb4#Albums/album_4b696e672042616b657279/album_4b696e672042616b6572792f32303230e89b8be692bbe78e8b3238e980b1e5b9b4e881afe6ada1e6999ae5aeb4">2020蛋撻王28週年聯歡晚宴</a>

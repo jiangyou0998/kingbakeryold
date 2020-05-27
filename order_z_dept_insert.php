@@ -9,7 +9,7 @@ if (!($_SESSION[authenticated])) {
 require("connect.inc");
 $timestamp = gettimeofday("sec");
 
-$maxQTY = 300;
+$maxQTY = 600;
 $action = $_REQUEST[action];
 $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id];
 

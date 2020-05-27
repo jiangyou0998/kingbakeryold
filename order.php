@@ -29,7 +29,7 @@ if ($_SESSION[authenticated]) {
         }
 
         .styleA {
-            font-size: large;;
+            font-size: xx-large;;
         }
 
         span.btn {

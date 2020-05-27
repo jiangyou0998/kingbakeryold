@@ -26,7 +26,7 @@ session_start();
 <body>
 後台系統
 <br>
-<br><input class="left" type="button" value='修改貨倉落貨' onClick="checkDaohang('CMS_order',this)"/>
+<br><input class="left" type="button" value='修改工場落貨' onClick="checkDaohang('CMS_order',this)"/>
 <br><input class="left" type="button" value='新增／刪除通告' onClick="checkDaohang('CMS_notice',this)"/>
 <br><input class="left" type="button" value='新增／刪除表格' onClick="checkDaohang('CMS_form',this)"/>
 <br><input class="left" type="button" value='圖書館管理' onClick="checkDaohang('CMS_library',this)"/>

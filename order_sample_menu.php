@@ -8,7 +8,7 @@ if (!($_SESSION[authenticated])) {
 require($DOCUMENT_ROOT . "connect.inc");
 $testing_all_item = true;
 
-$maxQTY = 300;
+$maxQTY = 600;
 $timestamp = gettimeofday("sec");
 $curtime = date('Hi', $timestamp);
 $deliW = date('w', $timestamp + 86400 * ($_SESSION['advance'] + 1));

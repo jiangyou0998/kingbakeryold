@@ -7,7 +7,7 @@ if (!($_SESSION[authenticated])) {
 require("connect.inc");
 $timestamp = gettimeofday("sec");
 
-$maxQTY = 300;
+$maxQTY = 600;
 $action = $_REQUEST[action];
 $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id];
 $action = $_SESSION['action'];
@@ -270,7 +270,10 @@ switch ($action) {
                     <!-- <td colspan="3" valign="middle">分店：<?= $record[txt_name] ?><br>柯打日期：<?= date('Y/n/j', $timestamp) ?><br>柯打合共：<?= $count; ?></td> -->
                     <td colspan="6" align="center">
                         <input id="btnsubmit" name="Input" type="image"
-                                                          src="images/Finish.jpg" border="0" onClick="sss();"></td>
+                            src="images/Finish.jpg" border="0" onClick="sss();">
+                        <input type="image"
+                            src="images/Return.jpg" border="0" onclick="top.location.href='order_sample.php'">
+                    </td>
                 </tr>
             </table>
         </td>

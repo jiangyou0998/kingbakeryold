@@ -15,7 +15,7 @@ $_SESSION['advance'] = $_REQUEST['advance'] + 0;
 <head>
     <META name="ROBOTS" content="NOINDEX,NOFOLLOW">
     <meta http-equiv="Content-Type" content="text/html; charset=big5"/>
-    <title>內聯網</title>
+    <title>內聯網-中央工場</title>
 </head>
 <frameset id="parentFrame" rows="*" cols="43%,*" frameborder="no" border="1" framespacing="0">
     <frame src="order_z_dept_left.php" name="leftFrame" scrolling="Yes" noresize="noresize" id="leftFrame"

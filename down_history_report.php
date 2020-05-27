@@ -42,7 +42,7 @@ EOT;
 
 $zip->close();
 
-echo '<a href="' . $filepath . '" style="font-size: 250%" download>点击下载</a>';
+echo '<a href="' . $filepath . '" style="font-size: 250%" download>點擊下載</a>';
 
 
 
