@@ -115,11 +115,11 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
                 }
                 ;
             } else {
-                var bg = "#F0F0F0";
+                var bg = "#44BBBB";
                 if (count & 1) {
-                    bg = "#F0F0F0";
+                    bg = "#44BBBB";
                 } else {
-                    bg = "#FFFFFF";
+                    bg = "#AD99CC";
                 }
 
                 var tr = "<tr bgcolor=\"" + bg + "\" class=\"cart\" id=" + id + " data-itemid=" + itemid + ">\n" +

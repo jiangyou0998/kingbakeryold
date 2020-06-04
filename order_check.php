@@ -320,7 +320,8 @@ $supplierHTML .= '</select>';
                 $sql = "SELECT T0.int_id, T1.chr_code, T0.txt_name
 		FROM tbl_user T0
 		LEFT JOIN tbl_district T1 ON T0.int_district = T1.int_id
-		ORDER BY RIGHT(T1.chr_code, 3);";
+        WHERE T0.chr_type = 2
+		ORDER BY T1.chr_code;";
                 $result = mysqli_query($con, $sql) or die($sql);
                 while ($record = mysqli_fetch_row($result)) { ?>
                     <option value="<?= $record[0] ?>" <?php if ($_GET[shop] == $record[0]) echo "selected" ?>><?= $record[1] ?>

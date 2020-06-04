@@ -272,8 +272,8 @@ switch ($action) {
         height:20px;
     }
 
-    #cart{
-        font-size: 24px;
+    #cartold{
+        transform: scale(1.5);
 
     }
 
@@ -347,7 +347,7 @@ switch ($action) {
                 WHILE ($record = mysqli_fetch_array($result)) {
                     $haveoutdate = 0;
                     if ($count & 1) {
-                        $bg = "#F0F0F0";
+                        $bg = "#A2A2A2";
                     } else {
                         $bg = "#FFFFFF";
                     }
@@ -401,9 +401,9 @@ switch ($action) {
                 }
                 // var_dump($count);
 
-        //沒有產品時,加載範本內容
-                if ($count == 0){
-                    $sql = "
+        //沒有產品時,加載範本內容(只限烘焙頁面)
+    if ($count == 0 && $_SESSION['OrderDept'] == "R"){
+        $sql = "
         SELECT 
         
         tbl_order_z_menu.int_id AS itemID,

@@ -94,19 +94,19 @@ function showDayStr($dayCount, $selDate)
     } else {
         switch ($dayCount) {
             case 0:
-                $dayStr = "明天";
+                $dayStr = "一日後";
                 break;
             case 1:
-                $dayStr = "後天";
+                $dayStr = "兩日後";
                 break;
             case 2:
-                $dayStr = "大後天";
+                $dayStr = "三日後";
                 break;
             case 3:
-                $dayStr = "大大後天";
+                $dayStr = "四日後";
                 break;
             case 4:
-                $dayStr = "大大大後天";
+                $dayStr = "五日後";
                 break;
             default:
                 $dayStr = "特別安排";
