@@ -133,7 +133,7 @@ while ($record = mysqli_fetch_assoc($result)) {
                     <th>排序</th>
                     <th>查看</th>
                     <th>修改</th>
-                    <th>刪除</th>
+                    <!-- <th>刪除</th> -->
                 </tr>
 
                 <?php foreach ($aryOR as $key => $value) { ?>
@@ -161,8 +161,8 @@ while ($record = mysqli_fetch_assoc($result)) {
                              onclick="document.location='CMS_order_c_check_add.php?id=<?= $value[int_id] ?>&action=update';"
                              style="cursor:pointer;"></td>
                     <!--                刪除-->
-                    <td><img src="images/delete_2.png" onclick="deletereport(<?= $value[int_id] ?>)"
-                             style="cursor:pointer;"></td>
+                    <!-- <td><img src="images/delete_2.png" onclick="deletereport(<?= $value[int_id] ?>)"
+                             style="cursor:pointer;"></td> -->
                     </tr>
                 <?php } ?>
         </form>
@@ -211,25 +211,25 @@ while ($record = mysqli_fetch_assoc($result)) {
 
 
     //刪除報告
-    function deletereport(id) {
+    // function deletereport(id) {
 
-        $.ajax({
-            type: "post",
-            url: "CMS_order_c_check_crud.php",
-            data: {
-                'id': id,
-                'method': "delete"
-            },
-            success: function (data) {
-                window.location.reload();
-                console.log(data);
-            },
-            error: function () {
-                alert("出現錯誤");
-            }
-        });
-        console.log(id);
-    }
+    //     $.ajax({
+    //         type: "post",
+    //         url: "CMS_order_c_check_crud.php",
+    //         data: {
+    //             'id': id,
+    //             'method': "delete"
+    //         },
+    //         success: function (data) {
+    //             window.location.reload();
+    //             console.log(data);
+    //         },
+    //         error: function () {
+    //             alert("出現錯誤");
+    //         }
+    //     });
+    //     console.log(id);
+    // }
 
     function createReport() {
         // alert(111);

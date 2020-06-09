@@ -182,6 +182,7 @@ if ($_POST[action] == 'upload') {
 				FROM tbl_order_z_dept T0 
 					LEFT JOIN tbl_order_z_menu T1 ON T0.int_product = T1.int_id
 				WHERE int_user = $_SESSION[user_id] AND T0.status = 1
+                AND DATE(DATE_ADD(order_date, INTERVAL 1+chr_phase DAY)) = date_format(now(),'%Y-%m-%d')
 				GROUP BY chr_po_no
 				ORDER BY chr_po_no;";
         //		die($sql);

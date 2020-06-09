@@ -1,6 +1,8 @@
 <?php
 require($DOCUMENT_ROOT . "connect.inc");
 $timestamp = gettimeofday("sec") + 28800;
+
+//查詢所有確認收貨(status = 99) 以及 今天之前沒收貨的所有訂單(status = 1)
 $sql = "SELECT T3.*,group_concat(T3.reason) as reasons FROM
     (SELECT DATE(DATE_ADD(T0.order_date, INTERVAL 1+T0.chr_phase DAY)) as date, T0.int_user, T1.int_no, T2.txt_name,T0.reason
         FROM tbl_order_z_dept T0
@@ -8,11 +10,13 @@ $sql = "SELECT T3.*,group_concat(T3.reason) as reasons FROM
             DATE(DATE_ADD(T0.order_date, INTERVAL 1+T0.chr_phase DAY)) = T1.order_date 
             AND T0.int_user = T1.int_user
             LEFT JOIN tbl_user T2 ON T0.int_user =  T2.int_id
-        WHERE T0.status = 99
+        WHERE T0.status = 1
+        AND DATE(DATE_ADD(T0.order_date, INTERVAL 1+T0.chr_phase DAY)) < date_format(now(),'%Y-%m-%d')
+        OR T0.status = 99
     ) T3
     
     group by date,txt_name
-    order BY date,int_no, int_user;";
+    order BY date desc,int_no, int_user asc;";
 
 ?>
 <html>

@@ -28,7 +28,7 @@ $shop = mysqli_fetch_array($result);
 
 $sql = "SELECT T1.chr_no, T1.chr_name as itemName, 
         SUM(T0.int_qty) as orderQty, 
-		SUM(T0.int_qty_received) as qty, 
+		if(SUM(T0.int_qty_received) is not null , SUM(T0.int_qty_received), SUM(T0.int_qty)) as qty, 
 		T1.int_default_price,
 		T4.int_id as dept,
 		T4.chr_name as deptName,
@@ -42,7 +42,7 @@ $sql = "SELECT T1.chr_no, T1.chr_name as itemName,
 	WHERE DATE(DATE_ADD(T0.order_date, INTERVAL 1+T0.chr_phase DAY)) = '$order_date' and int_user = $shopID AND T0.status <> 4
 	GROUP BY T1.chr_no, T1.chr_name, T4.int_id, T4.int_sort, T1.int_default_price, T2.chr_name, T4.chr_name
 	ORDER BY T4.int_sort, T1.chr_no;";
-//	var_dump($sql);
+	// var_dump($sql);
 $result = mysqli_query($con, $sql) or die($sql);
 
 ?>
@@ -86,7 +86,9 @@ $result = mysqli_query($con, $sql) or die($sql);
     </style>
 </head>
 <body>
-<div style="width:100%; height:100px; border:1px solid black;">Top Header</div>
+<div>
+    <img src="images/invoice_top.jpeg" alt="Top Header" style="width:100%; height:100px; border:0px solid black;" border="0">
+</div>
 <br>
 <table style="width:100%">
     <tr>

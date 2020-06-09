@@ -2,6 +2,7 @@
 
 require($DOCUMENT_ROOT . "connect.inc");
 
+set_time_limit(0);
 
 $timestamp = gettimeofday('sec');
 $date = date("Y-m-d", $timestamp);
