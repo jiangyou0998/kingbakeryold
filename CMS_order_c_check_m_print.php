@@ -244,7 +244,38 @@ while ($pageCount <= count($Page)) { ?>
         <br/>
         <span class="style1"><?= $report[chr_report_name] ?> <?= $add ?></span>
         <span class="style1"
-              style="margin-left:400px;">出貨日期：<?= date("j/n/Y (D)", mktime(0, 0, 0, $checkDate[1], $checkDate[2] + $report[int_num_of_day], $checkDate[0])); ?></span>
+              style="margin-left:400px;">出貨日期：
+              <?php 
+                $dateString = date("j/n/Y (", mktime(0, 0, 0, $checkDate[1], $checkDate[2] + $report[int_num_of_day], $checkDate[0])); 
+
+                switch (date("D", mktime(0, 0, 0, $checkDate[1], $checkDate[2] + $report[int_num_of_day], $checkDate[0]))) {
+                case "Sun":
+                    $dateString .= "日)";
+                    break;
+                case "Mon":
+                    $dateString .= "一)";
+                    break;
+                case "Tue":
+                    $dateString .= "二)";
+                    break;
+                case "Wed":
+                    $dateString .= "三)";
+                    break;
+                case "Thu":
+                    $dateString .= "四)";
+                    break;
+                case "Fri":
+                    $dateString .= "五)";
+                    break;
+                default:
+                    $dateString .= "六)";
+                    break;
+
+                }
+
+                //星期用中文顯示
+                echo $dateString;
+              ?></span>
         <hr/>
         <table border="1" cellpadding="0" cellspacing="0">
             <tr bgcolor="#CCFFFF">

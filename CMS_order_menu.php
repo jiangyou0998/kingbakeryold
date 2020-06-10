@@ -155,6 +155,7 @@ if ($_REQUEST[action] == 'update') {
             <td width="60" align="center" bgcolor="#EB8201"><span class="style1">編號</span></td>
             <td align="left" bgcolor="#EB8201"><span class="style1">名稱</span></td>
             <td width="180" align="center" bgcolor="#EB8201"><span class="style1">類別</span></td>
+            <td width="180" align="center" bgcolor="#EB8201"><span class="style1">所屬生產表</span></td>
             <td width="60" align="center" bgcolor="#EB8201"><span class="style1">狀態</span></td>
             <td width="40" align="center" bgcolor="#EB8201"><span class="style1">更新</span></td>
             <td width="40" align="center" bgcolor="#EB8201"><span class="style1">刪除</span></td>
@@ -163,10 +164,14 @@ if ($_REQUEST[action] == 'update') {
         $group = $_REQUEST[group];
         $cat = $_REQUEST[cat];
         $sql = "SELECT T0.int_id, T0.int_sort, T0.status, T0.chr_name, T0.chr_no, T0.chr_cuttime, T1.chr_name as group_name,
-	T2.chr_name as cat_name
+	T2.chr_name as cat_name , temp.chr_report_name
 	FROM tbl_order_z_menu T0
 		LEFT JOIN tbl_order_z_group T1 ON T0.int_group = T1.int_id
-		LEFT JOIN tbl_order_z_cat T2 ON T1.int_cat = T2.int_id ";
+		LEFT JOIN tbl_order_z_cat T2 ON T1.int_cat = T2.int_id 
+        LEFT JOIN
+            (select tbl_order_check.chr_report_name, tbl_order_z_menu.int_id as menu_id from db_intranet.tbl_order_check,tbl_order_z_menu where chr_item_list like  CONCAT(\"%:\",tbl_order_z_menu.int_id,\"%\")) temp 
+            on temp.menu_id = T0.int_id 
+        ";
         $sql .= "WHERE T0.status <> 4 ";
         if ($cat)
             $sql .= "AND int_cat = $cat ";
@@ -174,12 +179,14 @@ if ($_REQUEST[action] == 'update') {
             $sql .= "AND int_group = $group ";
 
         $sql .= "ORDER BY T0.int_sort, T0.int_id";
+        // var_dump($sql);
+        // die();
         $result = mysqli_query($con, $sql) or die($sql);
         $count = 1;
         WHILE ($record = mysqli_fetch_array($result)) {
-            if ($group == 0) {
-                break;
-            }
+            // if ($group == 0) {
+            //     break;
+            // }
             IF ($count & 1) {
                 $bg = "#FFFFFF";
             } ELSE {
@@ -199,6 +206,7 @@ if ($_REQUEST[action] == 'update') {
                 <td align="left" bgcolor="<?php echo $bg; ?>"><?php echo $record[chr_name]; ?></td>
                 <td width="180" align="center" bgcolor="<?php echo $bg; ?>"><?php echo $record[cat_name]; ?>
                     -<?php echo $record[group_name]; ?></td>
+                <td width="180" align="center" bgcolor="<?php echo $bg; ?>"><?= $record[chr_report_name] ?></td> 
                 <?php
                 switch ($record[status]) {
                     case 1 :
