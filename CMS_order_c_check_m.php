@@ -220,34 +220,36 @@ foreach ($aryDisplayShop as $key => $value) {
     <span class="style1"><?= $report[chr_report_name] ?> <?= $add ?></span>
     <span class="style1"
           style="margin-left:400px;">出貨日期：
-          <?php echo date("j/n/Y (", mktime(0, 0, 0, $checkDate[1], $checkDate[2] + $report[int_num_of_day], $checkDate[0])); 
+          <?php 
+            $dateString = date("j/n/Y (", mktime(0, 0, 0, $checkDate[1], $checkDate[2] + $report[int_num_of_day], $checkDate[0])); 
 
-        switch (date("D", mktime(0, 0, 0, $checkDate[1], $checkDate[2] + $report[int_num_of_day], $checkDate[0]))) {
-        case "Sun":
-            $dateString .= "日)";
-            break;
-        case "Mon":
-            $dateString .= "一)";
-            break;
-        case "Tue":
-            $dateString .= "二)";
-            break;
-        case "Wed":
-            $dateString .= "三)";
-            break;
-        case "Thu":
-            $dateString .= "四)";
-            break;
-        case "Fri":
-            $dateString .= "五)";
-            break;
-        default:
-            $dateString .= "六)";
-            break;
+            switch (date("D", mktime(0, 0, 0, $checkDate[1], $checkDate[2] + $report[int_num_of_day], $checkDate[0]))) {
+            case "Sun":
+                $dateString .= "日)";
+                break;
+            case "Mon":
+                $dateString .= "一)";
+                break;
+            case "Tue":
+                $dateString .= "二)";
+                break;
+            case "Wed":
+                $dateString .= "三)";
+                break;
+            case "Thu":
+                $dateString .= "四)";
+                break;
+            case "Fri":
+                $dateString .= "五)";
+                break;
+            default:
+                $dateString .= "六)";
+                break;
 
-        }
+            }
 
-        echo $dateString;
+            //星期用中文顯示
+            echo $dateString;
 
 
           ?></span>

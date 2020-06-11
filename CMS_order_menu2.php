@@ -53,6 +53,7 @@ $timestamp = gettimeofday("sec") + 28800;
         }
 
         function isPrice(target, event) {
+            // console.log(event);
             if (event) {
                 var charCode = (event.which) ? event.which : event.keyCode;
                 //alert(charCode);
@@ -142,7 +143,7 @@ switch ($_REQUEST[action]) {
                 <tr>
                     <td bgcolor="#EEEEEE">編　號　　
                         <input name="no" type="text" id="no" value="<?php echo $record[chr_no]; ?>" size="5"
-                               maxlength="6" onKeyDown="return isNumber(event);"></td>
+                               maxlength="7" onKeyDown="return isNumber(event);"></td>
                 </tr>
                 <tr>
                     <td bgcolor="#EEEEEE">排　序　　
@@ -352,7 +353,7 @@ switch ($_REQUEST[action]) {
                 <tr>
                     <td bgcolor="#EEEEEE">編　號　　
                         <input name="no" type="text" id="no" value="<?php echo $record[chr_no]; ?>" size="5"
-                               maxlength="6" onKeyDown="return isNumber(event);"></td>
+                               maxlength="7" onKeyDown="return isNumber(event);"></td>
                 </tr>
                 <tr>
                     <td bgcolor="#EEEEEE">排　序　　
