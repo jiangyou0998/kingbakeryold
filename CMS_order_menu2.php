@@ -509,9 +509,9 @@ switch ($_REQUEST[action]) {
     case "add":
 
         $last_update = "($_SESSION[user_id]) $_SESSION[user_login] ";
-        $sql = "INSERT INTO tbl_order_z_menu(chr_name, chr_no, int_group, int_unit, int_base, int_min, int_default_price, int_sort, chr_cuttime, status, last_modify, chr_canordertime) VALUE ";
+        $sql = "INSERT INTO tbl_order_z_menu(chr_name, chr_no, int_group, int_unit, int_base, int_min, int_default_price, int_sort, chr_cuttime, int_phase, status, last_modify, chr_canordertime) VALUE ";
         $sql .= "('$_REQUEST[name]', '$_REQUEST[no]', '$_REQUEST[group]', '$_REQUEST[unit]', '$_REQUEST[base]', '$_REQUEST[min]', '$_REQUEST[price]', '$_REQUEST[sorting]', ";
-        $sql .= "'$_REQUEST[cuttime]', '$_REQUEST[status]', CONCAT('$last_update', NOW()), '$_REQUEST[canordertimestr]')";
+        $sql .= "'$_REQUEST[cuttime]','$_REQUEST[phase]', '$_REQUEST[status]', CONCAT('$last_update', NOW()), '$_REQUEST[canordertimestr]')";
         // die($sql);
         mysqli_query($con, $sql) or die($sql);
 
