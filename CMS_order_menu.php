@@ -172,12 +172,12 @@ if ($_REQUEST[action] == 'update') {
 		$group = $_REQUEST[group];
 		$cat = $_REQUEST[cat];
 		$sql = "SELECT T0.int_id, T0.int_sort, T0.status, T0.chr_name, T0.chr_no, T0.chr_cuttime, T1.chr_name as group_name,
-	T2.chr_name as cat_name , temp.chr_report_name
+	T2.chr_name as cat_name , temp.chr_report_name , temp.int_id as check_id
 	FROM tbl_order_z_menu T0
 		LEFT JOIN tbl_order_z_group T1 ON T0.int_group = T1.int_id
 		LEFT JOIN tbl_order_z_cat T2 ON T1.int_cat = T2.int_id 
 		LEFT JOIN
-			(select tbl_order_check.chr_report_name, tbl_order_z_menu.int_id as menu_id from db_intranet.tbl_order_check,tbl_order_z_menu where chr_item_list like  CONCAT(\"%:\",tbl_order_z_menu.int_id,\"%\")) temp 
+			(select tbl_order_check.int_id, tbl_order_check.chr_report_name, tbl_order_z_menu.int_id as menu_id from db_intranet.tbl_order_check,tbl_order_z_menu where chr_item_list like  CONCAT(\"%:\",tbl_order_z_menu.int_id,\"%\")) temp 
 			on temp.menu_id = T0.int_id 
 		";
 		$sql .= "WHERE T0.status <> 4 ";
@@ -214,7 +214,9 @@ if ($_REQUEST[action] == 'update') {
 				<td align="left" bgcolor="<?php echo $bg; ?>"><?php echo $record[chr_name]; ?></td>
 				<td width="180" align="center" bgcolor="<?php echo $bg; ?>"><?php echo $record[cat_name]; ?>
 					-<?php echo $record[group_name]; ?></td>
-				<td width="180" align="center" bgcolor="<?php echo $bg; ?>"><?= $record[chr_report_name] ?></td> 
+				<td width="180" align="center" bgcolor="<?php echo $bg; ?>">
+					<a href="CMS_order_c_check_add.php?id=<?= $record['check_id'] ?>&action=update"><?= $record[chr_report_name] ?></a>
+				</td> 
 				<?php
 				switch ($record[status]) {
 					case 1 :
