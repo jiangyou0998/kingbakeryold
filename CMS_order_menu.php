@@ -10,6 +10,10 @@
 require("check_login.php");
 
 require($DOCUMENT_ROOT . "connect.inc");
+
+//跳轉後返回的URL
+$_SESSION['back_url']=$_SERVER['REQUEST_URI'];
+
 if ($_REQUEST[action] == 'update') {
 	foreach ($_REQUEST as $key => $value) {
 		if (is_numeric($key)) {

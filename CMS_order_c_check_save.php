@@ -58,7 +58,7 @@ if (mysqli_fetch_assoc($result)) {
 }
 //die($sql);
 mysqli_query($con, $sql) or die($sql);
-header('Location: CMS_order_c_check_list.php');
+header('Location:'.$_SESSION['back_url']);
 
 
 ?>

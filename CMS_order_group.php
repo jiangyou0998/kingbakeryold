@@ -114,16 +114,17 @@ if ($_REQUEST[action] == 'update') {
         </tr>
         <?php
         $cat = $_REQUEST[cat];
-        IF (empty($cat)) $cat = 0;
+        // IF (empty($cat)) $cat = 0;
         $sql = "SELECT tbl_order_z_group.int_id,
 		tbl_order_z_group.int_sort, tbl_order_z_group.status,
 		tbl_order_z_group.int_cat, tbl_order_z_group.chr_name as group_name,
 		tbl_order_z_cat.chr_name as cat_name
 	FROM tbl_order_z_group
 			INNER JOIN tbl_order_z_cat ON tbl_order_z_group.int_cat = tbl_order_z_cat.int_id
-	WHERE tbl_order_z_group.status <> 4
-			AND tbl_order_z_group.int_cat = '$_REQUEST[cat]'
-	ORDER BY tbl_order_z_group.int_sort , tbl_order_z_group.int_id";
+	WHERE tbl_order_z_group.status <> 4 ";
+    if (!empty($cat)) $sql .= "AND tbl_order_z_group.int_cat = '". $cat ."'";
+			
+	$sql .= " ORDER BY tbl_order_z_group.int_sort , tbl_order_z_group.int_id";
         $result = mysqli_query($con, $sql) or die($sql);
         $count = 1;
         WHILE ($record = mysqli_fetch_array($result)) {

@@ -498,7 +498,7 @@ if (isset($_GET["action"])) {
             <td align="center" colspan="2">
                 <!-- <img src="./images/Confirm2.jpg" onclick="console.log(reportInfo());" style="cursor:pointer"> -->
                 <img src="./images/Confirm2.jpg" onclick="submit()" style="cursor:pointer">
-                <img src="./images/Return.jpg" onclick="document.location='CMS_order_c_check_list.php';"
+                <img src="./images/Return.jpg" onclick="document.location='<?= $_SESSION['back_url'] ?>';"
                      style="cursor:pointer">
             </td>
         </tr>
