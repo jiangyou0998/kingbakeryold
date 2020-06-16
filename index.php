@@ -143,6 +143,8 @@ if ($_SESSION[authenticated]) {
             $sql_dept = "SELECT * FROM tbl_dept WHERE int_id = $record[2]";
             $result_dept = mysqli_query($con, $sql_dept) or die("invalid query");
             $record_dept = mysqli_fetch_array($result_dept);
+            // var_dump(substr($record_dept[1], 4));
+            // var_dump($record_dept[1]);
             ?>
             <div class="row" style="padding:4px; 0px;">
                 <div class="col-sm-8"><a href="notice.php"><?= $record['name'] ?></a></div>

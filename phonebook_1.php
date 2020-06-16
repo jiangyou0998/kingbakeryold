@@ -37,7 +37,7 @@ function date_diff($d1, $d2){
 ?>
 <html>
 <head>
-    <title>內聯網</title>
+    <title>內聯網-通訊錄</title>
     <META name="ROBOTS" content="NOINDEX,NOFOLLOW">
     <meta http-equiv="Content-Type" content="text/html; charset=big5">
     <link href="class.css" rel="stylesheet" type="text/css">

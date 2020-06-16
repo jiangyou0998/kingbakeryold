@@ -16,11 +16,29 @@ require 'PHPMailer/src/SMTP.php';
 //檢查是否登錄,是否管理員
 require("check_login.php");
 
+// $email_list = Array(
+//     '1' => 'kbs@kingbakery.com.hk;',
+//     '2' => 'intranet@kingbakery.com.hk;',
+//     '3' => 'kbo@kingbakery.com.hk;',
+//     '4' => '',
+//     '5' => '',
+//     '6' => '',
+// );
+
+// $email_list = Array(
+//     '1' => 'jianli@kingbakery.com.hk',
+//     '2' => 'cecillau@kingbakery.com.hk',
+//     '3' => '',
+//     '4' => '',
+//     '5' => '',
+//     '6' => '',
+// );
+
 $email_list = Array(
-    '1' => 'kbs@kingbakery.com.hk;',
-    '2' => 'intranet@kingbakery.com.hk;',
-    '3' => 'kbo@kingbakery.com.hk;',
-    '4' => '',
+    '1' => 'ITD@kingbakery.local',
+    '2' => 'ITD@kingbakery.com.hk',
+    '3' => 'itd@kingbakery.local',
+    '4' => 'itd@kingbakery.com.hk',
     '5' => '',
     '6' => '',
 );
