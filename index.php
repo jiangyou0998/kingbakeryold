@@ -10,6 +10,18 @@ if ($_SESSION[authenticated]) {
 } else {
     $isLogin = false;
 }
+
+//獲取字符串的中文
+function getChinese($str)
+{
+
+    preg_match_all("/[\x{4e00}-\x{9fa5}]+/u",$str,$regs);//preg_match_all（“正则表达式”,"截取的字符串","成功之后返回的结果集（是数组）"）
+    $s = join('',$regs[0]);//join("可选。规定数组元素之间放置的内容。默认是 ""（空字符串）。","要组合为字符串的数组。")把数组元素组合为一个字符串
+    $s=mb_substr($s,0,80,'utf-8');//mb_substr用于字符串截取，可以防止中文乱码的情况
+    return $s;
+       
+}
+
 ?>
 <html>
 <head>
@@ -148,7 +160,7 @@ if ($_SESSION[authenticated]) {
             ?>
             <div class="row" style="padding:4px; 0px;">
                 <div class="col-sm-8"><a href="notice.php"><?= $record['name'] ?></a></div>
-                <div class="col-sm-4">-<?= substr($record_dept[1], 4); ?></div>
+                <div class="col-sm-4">-<?= getChinese($record_dept[1]); ?></div>
             </div>
             <?php
         }
