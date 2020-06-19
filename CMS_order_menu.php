@@ -170,7 +170,7 @@ if ($_REQUEST[action] == 'update') {
 			<td width="180" align="center" bgcolor="#EB8201"><span class="style1">所屬生產表</span></td>
 			<td width="60" align="center" bgcolor="#EB8201"><span class="style1">狀態</span></td>
 			<td width="40" align="center" bgcolor="#EB8201"><span class="style1">更新</span></td>
-			<td width="40" align="center" bgcolor="#EB8201"><span class="style1">刪除</span></td>
+			<td width="60" align="center" bgcolor="#EB8201"><span class="style1">刪除</span></td>
 		</tr>
 		<?php
 		$group = $_REQUEST[group];
@@ -240,8 +240,12 @@ if ($_REQUEST[action] == 'update') {
 				<td width="60" align="center" bgcolor="<?php echo $bg; ?>"><?= $status ?></td>
 				<td width="40" align="center" bgcolor="<?php echo $bg; ?>"><a
 							href="CMS_order_menu2.php?action=edit&id=<?php echo $record[int_id]; ?>">更新</a></td>
-				<td width="40" align="center" bgcolor="<?php echo $bg; ?>"><a
-							href="CMS_order_menu2.php?action=delete&id=<?php echo $record[int_id]; ?>">刪除</a></td>
+				<td width="40" align="center" bgcolor="<?php echo $bg; ?>">
+					<form action="CMS_order_menu2.php?action=delete&id=<?php echo $record[int_id]; ?>" method="POST" onsubmit="return confirm('您确定要删除該貨品嗎？');">
+						<button type="submit" class="btn btn-sm btn-danger">删除</button>
+    				</form>
+					<!-- <a
+							href="CMS_order_menu2.php?action=delete&id=<?php echo $record[int_id]; ?>">刪除</a></td> -->
 			</tr>
 			<?php
 			$count += 1;
