@@ -105,6 +105,7 @@ $weekArr = [
                         href="order_sample_createandedit.php?action=edit&id=<?=$record['id'] ?>"><strong><?= $sampledate ?></strong></a>
                     </td>
                     <td align="middle" width="10%"><strong><button onclick="delsample(<?=$record['id'] ?>);">刪除範本</button></strong></td>
+
                 </tr>
         <?php    
             }
@@ -117,20 +118,26 @@ $weekArr = [
 
 <script>
     function delsample(id){
-        // alert(id);
-        $.ajax({
-            type: "POST",
-            url: "order_sample_delete.php",
-             data: {
-                'id'  : id
-            },
-            success: function (msg) {
-                // console.log(msg);
-                alert('範本刪除成功!');
-                window.location.reload('order_sample.php');
-                // top.location.href = 'order_sample.php';
-            }
-        });
+
+        var confirmBox = confirm('你確定要刪除範本嗎?');
+
+        if(confirmBox == true){
+            // alert(id);
+            $.ajax({
+                type: "POST",
+                url: "order_sample_delete.php",
+                 data: {
+                    'id'  : id
+                },
+                success: function (msg) {
+                    // console.log(msg);
+                    alert('範本刪除成功!');
+                    window.location.reload('order_sample.php');
+                    // top.location.href = 'order_sample.php';
+                }
+            });
+        }
+
     }
 </script>
 
