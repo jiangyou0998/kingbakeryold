@@ -171,6 +171,7 @@ if ($_REQUEST[action] == 'update') {
 			<td width="60" align="center" bgcolor="#EB8201"><span class="style1">狀態</span></td>
 			<td width="40" align="center" bgcolor="#EB8201"><span class="style1">更新</span></td>
 			<td width="60" align="center" bgcolor="#EB8201"><span class="style1">刪除</span></td>
+			<td width="60" align="center" bgcolor="#EB8201"><span class="style1">固定柯打</span></td>
 		</tr>
 		<?php
 		$group = $_REQUEST[group];
@@ -244,8 +245,14 @@ if ($_REQUEST[action] == 'update') {
 					<form action="CMS_order_menu2.php?action=delete&id=<?php echo $record[int_id]; ?>" method="POST" onsubmit="return confirm('您确定要删除該貨品嗎？');">
 						<button type="submit" class="btn btn-sm btn-danger">删除</button>
     				</form>
+    			</td>
 					<!-- <a
 							href="CMS_order_menu2.php?action=delete&id=<?php echo $record[int_id]; ?>">刪除</a></td> -->
+				<td width="40" align="center" bgcolor="<?php echo $bg; ?>">
+					
+					<a href="CMS_regular_order.php?menuid=<?php echo $record[int_id]; ?> " target="view_window">固定柯打</a>
+    				
+    			</td>
 			</tr>
 			<?php
 			$count += 1;
