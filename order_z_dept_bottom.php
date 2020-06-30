@@ -382,7 +382,23 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4" align="center" style="font-size:16px;">
-                                                            <span style="<?= $styleFont ?>"><?= $record['itemName']; ?>(<?= $record['int_min']; ?>)</span>
+                                                            <span style="<?= $styleFont ?>"><?= $record['itemName']; ?>(<?= $record['int_min']; ?>)
+                                                            <br>
+                                                            <span style="color: red;">
+                                                                <?php  
+                                                                    if ($record['int_phase'] < 0) {
+                                                                        echo "後勤落單";
+                                                                    }else{
+                                                                        echo $record['int_phase']."日前&nbsp;".substr_replace($record['chr_cuttime'], ':', 2, 0)."截單";
+                                                                    }
+                                                                ?>
+                                                            </span>
+                                                            <br>
+                                                            <span style="color: red;">
+                                                                <?php  
+                                                                    echo "出貨期:".$record['chr_canordertime'];
+                                                                ?>
+                                                            </span>
                                                         </td>
                                                     </tr>
                                                     <tr>

@@ -94,6 +94,9 @@ if ($_SESSION[authenticated]) {
         <?php 
             if ($_SESSION[type] == 2){
                 echo "<a href='order_sample.php' class='styleA'>創建範本</a>";
+                echo "<br/><a href='order_deli.php' class='styleA' target='view_window'>查看落貨單</a>";
+            }else if ($_SESSION[type] == 3){
+                echo "<a href='check_order_number.php' class='styleA' target='view_window'>翻查已下單數目</a>";
             }
         ?>
         

@@ -401,36 +401,69 @@ switch ($action) {
                 }
                 // var_dump($count);
 
-        //沒有產品時,加載範本內容(只限烘焙頁面)
-    if ($count == 0 && $_SESSION['OrderDept'] == "R"){
-        $sql = "
-        SELECT 
+    //沒有產品時,加載範本內容(只限烘焙頁面)(樓面加載固定柯打模板,只能管理員加)
+    if (($count == 0 && $_SESSION['OrderDept'] == "R") ||
+        ($count == 0 && $_SESSION['OrderDept'] == "F" && $_SESSION[type] == 3)){
+        if ($_SESSION['OrderDept'] == "R") {
+            $sql = "
+            SELECT 
+                
+                tbl_order_z_menu.int_id AS itemID,
+                tbl_order_z_menu.chr_name AS itemName,
+                tbl_order_z_menu.chr_no,
+                tbl_order_z_unit.chr_name AS UoM,
+                tbl_order_z_menu.chr_cuttime,
+                tbl_order_z_menu.int_phase,
+                LEFT(tbl_order_z_cat.chr_name, 2) AS suppName,
+                tbl_order_sample_item.qty,
+                tbl_order_z_menu.int_base,
+                tbl_order_z_menu.int_min
+                
+            FROM
+                tbl_order_sample_item
+                    INNER JOIN tbl_order_sample ON tbl_order_sample_item.sample_id = tbl_order_sample.id
+                    INNER JOIN tbl_order_z_menu ON tbl_order_sample_item.menu_id = tbl_order_z_menu.int_id
+                    INNER JOIN tbl_order_z_unit ON tbl_order_z_menu.int_unit = tbl_order_z_unit.int_id
+                    INNER JOIN tbl_order_z_group ON tbl_order_z_menu.int_group = tbl_order_z_group.int_id
+                    INNER JOIN tbl_order_z_cat ON tbl_order_z_group.int_cat = tbl_order_z_cat.int_id
+            WHERE
+                tbl_order_sample.user_id = $order_user
+                AND tbl_order_sample.sampledate like '%$dateofweek%'
+                AND tbl_order_sample_item.disabled = 0
+                AND tbl_order_sample.disabled = 0
+                    
+            ORDER BY tbl_order_z_menu.chr_no;";
+        }else if ($_SESSION['OrderDept'] == "F") {
+            $sql="
+            SELECT 
+                
+                tbl_order_z_menu.int_id AS itemID,
+                tbl_order_z_menu.chr_name AS itemName,
+                tbl_order_z_menu.chr_no,
+                tbl_order_z_unit.chr_name AS UoM,
+                tbl_order_z_menu.chr_cuttime,
+                tbl_order_z_menu.int_phase,
+                LEFT(tbl_order_z_cat.chr_name, 2) AS suppName,
+                regular_order_items.qty,
+                tbl_order_z_menu.int_base,
+                tbl_order_z_menu.int_min
+                
+            FROM
+                regular_order_items
+                    INNER JOIN regular_orders ON regular_order_items.r_order_id = regular_orders.id
+                    INNER JOIN tbl_order_z_menu ON regular_orders.menu_id = tbl_order_z_menu.int_id
+                    INNER JOIN tbl_order_z_unit ON tbl_order_z_menu.int_unit = tbl_order_z_unit.int_id
+                    INNER JOIN tbl_order_z_group ON tbl_order_z_menu.int_group = tbl_order_z_group.int_id
+                    INNER JOIN tbl_order_z_cat ON tbl_order_z_group.int_cat = tbl_order_z_cat.int_id
+            WHERE
+                regular_order_items.user_id = $order_user
+                AND regular_orders.orderdates like '%$dateofweek%'
+                AND regular_order_items.disabled = 0
+                AND regular_orders.disabled = 0
+                    
+            ORDER BY tbl_order_z_menu.chr_no;";
+        }
         
-        tbl_order_z_menu.int_id AS itemID,
-        tbl_order_z_menu.chr_name AS itemName,
-        tbl_order_z_menu.chr_no,
-        tbl_order_z_unit.chr_name AS UoM,
-        tbl_order_z_menu.chr_cuttime,
-        tbl_order_z_menu.int_phase,
-        LEFT(tbl_order_z_cat.chr_name, 2) AS suppName,
-        tbl_order_sample_item.qty,
-        tbl_order_z_menu.int_base,
-        tbl_order_z_menu.int_min
-        
-    FROM
-        tbl_order_sample_item
-            INNER JOIN tbl_order_sample ON tbl_order_sample_item.sample_id = tbl_order_sample.id
-            INNER JOIN tbl_order_z_menu ON tbl_order_sample_item.menu_id = tbl_order_z_menu.int_id
-            INNER JOIN tbl_order_z_unit ON tbl_order_z_menu.int_unit = tbl_order_z_unit.int_id
-            INNER JOIN tbl_order_z_group ON tbl_order_z_menu.int_group = tbl_order_z_group.int_id
-            INNER JOIN tbl_order_z_cat ON tbl_order_z_group.int_cat = tbl_order_z_cat.int_id
-    WHERE
-        tbl_order_sample.user_id = $order_user
-        AND tbl_order_sample.sampledate like '%$dateofweek%'
-        AND tbl_order_sample_item.disabled = 0
-        AND tbl_order_sample.disabled = 0
-            
-    ORDER BY tbl_order_z_menu.chr_no;";
 
     // var_dump($sql);
 
