@@ -384,7 +384,7 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
                                                         <td colspan="4" align="center" style="font-size:16px;">
                                                             <span style="<?= $styleFont ?>"><?= $record['itemName']; ?>(<?= $record['int_min']; ?>)
                                                             <br>
-                                                            <span style="color: red;">
+                                                            <span style="color: red;font-size:8px;">
                                                                 <?php  
                                                                     if ($record['int_phase'] < 0) {
                                                                         echo "後勤落單";
@@ -394,7 +394,7 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
                                                                 ?>
                                                             </span>
                                                             <br>
-                                                            <span style="color: red;">
+                                                            <span style="color: red;font-size:8px;">
                                                                 <?php  
                                                                     echo "出貨期:".$record['chr_canordertime'];
                                                                 ?>

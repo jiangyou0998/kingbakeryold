@@ -47,6 +47,7 @@ $result = mysqli_query($con, $sql) or die($sql);
 <html>
 <head>
     <META name="ROBOTS" content="NOINDEX,NOFOLLOW">
+    <meta name="format-detection" content="telephone=no" />
     <title>送貨表-內聯網</title>
     <link href="js/My97DatePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css">
     <script src="js/jquery-1.9.1.min.js"></script>
@@ -84,21 +85,22 @@ $result = mysqli_query($con, $sql) or die($sql);
     </style>
 </head>
 <body>
+<div class="form-inline" style="margin-top: 10px;margin-bottom: 10px;">
+    <form action="#" method="post" name="frmcheck">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+            <tr>
+                <td valign="middle">
+                    日期:
+                    <input type="text" name="checkDate" class="form-control" value="<?= $showDate ?>" id="datepicker"
+                           onclick="WdatePicker({maxDate:'',isShowClear:false})" style="width:125px" readonly>
 
-<form action="#" method="post" name="frmcheck">
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" >
-        <tr>
-            <td valign="middle">
-                日期:
-                <input type="text" name="checkDate" class="form-control" value="<?= $showDate ?>" id="datepicker"
-                       onclick="WdatePicker({maxDate:'',isShowClear:false})" style="width:125px" readonly>
-
-                <input type="submit" name="Submit" value="查詢"/>
-            </td>
-        </tr>
-        
-    </table>
-</form>
+                    <input type="submit" name="Submit" value="查詢"/>
+                </td>
+            </tr>
+            
+        </table>
+    </form>
+</div>
 <div>
     <img src="images/invoice_top.jpeg" alt="Top Header" style="width:100%; height:100px; border:0px solid black;" border="0">
 </div>

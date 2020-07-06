@@ -53,6 +53,7 @@ while ($record = mysqli_fetch_assoc($result)) {
 <html>
 <head>
     <META name="ROBOTS" content="NOINDEX,NOFOLLOW">
+    <meta name="format-detection" content="telephone=no" />
     <title>下單統計-內聯網</title>
     <link href="js/My97DatePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css">
     <script src="js/jquery-1.9.1.min.js"></script>

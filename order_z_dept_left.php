@@ -332,7 +332,7 @@ switch ($action) {
 	WHERE
 		tbl_order_z_dept.int_user = '$order_user'
 			AND tbl_order_z_dept.status IN (0 , 1)
-			AND tbl_order_z_dept.int_qty > 0
+			AND tbl_order_z_dept.int_qty >= 0
 			AND
 			 DATE(DATE_ADD(tbl_order_z_dept.order_date, INTERVAL 1+chr_phase DAY)) = 
 			 DATE(DATE_ADD(NOW(), INTERVAL $_SESSION[advance]+1 DAY))
@@ -404,6 +404,7 @@ switch ($action) {
     //沒有產品時,加載範本內容(只限烘焙頁面)(樓面加載固定柯打模板,只能管理員加)
     if (($count == 0 && $_SESSION['OrderDept'] == "R") ||
         ($count == 0 && $_SESSION['OrderDept'] == "F" && $_SESSION[type] == 3)){
+        //R烘焙 F樓面
         if ($_SESSION['OrderDept'] == "R") {
             $sql = "
             SELECT 
@@ -579,13 +580,14 @@ switch ($action) {
         var maxQty = <?=$maxQTY?>;
         var base = $(this).data('base');
         var min = $(this).data('min');
-        if (qty > maxQty) {
+        var usertype = <?= $_SESSION[type] ?> ;
+        if (qty > maxQty && usertype == 2) {
             alert("每項目數量最多只可為「" + maxQty + "」");
             $(this).val(maxQty);
-        } else if (qty < min) {
+        } else if (qty < min && usertype == 2) {
             alert("該項目最少落單數量為「" + min + "」");
             $(this).val(min);
-        } else if (qty % base != 0) {
+        } else if (qty % base != 0 && usertype == 2) {
             alert("該項目數量必須以「" + base + "」為單位");
             var newQty = qty - qty % base;
             $(this).val(newQty);
@@ -617,6 +619,7 @@ switch ($action) {
         //禁止按鈕重複點擊
         $("#btnsubmit").attr('disabled', true);
         var insertarray = [];
+        var usertype = <?= $_SESSION[type] ?> ;
         //insert
         $(".cart").each(function () {
 
@@ -628,7 +631,7 @@ switch ($action) {
             var qty = $("#qty" + id).val();
             // console.log($qty);
 
-            if(qty > 0){
+            if(qty >= 0 ){
                 var item = {'itemid': itemid, 'qty': qty};
                 insertarray.push(item);
             }
@@ -651,7 +654,7 @@ switch ($action) {
             var qty = $("#qty" + id).val();
             // console.log($qty);
 
-            if(qty > 0){
+            if(qty >= 0){
                 var item = {'mysqlid': mysqlID, 'qty': qty};
                 updatearray.push(item);
             }
