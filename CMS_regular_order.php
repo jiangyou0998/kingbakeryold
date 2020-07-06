@@ -68,9 +68,9 @@ $weekArr = [
 $titleArr = array();
 $sql = "SELECT chr_name,chr_no FROM tbl_order_z_menu WHERE int_id = ". $menuid .";";
 
-        $result = mysqli_query($con, $sql);
-        $titleResult = mysqli_fetch_array($result);
-        $titleArr = $titleResult;
+$result = mysqli_query($con, $sql);
+$titleResult = mysqli_fetch_array($result);
+$titleArr = $titleResult;
 
         // var_dump($titleArr);
 

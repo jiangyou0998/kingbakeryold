@@ -189,7 +189,7 @@ $po_header = mysqli_fetch_assoc($po_header);
                         console.log(msg);
                     } else {
                         alert('已確認收貨!\n');
-                        location.href = 'grpo.php';
+                        location.href = "CMS_invoice_edit.php?delidate=<?= $po_header['deli_date'] ?>" ;
                     }
                 }
             });
@@ -479,19 +479,7 @@ $po_header = mysqli_fetch_assoc($po_header);
     </form>
 
 </div>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<table>
-    <tr>
-        <td colspan="13">
-            <img src="images/TaiHing_23.jpg" width="994" height="49" alt=""></td>
-        <td>
-            <img src="images/spacer.gif" width="1" height="49" alt=""></td>
-    </tr>
-</table>
+
 </body>
 
 </html>

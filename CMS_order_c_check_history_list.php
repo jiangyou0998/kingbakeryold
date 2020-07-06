@@ -7,11 +7,15 @@ require($DOCUMENT_ROOT . "connect.inc");
 $timestamp = gettimeofday("sec") + 28800;
 
 $aryOR = Array();
-$sql = "SELECT * FROM tbl_order_check WHERE disabled = 0 order by int_sort, int_id";
+$sql = "SELECT T0.* , T1.chr_time FROM tbl_order_check T0
+        LEFT JOIN tbl_order_z_print_time T1 ON T1.int_report_id = T0.int_id
+        WHERE disabled = 0 
+        order by int_sort, int_id";
 $result = mysqli_query($con, $sql) or die($sql);
 while ($record = mysqli_fetch_assoc($result)) {
     $aryOR[] = $record;
 }
+// var_dump($aryOR);
 ?>
 
 <html>
@@ -85,6 +89,9 @@ while ($record = mysqli_fetch_assoc($result)) {
         }
 
         -->
+        #downselect{
+           zoom:180%;
+        }
 
 
         #loading {
@@ -113,7 +120,11 @@ while ($record = mysqli_fetch_assoc($result)) {
                     <th style="width:50px;">#</th>
                     <th style="width:300px;">報告名稱</th>
                     <th>相隔日數</th>
+                    <th>報表時間</th>
                     <th>查看</th>
+                    <th>全選
+                        <!-- <input type="checkbox" οnclick="checkAll()"> -->
+                    </th>
                 </tr>
 
                 <?php foreach ($aryOR as $key => $value) { ?>
@@ -125,13 +136,16 @@ while ($record = mysqli_fetch_assoc($result)) {
                     <?php } ?>
                     <td><?= $key + 1 ?></td>
                     <!--                報告名稱-->
-                    <td><?= $value[chr_report_name] ?></td>
+                    <td><?= $value['chr_report_name'] ?></td>
                     <!--                相隔日數-->
-                    <td><?= $value[int_num_of_day] ?>日</td>
+                    <td><?= $value['int_num_of_day'] ?>日</td>
+                    <!--                報表時間-->
+                    <td><?= $value['chr_time'] ?></td>
                     <!--				查看-->
                     <td><img src="images/clipboard.png"
-                             onclick="viewReport(<?= $value[int_id] ?>,<?= $value[int_num_of_day] ?>)"
+                             onclick="viewReport(<?= $value['int_id'] ?>,<?= $value['int_num_of_day'] ?>)"
                              style="cursor:pointer;"></td>
+                    <td><input class="downselect" type="checkbox" value="<?= $value['int_id'] ?>" style="zoom:180%;"></td>
                     </tr>
                 <?php } ?>
         </form>
@@ -143,9 +157,12 @@ while ($record = mysqli_fetch_assoc($result)) {
                    id="datepicker"
                    onclick="WdatePicker({maxDate:'<?= $today ?>',isShowClear:false})" style="width:125px" readonly>
 
-            <a href="#" style=" font-size:150%;" onclick="createReport()">生成報表</a></div>
+            <a href="#" style=" font-size:150%;" onclick="createReport()">生成全部報表</a><br><br>
+            <a href="#" style=" font-size:150%;" onclick="createReportSelected()">生成選擇報表</a>
+        </div>
 
     </div>
+    <input type="hidden" name="downstr" id="downstr" value=""/>
 </div>
 <div id='loading'>報表正在生成中...</div>
 </body>
@@ -193,6 +210,58 @@ while ($record = mysqli_fetch_assoc($result)) {
         window.location.href = "down_history_report.php?dTime=" + delidate;
 
     }
+
+    function createReportSelected(){
+        var isSelectedTime = true;
+        var delidate = $('#datepicker').val();
+        var downstr = $('#downstr').val();
+        if (delidate == '') {
+            alert('請選擇收貨日期!');
+            return false;
+        }
+        if (downstr == '') {
+            alert('請選擇要生成的報表!');
+            return false;
+        }
+        $('#loading').show();
+        window.location.href = "down_selected_report.php?dTime=" + delidate + "&checkids=" + downstr;
+    }
+
+    function checkAll(){
+        // $("#downselect").prop('checked', $(obj).prop('checked'));
+        if($("#downselect :checked")){
+            if(b){
+                $("input[class='downselect']").each(function(){
+                    this.checked=true;
+                    //获取当前值 
+                    //alert($(this).val());
+                }); 
+                $("#spanss").html("取消");
+                b=false;
+            }else{
+                $("input[class='downselect']").each(function(){
+                    this.checked=false;
+                    //获取当前值 
+                    //alert($(this).val());
+                }); 
+                $("#spanss").html("全选");
+                b=true;
+            }
+        
+        }
+
+    }
+
+    //鉤選或取消時,修改weekstr(隱藏)的值
+    $(document).on('change', 'input[type=checkbox]', function () {
+        var downstr = $('input[type=checkbox]:checked').map(function () {
+            return this.value
+        }).get().join(',');
+        $('#downstr').val(downstr);
+        // alert(weekstr);
+    });
+
+
 
     $(window).load(function () {
         $('#loading').hide();

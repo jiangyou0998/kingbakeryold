@@ -119,7 +119,7 @@ $weekArr = [
 <script>
     function delsample(id){
 
-        var confirmBox = confirm('你確定要刪除範本嗎?');
+        var confirmBox = confirm('您確定要刪除該範本嗎?');
 
         if(confirmBox == true){
             // alert(id);
