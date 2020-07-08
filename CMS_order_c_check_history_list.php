@@ -122,6 +122,7 @@ while ($record = mysqli_fetch_assoc($result)) {
                     <th>相隔日數</th>
                     <th>報表時間</th>
                     <th>查看</th>
+                    <th>測試中</th>
                     <th>全選
                         <!-- <input type="checkbox" οnclick="checkAll()"> -->
                     </th>
@@ -144,6 +145,10 @@ while ($record = mysqli_fetch_assoc($result)) {
                     <!--				查看-->
                     <td><img src="images/clipboard.png"
                              onclick="viewReport(<?= $value['int_id'] ?>,<?= $value['int_num_of_day'] ?>)"
+                             style="cursor:pointer;"></td>
+                    <!--               查看-->
+                    <td><img src="images/print.png"
+                             onclick="viewPrint(<?= $value['int_id'] ?>,<?= $value['int_num_of_day'] ?>)"
                              style="cursor:pointer;"></td>
                     <td><input class="downselect" type="checkbox" value="<?= $value['int_id'] ?>" style="zoom:180%;"></td>
                     </tr>
@@ -180,6 +185,22 @@ while ($record = mysqli_fetch_assoc($result)) {
         dateTime = dateTime.setDate(dateTime.getDate() - numofday);
         var url = '';
         url = 'CMS_order_c_check_m.php?id=' + id + '&checkDate=' + formatDate(dateTime);
+        window.open(url);
+    }
+
+    function viewPrint(id, numofday) {
+        var delidate = $('#datepicker').val();
+
+        // alert(delidate);
+        if (delidate == '') {
+            alert('請選擇收貨日期!');
+            return false;
+        }
+
+        var dateTime = new Date(delidate);
+        dateTime = dateTime.setDate(dateTime.getDate() - numofday);
+        var url = '';
+        url = 'CMS_order_c_check_m_print2.php?id=' + id + '&checkDate=' + formatDate(dateTime);
         window.open(url);
     }
 
