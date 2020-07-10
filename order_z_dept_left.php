@@ -307,6 +307,8 @@ switch ($action) {
             <table width="100%" border="0" cellspacing="2" cellpadding="2">
                 <?php
                 //查询订单详情
+                //$advance要+1,設計問題
+                $advancePlusOne = (int)$_SESSION[advance]+1 ;
                 $sql = "
 	SELECT 
 		tbl_order_z_dept.int_id AS orderID,
@@ -334,13 +336,20 @@ switch ($action) {
 			AND tbl_order_z_dept.status IN (0 , 1)
 			AND tbl_order_z_dept.int_qty >= 0
 			AND
-			 DATE(DATE_ADD(tbl_order_z_dept.order_date, INTERVAL 1+chr_phase DAY)) = 
-			 DATE(DATE_ADD(NOW(), INTERVAL $_SESSION[advance]+1 DAY))
+			 DATE(DATE_ADD(tbl_order_z_dept.order_date, INTERVAL 1+chr_phase DAY)) = ";
+
+             if($advancePlusOne >= 0){
+                $sql .= "DATE(DATE_ADD(NOW(), INTERVAL $advancePlusOne DAY))";
+             }else{
+                $advancePlusOne = abs($advancePlusOne);
+                $sql .= "DATE(DATE_SUB(NOW(), INTERVAL $advancePlusOne DAY))";
+             }
 			 
+		$sql .= "	 
 			AND tbl_order_z_dept.chr_dept = '$_SESSION[OrderDept]'
 			AND tbl_order_z_menu.int_id
 	ORDER BY tbl_order_z_menu.chr_no;";
-
+                // var_dump($sql);die;
                 $result = mysqli_query($con, $sql) or die($sql);
                 $count = 0;
 

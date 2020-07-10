@@ -97,6 +97,7 @@ if ($_SESSION[authenticated]) {
                 echo "<br/><a href='order_deli.php' class='styleA' target='view_window'>查看落貨單</a>";
             }else if ($_SESSION[type] == 3){
                 echo "<a href='check_order_number.php' class='styleA' target='view_window'>翻查已下單數目</a>";
+                echo "<br/><a href='select_day_by_time.php' class='styleA' target='view_window'>改舊單</a>";
             }
         ?>
         

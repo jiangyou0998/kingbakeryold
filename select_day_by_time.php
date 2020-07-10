@@ -16,7 +16,7 @@ $advDays = $_REQUEST[advDays];
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=big5">
     <META name="ROBOTS" content="NOINDEX,NOFOLLOW">
-    <title>內聯網</title>
+    <title>改舊單-內聯網</title>
     <script src="js/jquery-1.9.1.min.js"></script>
     <script src="js/My97DatePicker/WdatePicker.js"></script>
     <script src="js/parser.js"></script>
@@ -44,7 +44,7 @@ $advDays = $_REQUEST[advDays];
             var advance=Math.floor(datediff/(24*3600*1000));
 
             if (bool) {
-                location.href = "order_z_dept.php?shop=" + shop + "&dept=" + Obj[i].value + "&advance=" + advance;
+                window.open("order_z_dept.php?shop=" + shop + "&dept=" + Obj[i].value + "&advance=" + advance);
                 //this.close();
             } else {
                 alert("請先選擇部門");
@@ -108,23 +108,19 @@ $advDays = $_REQUEST[advDays];
     <input type="radio" name="dept" id="radio" value="K">廚房
     <input type="radio" name="dept" id="radio" value="F">樓面
 </center>
-<table width="100%" border="1" align="center" cellpadding="3" cellspacing="0">
 
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-            <td valign="middle">
+<hr>
+<br>
+<br>
+
+            <div valign="middle" align="center">
                 日期:
                 <input type="text" name="checkDate" class="form-control" value="<?= $showDate ?>" id="datepicker"
                        onclick="WdatePicker({maxDate:'',isShowClear:false})" style="width:125px" readonly>
 
                 <button onclick="opensupplier()">查詢</button>
-            </td>
-        </tr>
-        <tr>
-            <td align="center"></td>
-        </tr>
-    </table>
-</table>
+            </div>
+
 <br>
 
 </body>
