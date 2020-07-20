@@ -29,21 +29,21 @@ $shop = mysqli_fetch_array($result);
 
 $sql = "SELECT T1.chr_no, T1.chr_name as itemName, 
         SUM(T0.int_qty) as orderQty, 
-        if(SUM(T0.int_qty_received) is not null , SUM(T0.int_qty_received), SUM(T0.int_qty)) as qty, 
-        T1.int_default_price,
-        T4.int_id as dept,
-        T4.chr_name as deptName,
-        T4.int_sort,
-        T2.chr_name as unitName
-    FROM tbl_order_z_dept T0
-        LEFT JOIN tbl_order_z_menu T1 ON T0.int_product = T1.int_id
-        LEFT JOIN tbl_order_z_unit T2 ON T1.int_unit = T2.int_id
-        LEFT JOIN tbl_order_z_group T3 ON T1.int_group = T3.int_id
-        LEFT JOIN tbl_order_z_cat T4 ON T3.int_cat = T4.int_id
-    WHERE DATE(DATE_ADD(T0.order_date, INTERVAL 1+T0.chr_phase DAY)) = '$order_date' and int_user = $shopID AND T0.status <> 4
-    GROUP BY T1.chr_no, T1.chr_name, T4.int_id, T4.int_sort, T1.int_default_price, T2.chr_name, T4.chr_name
-    ORDER BY T4.int_sort, T1.chr_no;";
-    // var_dump($sql);
+		if(SUM(T0.int_qty_received) is not null , SUM(T0.int_qty_received), SUM(T0.int_qty)) as qty, 
+		T1.int_default_price,
+		T4.int_id as dept,
+		T4.chr_name as deptName,
+		T4.int_sort,
+		T2.chr_name as unitName
+	FROM tbl_order_z_dept T0
+		LEFT JOIN tbl_order_z_menu T1 ON T0.int_product = T1.int_id
+		LEFT JOIN tbl_order_z_unit T2 ON T1.int_unit = T2.int_id
+		LEFT JOIN tbl_order_z_group T3 ON T1.int_group = T3.int_id
+		LEFT JOIN tbl_order_z_cat T4 ON T3.int_cat = T4.int_id
+	WHERE DATE(DATE_ADD(T0.order_date, INTERVAL 1+T0.chr_phase DAY)) = '$order_date' and int_user = $shopID AND T0.status <> 4
+	GROUP BY T1.chr_no, T1.chr_name, T4.int_id, T4.int_sort, T1.int_default_price, T2.chr_name, T4.chr_name
+	ORDER BY T4.int_sort, T1.chr_no;";
+	// var_dump($sql);
 $result = mysqli_query($con, $sql) or die($sql);
 
 ?>
@@ -119,15 +119,15 @@ $result = mysqli_query($con, $sql) or die($sql);
 <br/>
 <table id="content" style="width:100%" cellspacing="0" cellpadding="0" border="2">
     <?php $tableHeaderHtml = '<tr>
-            <td style="font-weight:bold;" width="12%">編號</td>
-            <td style="font-weight:bold;" width="26%">貨名</td>
-            <td style="font-weight:bold;" width="12%" align="center">下單數量</td>
+			<td style="font-weight:bold;" width="12%">編號</td>
+			<td style="font-weight:bold;" width="26%">貨名</td>
+			<td style="font-weight:bold;" width="12%" align="center">下單數量</td>
             <td style="font-weight:bold;" width="12%" align="center">數量</td>
-            <td style="font-weight:bold;" width="6%" align="center">單位</td>
-            <td style="font-weight:bold;" width="10%" align="center">單價</td>
-            <td style="font-weight:bold;" width="10%" align="center">折扣</td>
-            <td style="font-weight:bold;" width="12%" align="center">實額</td>
-        </tr>';
+			<td style="font-weight:bold;" width="6%" align="center">單位</td>
+			<td style="font-weight:bold;" width="10%" align="center">單價</td>
+			<td style="font-weight:bold;" width="10%" align="center">折扣</td>
+			<td style="font-weight:bold;" width="12%" align="center">實額</td>
+		</tr>';
 
     echo $tableHeaderHtml;
 
@@ -138,7 +138,7 @@ $result = mysqli_query($con, $sql) or die($sql);
     $qtyTotal = 0;
     $priceTotal = 0;
     while ($record = mysqli_fetch_array($result)) {
-//          var_dump($record);
+//		    var_dump($record);
         if ($count == 0) {
             $dept = $record['dept'];
             $deptName = $record['deptName'];
@@ -150,13 +150,13 @@ $result = mysqli_query($con, $sql) or die($sql);
             $qtyTotal = number_format($qtyTotal, 2);
             $priceTotal = number_format($priceTotal, 2);
             echo "<tr style='border-bottom:4px solid black'>
-                    <td></td>
-                    <td align='right'>總件數=</td>
-                    <td align='right' colspan='3' style='border-right:0px'>$qtyTotal</td>
-                    
-                    <td align='right' colspan='2'>$deptName 金額=</td>
-                    <td align='right'>$$priceTotal</td>
-                </tr>";
+					<td></td>
+					<td align='right'>總件數=</td>
+					<td align='right' colspan='3' style='border-right:0px'>$qtyTotal</td>
+					
+					<td align='right' colspan='2'>$deptName 金額=</td>
+					<td align='right'>$$priceTotal</td>
+				</tr>";
             echo $tableHeaderHtml;
 
             $dept = $record['dept'];
