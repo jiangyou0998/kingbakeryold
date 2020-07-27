@@ -87,13 +87,17 @@ $timestamp = gettimeofday("sec") + 28800;
 
 
             var base = $('#base').val();
+            base = parseInt(base);
             var min = $('#min').val();
+            min = parseInt(min);
             var cuttime = $('#cuttime').val();
             var canordertimestr = $('input[type=checkbox]:checked').map(function () {
                 return this.value
             }).get().join(',');
 
             if (min < base) {
+                // console.log("min:"+min);
+                // console.log("base:"+base);
                 alert("最低消費不能少於單位數量");
                 return false;
             }
