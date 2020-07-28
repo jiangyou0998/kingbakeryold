@@ -640,7 +640,8 @@ switch ($action) {
             var qty = $("#qty" + id).val();
             // console.log($qty);
 
-            if(qty >= 0 ){
+            //管理員可以把數量改成0
+            if(qty > 0 || (qty == 0 && usertype == 3)){
                 var item = {'itemid': itemid, 'qty': qty};
                 insertarray.push(item);
             }
@@ -663,7 +664,8 @@ switch ($action) {
             var qty = $("#qty" + id).val();
             // console.log($qty);
 
-            if(qty >= 0){
+            //管理員可以把數量改成0
+            if(qty > 0 || (qty == 0 && usertype == 3)){
                 var item = {'mysqlid': mysqlID, 'qty': qty};
                 updatearray.push(item);
             }
