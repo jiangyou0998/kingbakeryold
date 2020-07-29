@@ -33,7 +33,7 @@ $shopArray = [
     'kb17'  =>  '蛋撻王(光華)',
     'kb18'  =>  '蛋撻王(利東街)',
 ];
-$sql = "SELECT distinct tbl_user.txt_name as 'shop_name',tbl_user.txt_login as 'shop_accout', DATE(DATE_ADD(tbl_order_z_dept.order_date, INTERVAL 1+tbl_order_z_dept.chr_phase DAY)) as 'deli_date' , count(*) as 'item_count'
+$sql = "SELECT distinct tbl_user.txt_name as 'shop_name',tbl_user.txt_login as 'shop_accout', DATE(DATE_ADD(tbl_order_z_dept.order_date, INTERVAL 1+tbl_order_z_dept.chr_phase DAY)) as 'deli_date' , count(*) as 'item_count' , tbl_order_z_dept.int_user
     FROM tbl_order_z_dept 
     LEFT JOIN tbl_user on tbl_user.int_id = tbl_order_z_dept.int_user
     where DATE(DATE_ADD(tbl_order_z_dept.order_date, INTERVAL 1+tbl_order_z_dept.chr_phase DAY)) = '$showDate'
