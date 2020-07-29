@@ -12,6 +12,9 @@ $maxQTY = 600;
 $action = $_REQUEST[action];
 $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id];
 $dateofweek = date('w', $timestamp + 86400 * ($_SESSION['advance'] + 1));
+//送貨日是星期几
+$deliW = date('w', $timestamp + 86400 * ($_SESSION['advance'] + 1));
+// var_dump($deliW);
 
 $sql_select = "SELECT txt_name FROM tbl_user WHERE int_id = " . $order_user;
 $result_select = mysqli_query($con, $sql_select);
@@ -323,7 +326,8 @@ switch ($action) {
 		LEFT(tbl_order_z_cat.chr_name, 2) AS suppName,
 		tbl_order_z_menu.int_id AS itemID,
 		tbl_order_z_menu.int_base,
-		tbl_order_z_menu.int_min
+		tbl_order_z_menu.int_min,
+        tbl_order_z_menu.chr_canordertime
 		
 	FROM
 		tbl_order_z_dept
@@ -370,6 +374,24 @@ switch ($action) {
                         </td>
                         <td align="center">
                             <?php
+                             //把字符串分解成 可以下單的日子的數組
+                            $canOrderTime = explode(",", $record['chr_canordertime']);
+                            $curtime = date('Hi', $timestamp);
+
+                            //送貨日期不在可下單日期時
+                            if (!in_array($deliW, $canOrderTime)) {
+                                echo "<img title='不在貨期' src='images/del_3.png' width='20' height='20'>";
+                                $haveoutdate = 1;
+                            }
+
+                            $phase = $record['int_phase'];
+
+                            //phase小於等於0,表示沒有截單時間,只能管理員下單
+                            if ($phase <= 0) {
+                                echo "<img title='後勤落單' src='images/alert.gif' width='20' height='20'>";
+                                $haveoutdate = 1;
+                            }
+
                             $curtime = date('Hi', $timestamp);
                             //if ($record['status'] == 1) echo "<font color=blue size=-1>(已落)</font>";
                             if ($record[chr_cuttime] < $curtime && $_SESSION[advance] < $record[int_phase]) {
@@ -427,7 +449,8 @@ switch ($action) {
                 LEFT(tbl_order_z_cat.chr_name, 2) AS suppName,
                 tbl_order_sample_item.qty,
                 tbl_order_z_menu.int_base,
-                tbl_order_z_menu.int_min
+                tbl_order_z_menu.int_min,
+                tbl_order_z_menu.chr_canordertime
                 
             FROM
                 tbl_order_sample_item
@@ -456,7 +479,8 @@ switch ($action) {
                 LEFT(tbl_order_z_cat.chr_name, 2) AS suppName,
                 regular_order_items.qty,
                 tbl_order_z_menu.int_base,
-                tbl_order_z_menu.int_min
+                tbl_order_z_menu.int_min,
+                tbl_order_z_menu.chr_canordertime
                 
             FROM
                 regular_order_items
@@ -496,7 +520,24 @@ switch ($action) {
                         </td>
                         <td align="center">
                             <?php
+                             //把字符串分解成 可以下單的日子的數組
+                            $canOrderTime = explode(",", $record['chr_canordertime']);
                             $curtime = date('Hi', $timestamp);
+
+                            //送貨日期不在可下單日期時
+                            if (!in_array($deliW, $canOrderTime)) {
+                                echo "<img title='不在貨期' src='images/del_3.png' width='20' height='20'>";
+                                $haveoutdate = 1;
+                            }
+
+                            $phase = $record['int_phase'];
+
+                            //phase小於等於0,表示沒有截單時間,只能管理員下單
+                            if ($phase <= 0) {
+                                echo "<img title='後勤落單' src='images/alert.gif' width='20' height='20'>";
+                                $haveoutdate = 1;
+                            }
+
                             //if ($record['status'] == 1) echo "<font color=blue size=-1>(已落)</font>";
                             if ($record[chr_cuttime] < $curtime && $_SESSION[advance] < $record[int_phase]) {
                                 //if (date('Hi',$timestamp) > $record['chr_cuttime']) {
