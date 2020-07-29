@@ -1,16 +1,16 @@
 <?php
 session_start();
 
-if (!($_SESSION[authenticated])) {
+if (!($_SESSION['authenticated'])) {
     $_SESSION['status'] = 'neverLogin';
-    $_SESSION[UrlRedirect] = 'order.php';
+    $_SESSION['UrlRedirect'] = 'order.php';
     header('Location: login.php');
 }
 
 require("connect.inc");
 
 $timestamp = gettimeofday("sec");
-$advDays = $_REQUEST[advDays];
+$advDays = $_REQUEST['advDays'];
 ?>
 <html>
 <head>
@@ -29,7 +29,7 @@ $advDays = $_REQUEST[advDays];
                 }
             }
             var shop = 0;
-            <?php if($_SESSION[type] == 3){ ?>
+            <?php if($_SESSION['type'] == 3){ ?>
             if ((shop = $("#shop").val()) == '0') {
                 alert("請先選擇分店");
                 return;
@@ -79,7 +79,7 @@ function isSunday($date)
 {
     $isSun = false;
 
-    if (date(D, $date) == "Sun")
+    if (date('D', $date) == "Sun")
         $isSun = true;
 
     return $isSun;
@@ -121,7 +121,7 @@ function showWkday($date)
 {
     $rtnString = date('n月d日 (', $date);
 
-    switch (date(D, $date)) {
+    switch (date('D', $date)) {
         case "Sun":
             $rtnString .= "日)";
             break;
@@ -152,7 +152,7 @@ function showWkday($date)
 <div align="left"><a target="_top" href="order.php" style="font-size: xx-large;">返回</a></div>
 <center class="style5">
     請選<span class="style4">送貨日</span>及<span class="style4">部門</span>
-    <? if ($_SESSION[type] == 3) { ?>
+    <? if ($_SESSION['type'] == 3) { ?>
         <br>
         <br>
         落貨分店
@@ -164,7 +164,7 @@ function showWkday($date)
             $sql = "SELECT int_id, txt_name FROM db_intranet.tbl_user WHERE chr_type = 2 AND int_dept = 2 ORDER BY txt_login;";
             $result = mysqli_query($con, $sql) or die($sql);
             while ($record = mysqli_fetch_assoc($result)) { ?>
-                <option value="<?= $record[int_id] ?>"><?= $record[txt_name] ?></option>
+                <option value="<?= $record['int_id'] ?>"><?= $record['txt_name'] ?></option>
             <? } ?>
         </select>
         <br>
