@@ -12,7 +12,7 @@ $action = $_REQUEST[action];
 // $action = $_SESSION['action'];
 $menuid = $_REQUEST['menuid'];
 // var_dump($menuid);
-$rOrderID = $_REQUEST['rOrderID'];
+$rOrderID = $_REQUEST['rOrderID'] ? $_REQUEST['rOrderID'] : 0;
 
 switch ($action) {
     case 'insert':
@@ -20,7 +20,7 @@ switch ($action) {
         break;
     
     case 'edit':
-        $url = '';
+        $url = 'CMS_regular_order_edit.php';
         break;
 }
 
@@ -262,28 +262,6 @@ switch ($action) {
 
     });
 
-    // $(document).on('change', '.qty', function () {
-    //     var qty = $(this).val();
-    //     var maxQty = <?=$maxQTY?>;
-    //     var base = $(this).data('base');
-    //     var min = $(this).data('min');
-    //     if (qty > maxQty) {
-    //         alert("每項目數量最多只可為「" + maxQty + "」");
-    //         $(this).val(maxQty);
-    //     } else if (qty < min) {
-    //         alert("該項目最少落單數量為「" + min + "」");
-    //         $(this).val(min);
-    //     } else if (qty % base != 0) {
-    //         alert("該項目數量必須以「" + base + "」為單位");
-    //         var newQty = qty - qty % base;
-    //         $(this).val(newQty);
-    //     }
-    //     ;
-    // });
-
-
-
-
     //鉤選或取消時,修改weekstr(隱藏)的值
         $(document).on('change', 'input[type=checkbox]', function () {
             var weekstr = $('input[type=checkbox]:checked').map(function () {
@@ -322,6 +300,13 @@ switch ($action) {
         // $("#btnsubmit").attr('disabled', false);
         // return false;
 
+        var orderid = 0;
+        var action = "<?= $action ?>";
+        if(action == 'edit'){
+            orderid = <?= $rOrderID ?>;
+        }
+        
+
 
 
         $.ajax({
@@ -329,6 +314,7 @@ switch ($action) {
             url: "<?= $url ?>",
             data: {
                 'menuid'  : "<?= $menuid ?>",
+                'orderid' : orderid,
                 'orderdates': weekstr,
                 'insertData': JSON.stringify(insertarray)
             },
