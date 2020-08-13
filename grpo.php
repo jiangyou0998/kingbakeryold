@@ -166,7 +166,7 @@ if ($_POST[action] == 'upload') {
         </tbody>
     </table>
     <hr/>
-    <table width="100%" border="1" cellspacing="0" cellpadding="8" style="padding:8px;">
+    <!-- <table width="100%" border="1" cellspacing="0" cellpadding="8" style="padding:8px;">
         <tbody>
         <tr>
             <td align="center" bgcolor="#CCCCCC"><strong>PO#</strong></td>
@@ -215,7 +215,7 @@ if ($_POST[action] == 'upload') {
             </tr>
         <? } ?>
         </tbody>
-    </table>
+    </table> -->
 </div>
 <br/>
 <br/>

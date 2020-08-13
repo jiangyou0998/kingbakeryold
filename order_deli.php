@@ -40,7 +40,7 @@ $sql = "SELECT T1.chr_no, T1.chr_name as itemName,
         LEFT JOIN tbl_order_z_unit T2 ON T1.int_unit = T2.int_id
         LEFT JOIN tbl_order_z_group T3 ON T1.int_group = T3.int_id
         LEFT JOIN tbl_order_z_cat T4 ON T3.int_cat = T4.int_id
-    WHERE DATE(DATE_ADD(T0.order_date, INTERVAL 1+T0.chr_phase DAY)) = '$order_date' and int_user = $shopID AND T0.status <> 4
+    WHERE DATE(DATE_ADD(T0.insert_date, INTERVAL 1+T0.chr_phase DAY)) = '$order_date' and int_user = $shopID AND T0.status <> 4
     GROUP BY T1.chr_no, T1.chr_name, T4.int_id, T4.int_sort, T1.int_default_price, T2.chr_name, T4.chr_name
     ORDER BY T4.int_sort, T1.chr_no;";
     // var_dump($sql);

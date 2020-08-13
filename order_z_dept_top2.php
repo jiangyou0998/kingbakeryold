@@ -6,8 +6,8 @@ if (!($_SESSION[authenticated])) {
     header('Location: login.php');
 }
 $timestamp = gettimeofday("sec");
-//當前訂單時間
 $ordertime = date('yy-m-d',$timestamp + 86400 * ($_SESSION['advance'] + 1));
+var_dump($ordertime);
 require($DOCUMENT_ROOT . "connect.inc");
 
 /*
@@ -152,7 +152,7 @@ if($_SESSION[user_id] == 147
         }
 
         if ($catExpired) continue;
-
+        
         IF ($count <= 6) {
             ?>
             <td width="106" height="38" align="center" background="<?= $bgimage; ?>"><a

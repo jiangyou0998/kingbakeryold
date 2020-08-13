@@ -133,6 +133,7 @@ require("check_login.php");
             <div id="class02ChildOthers" style="cursor:auto" class="exindent">
                 <ul>
                     <li><a href="order_z_receipt_list.php" target="subMainFrame">列表</a></li>
+                    <li><a href="CMS_invoice_edit.php" target="subMainFrame">發票修改</a></li>
                 </ul>
             </div>
 

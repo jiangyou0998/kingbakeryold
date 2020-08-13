@@ -33,10 +33,10 @@ if ($insertDatas) {
         if ($key != 0) {
             $sql .= ",";
         }
-        $sql .= "('";
+        $sql .= "(NOW(),'";
         //order_date
-        $sql .= date('Y/n/j G:i:s', $timestamp);
-        $sql .= "','";
+        // $sql .= date('Y/n/j G:i:s', $timestamp);
+        // $sql .= "','";
         //int_user
         $sql .= $order_user;
         $sql .= "','";
@@ -110,7 +110,7 @@ if ($delDatas) {
         }
         $ids = implode(',', array_values($idsArray));
 
-        $sql = "UPDATE tbl_order_z_dept SET status = 4, order_date = NOW() WHERE int_id IN ($ids)";
+        $sql = "UPDATE tbl_order_z_dept SET status = 4 WHERE int_id IN ($ids)";
 
         mysqli_query($con, $sql) or die("error delete");
     }

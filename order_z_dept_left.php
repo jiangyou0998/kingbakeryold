@@ -61,194 +61,194 @@ switch ($dateofweek) {
         break;
 }
 
-switch ($action) {
-    case 'drop':
-        $sql_base = "SELECT int_base, int_min FROM tbl_order_z_menu WHERE int_id = '$_REQUEST[productid]'; ";
-        $result_base = mysqli_query($con, $sql_base) or die($sql_base);
-        $record_base = mysqli_fetch_row($result_base);
-        $base = $record_base[0];
-        $min = $record_base[1];
+// switch ($action) {
+//     case 'drop':
+//         $sql_base = "SELECT int_base, int_min FROM tbl_order_z_menu WHERE int_id = '$_REQUEST[productid]'; ";
+//         $result_base = mysqli_query($con, $sql_base) or die($sql_base);
+//         $record_base = mysqli_fetch_row($result_base);
+//         $base = $record_base[0];
+//         $min = $record_base[1];
 
-        $sql_check = "SELECT int_id AS orderID, int_qty FROM tbl_order_z_dept ";
-        $sql_check .= "WHERE int_user = '$order_user' AND int_product = '$_REQUEST[productid]' AND status = '1' AND chr_phase =  '$_SESSION[advance]' AND chr_dept = '$_SESSION[OrderDept]' ";
+//         $sql_check = "SELECT int_id AS orderID, int_qty FROM tbl_order_z_dept ";
+//         $sql_check .= "WHERE int_user = '$order_user' AND int_product = '$_REQUEST[productid]' AND status = '1' AND chr_phase =  '$_SESSION[advance]' AND chr_dept = '$_SESSION[OrderDept]' ";
 
-        $result_check = mysqli_query($con, $sql_check) or die($sql_check);
+//         $result_check = mysqli_query($con, $sql_check) or die($sql_check);
 
-        IF (($record_check = mysqli_fetch_row($result_check)) > 0) {
-            IF (($record_check[1] - $base) <= 0 || ($record_check[1] - $base) < $min) {
-                $sql = "DELETE FROM tbl_order_z_dept WHERE int_id = " . $record_check[0];
-                mysqli_query($con, $sql) or die($sql);
-            } else {
-                $newQty = $record_check[1] - $base;
-                $sql = "UPDATE tbl_order_z_dept SET int_qty_init = $newQty, int_qty = $newQty ";
-                $sql .= "WHERE int_id = " . $record_check[0];
-                mysqli_query($con, $sql) or die($sql);
-            }
-        }
+//         IF (($record_check = mysqli_fetch_row($result_check)) > 0) {
+//             IF (($record_check[1] - $base) <= 0 || ($record_check[1] - $base) < $min) {
+//                 $sql = "DELETE FROM tbl_order_z_dept WHERE int_id = " . $record_check[0];
+//                 mysqli_query($con, $sql) or die($sql);
+//             } else {
+//                 $newQty = $record_check[1] - $base;
+//                 $sql = "UPDATE tbl_order_z_dept SET int_qty_init = $newQty, int_qty = $newQty ";
+//                 $sql .= "WHERE int_id = " . $record_check[0];
+//                 mysqli_query($con, $sql) or die($sql);
+//             }
+//         }
 
-        break;
-    case 'add':
-        $sql_base = "SELECT int_base, int_min FROM tbl_order_z_menu WHERE int_id = '$_REQUEST[productid]'; ";
-        $result_base = mysqli_query($con, $sql_base) or die($sql_base);
-        $record_base = mysqli_fetch_row($result_base);
-        $base = $record_base[0];
-        $min = $record_base[1];
-
-
-        $sql_check = "SELECT int_id AS orderID, int_qty FROM tbl_order_z_dept ";
-        $sql_check .= "WHERE int_user = '$order_user' AND int_product = '$_REQUEST[productid]' AND status IN ('0', '1') AND chr_phase =  '$_SESSION[advance]' AND chr_dept = '$_SESSION[OrderDept]' ";
-
-        $result_check = mysqli_query($con, $sql_check) or die($sql_check);
-
-        IF (($record_check = mysqli_fetch_row($result_check)) > 0) {
-            IF (($record_check[1] + $base) > $maxQTY) {
-                echo "<script>alert('每項目數量最多只可為「" . $maxQTY . "」');</script>";
-            }
+//         break;
+//     case 'add':
+//         $sql_base = "SELECT int_base, int_min FROM tbl_order_z_menu WHERE int_id = '$_REQUEST[productid]'; ";
+//         $result_base = mysqli_query($con, $sql_base) or die($sql_base);
+//         $record_base = mysqli_fetch_row($result_base);
+//         $base = $record_base[0];
+//         $min = $record_base[1];
 
 
-            $sql = "UPDATE tbl_order_z_dept SET int_qty_init = " . (($record_check[1] + $base) > $maxQTY ? $maxQTY . " " : "int_qty + $base ") . ",int_qty = " . (($record_check[1] + $base) > $maxQTY ? $maxQTY . " " : "int_qty + $base ");
-            $sql .= "WHERE int_id = " . $record_check[0];
+//         $sql_check = "SELECT int_id AS orderID, int_qty FROM tbl_order_z_dept ";
+//         $sql_check .= "WHERE int_user = '$order_user' AND int_product = '$_REQUEST[productid]' AND status IN ('0', '1') AND chr_phase =  '$_SESSION[advance]' AND chr_dept = '$_SESSION[OrderDept]' ";
 
-            mysqli_query($con, $sql) or die($sql);
-        } ELSE {
-            $sql = "INSERT INTO tbl_order_z_dept (order_date, int_user, int_product, int_qty, chr_ip, status, chr_phase, chr_dept, int_qty_init, insert_date) ";
-            $sql .= "VALUES ('";
-            //order_date
-            $sql .= date('Y/n/j G:i:s', $timestamp);
-            $sql .= "','";
-            //int_user
-            $sql .= $order_user;
-            $sql .= "','";
-            //int_product
-            $sql .= $_REQUEST[productid];
-            $sql .= "','";
-            //int_qty
-            $sql .= $min;
-            $sql .= "','";
-            //chr_ip
-            $sql .= $_SERVER['REMOTE_ADDR'];
-            $sql .= "','";
-            //status
-            $sql .= 1;
-            $sql .= "','";
-            //chr_phase
-            $sql .= $_SESSION['advance'];
-            $sql .= "','";
-            //chr_dept
-            $sql .= $_SESSION['OrderDept'];
-            //int_qty_init, insert_date
-            $sql .= "', 1, NOW()) ";
+//         $result_check = mysqli_query($con, $sql_check) or die($sql_check);
 
-            mysqli_query($con, $sql) or die($sql);
-        }
-        break;
-    case 'DirectAdd':
-        $moreThanMaxQTY = false;
-        foreach ($_GET as $key => $value) {
-            if (($value <> "") && ($key <> "Input_x") && ($key <> "Input_y") && ($key <> "Submit_x") && ($key <> "Submit_y") && ($key <> "action")) {
-                if ($_SESSION['chr_sap'] >= 'TH501' && $_SESSION['chr_sap'] <= 'TH599' && $value > $maxQTY) {
-                    $sql = "SELECT chr_sap FROM tbl_order_z_menu WHERE int_id = $key;";
-                    $result = mysql_query($sql) or die($sql);
-                    $record = mysql_fetch_row($result);
-                    if ($record[0] == "RVG073-1")
-                        $maxQTY = 900;
-                }
-                $sql_check = "SELECT int_id AS orderID, int_qty FROM tbl_order_z_dept ";
-                $sql_check .= "WHERE int_user = '$order_user' AND int_product = '$key' AND status = '0' AND chr_phase =  '$_SESSION[advance]' AND chr_dept = '$_SESSION[OrderDept]' ";
+//         IF (($record_check = mysqli_fetch_row($result_check)) > 0) {
+//             IF (($record_check[1] + $base) > $maxQTY) {
+//                 echo "<script>alert('每項目數量最多只可為「" . $maxQTY . "」');</script>";
+//             }
 
-                $result_check = mysql_query($sql_check) or die($sql_check);
-                IF (($record_check = mysql_fetch_row($result_check)) > 0) {
-                    IF (($record_check[1] + $value) > $maxQTY) {
-                        $moreThanMaxQTY = true;
-                    }
 
-                    $sql = "UPDATE tbl_order_z_dept SET int_qty_init = " . (($record_check[1] + $value) > $maxQTY ? $maxQTY . " " : "int_qty + $value ")
-                        . ", int_qty = " . (($record_check[1] + $value) > $maxQTY ? $maxQTY . " " : "int_qty + $value ");
-                    $sql .= "WHERE int_id = " . $record_check[0];
-                    /*
-                                $sql = "UPDATE tbl_order_z_dept SET int_qty = int_qty + $value ";
-                                $sql .= "WHERE int_id = ".$record_check['orderID'];
-                    */
-                    mysql_query($sql) or die($sql);
-                } ELSE {
-                    IF ($value > $maxQTY) {
-                        $moreThanMaxQTY = true;
-                        $value = $maxQTY;
-                    }
+//             $sql = "UPDATE tbl_order_z_dept SET int_qty_init = " . (($record_check[1] + $base) > $maxQTY ? $maxQTY . " " : "int_qty + $base ") . ",int_qty = " . (($record_check[1] + $base) > $maxQTY ? $maxQTY . " " : "int_qty + $base ");
+//             $sql .= "WHERE int_id = " . $record_check[0];
 
-                    $sql = "INSERT INTO tbl_order_z_dept (order_date, int_user, int_product, int_qty, chr_ip, status, chr_phase, chr_dept, int_qty_init, insert_date) ";
-                    $sql .= "VALUES ('";
-                    $sql .= date('Y/n/j G:i:s', $timestamp);
-                    $sql .= "','";
-                    $sql .= $order_user;
-                    $sql .= "','";
-                    $sql .= $key;
-                    $sql .= "','";
-                    $sql .= $value;
-                    $sql .= "','";
-                    $sql .= $_SERVER['REMOTE_ADDR'];
-                    $sql .= "','";
-                    $sql .= 1;
-                    $sql .= "','";
-                    $sql .= $_SESSION['advance'];
-                    $sql .= "','";
-                    $sql .= $_SESSION['OrderDept'];
-                    $sql .= "', '$value', NOW()) ";
+//             mysqli_query($con, $sql) or die($sql);
+//         } ELSE {
+//             $sql = "INSERT INTO tbl_order_z_dept (order_date, int_user, int_product, int_qty, chr_ip, status, chr_phase, chr_dept, int_qty_init, insert_date) ";
+//             $sql .= "VALUES ('";
+//             //order_date
+//             $sql .= date('Y/n/j G:i:s', $timestamp);
+//             $sql .= "','";
+//             //int_user
+//             $sql .= $order_user;
+//             $sql .= "','";
+//             //int_product
+//             $sql .= $_REQUEST[productid];
+//             $sql .= "','";
+//             //int_qty
+//             $sql .= $min;
+//             $sql .= "','";
+//             //chr_ip
+//             $sql .= $_SERVER['REMOTE_ADDR'];
+//             $sql .= "','";
+//             //status
+//             $sql .= 1;
+//             $sql .= "','";
+//             //chr_phase
+//             $sql .= $_SESSION['advance'];
+//             $sql .= "','";
+//             //chr_dept
+//             $sql .= $_SESSION['OrderDept'];
+//             //int_qty_init, insert_date
+//             $sql .= "', 1, NOW()) ";
 
-                    mysql_query($sql) or die($sql);
-                }
-            }
-        }
+//             mysqli_query($con, $sql) or die($sql);
+//         }
+//         break;
+//     case 'DirectAdd':
+//         $moreThanMaxQTY = false;
+//         foreach ($_GET as $key => $value) {
+//             if (($value <> "") && ($key <> "Input_x") && ($key <> "Input_y") && ($key <> "Submit_x") && ($key <> "Submit_y") && ($key <> "action")) {
+//                 if ($_SESSION['chr_sap'] >= 'TH501' && $_SESSION['chr_sap'] <= 'TH599' && $value > $maxQTY) {
+//                     $sql = "SELECT chr_sap FROM tbl_order_z_menu WHERE int_id = $key;";
+//                     $result = mysql_query($sql) or die($sql);
+//                     $record = mysql_fetch_row($result);
+//                     if ($record[0] == "RVG073-1")
+//                         $maxQTY = 900;
+//                 }
+//                 $sql_check = "SELECT int_id AS orderID, int_qty FROM tbl_order_z_dept ";
+//                 $sql_check .= "WHERE int_user = '$order_user' AND int_product = '$key' AND status = '0' AND chr_phase =  '$_SESSION[advance]' AND chr_dept = '$_SESSION[OrderDept]' ";
 
-        if ($moreThanMaxQTY) echo "<script>alert('每項目數量最多只可為「" . $maxQTY . "」');</script>";
+//                 $result_check = mysql_query($sql_check) or die($sql_check);
+//                 IF (($record_check = mysql_fetch_row($result_check)) > 0) {
+//                     IF (($record_check[1] + $value) > $maxQTY) {
+//                         $moreThanMaxQTY = true;
+//                     }
 
-        break;
-    case 'delete':
-        $sql = "UPDATE tbl_order_z_dept SET status = 4, order_date = NOW() WHERE int_id = $_REQUEST[id] ";
-        mysqli_query($con, $sql) or die($sql);
+//                     $sql = "UPDATE tbl_order_z_dept SET int_qty_init = " . (($record_check[1] + $value) > $maxQTY ? $maxQTY . " " : "int_qty + $value ")
+//                         . ", int_qty = " . (($record_check[1] + $value) > $maxQTY ? $maxQTY . " " : "int_qty + $value ");
+//                     $sql .= "WHERE int_id = " . $record_check[0];
+//                     /*
+//                                 $sql = "UPDATE tbl_order_z_dept SET int_qty = int_qty + $value ";
+//                                 $sql .= "WHERE int_id = ".$record_check['orderID'];
+//                     */
+//                     mysql_query($sql) or die($sql);
+//                 } ELSE {
+//                     IF ($value > $maxQTY) {
+//                         $moreThanMaxQTY = true;
+//                         $value = $maxQTY;
+//                     }
 
-        break;
-    case 'update':
-        $sql_base = "SELECT int_base, int_min, int_qty FROM tbl_order_z_dept T0 
-		LEFT JOIN tbl_order_z_menu T1 ON T0.int_product = T1.int_id WHERE T0.int_id = '$_REQUEST[int_id]'; ";
-        $result_base = mysqli_query($con, $sql_base) or die($sql_base);
-        $record_base = mysqli_fetch_row($result_base);
-        $base = $record_base[0];
-        $min = $record_base[1];
-        $oqty = $record_base[2];
+//                     $sql = "INSERT INTO tbl_order_z_dept (order_date, int_user, int_product, int_qty, chr_ip, status, chr_phase, chr_dept, int_qty_init, insert_date) ";
+//                     $sql .= "VALUES ('";
+//                     $sql .= date('Y/n/j G:i:s', $timestamp);
+//                     $sql .= "','";
+//                     $sql .= $order_user;
+//                     $sql .= "','";
+//                     $sql .= $key;
+//                     $sql .= "','";
+//                     $sql .= $value;
+//                     $sql .= "','";
+//                     $sql .= $_SERVER['REMOTE_ADDR'];
+//                     $sql .= "','";
+//                     $sql .= 1;
+//                     $sql .= "','";
+//                     $sql .= $_SESSION['advance'];
+//                     $sql .= "','";
+//                     $sql .= $_SESSION['OrderDept'];
+//                     $sql .= "', '$value', NOW()) ";
 
-        if ($_SESSION['chr_sap'] >= 'TH501' && $_SESSION['chr_sap'] <= 'TH599' && $_REQUEST[int_qty] > $maxQTY) {
-            $sql = "
-			SELECT T1.chr_sap 
-			FROM tbl_order_z_dept T0 
-				LEFT JOIN tbl_order_z_menu T1 ON T0.int_product = T1.int_id
-			WHERE T0.int_id = $_REQUEST[int_id];";
-            $result = mysqli_query($con, $sql) or die($sql);
-            $record = mysql_fetch_row($result);
-            if ($record[0] == "RVG073-1")
-                $maxQTY = 900;
-        }
+//                     mysql_query($sql) or die($sql);
+//                 }
+//             }
+//         }
 
-        IF ($_REQUEST[int_qty] > $maxQTY) {
-            $qty = $maxQTY;
-            echo "<script>alert('每項目數量最多只可為「" . $maxQTY . "」');</script>";
-        } ELSE {
-            $qty = $_REQUEST[int_qty];
-        }
+//         if ($moreThanMaxQTY) echo "<script>alert('每項目數量最多只可為「" . $maxQTY . "」');</script>";
 
-        IF ($_REQUEST[int_qty] % $base != 0) {
-            $qty = $oqty;
-            echo "<script>alert('該項目數量必須以「" . $base . "」為單位');</script>";
-        } else IF ($_REQUEST[int_qty] < $min) {
-            $qty = $oqty;
-            echo "<script>alert('該項目最少落單數量為「" . $min . "」');</script>";
-        }
+//         break;
+//     case 'delete':
+//         $sql = "UPDATE tbl_order_z_dept SET status = 4, order_date = NOW() WHERE int_id = $_REQUEST[id] ";
+//         mysqli_query($con, $sql) or die($sql);
 
-        $sql = "UPDATE tbl_order_z_dept SET int_qty_init = $qty, int_qty = $qty ";
-        $sql .= "WHERE int_id = $_REQUEST[int_id] ";
-        mysqli_query($con, $sql) or die($sql);
-        break;
-}
+//         break;
+//     case 'update':
+//         $sql_base = "SELECT int_base, int_min, int_qty FROM tbl_order_z_dept T0 
+// 		LEFT JOIN tbl_order_z_menu T1 ON T0.int_product = T1.int_id WHERE T0.int_id = '$_REQUEST[int_id]'; ";
+//         $result_base = mysqli_query($con, $sql_base) or die($sql_base);
+//         $record_base = mysqli_fetch_row($result_base);
+//         $base = $record_base[0];
+//         $min = $record_base[1];
+//         $oqty = $record_base[2];
+
+//         if ($_SESSION['chr_sap'] >= 'TH501' && $_SESSION['chr_sap'] <= 'TH599' && $_REQUEST[int_qty] > $maxQTY) {
+//             $sql = "
+// 			SELECT T1.chr_sap 
+// 			FROM tbl_order_z_dept T0 
+// 				LEFT JOIN tbl_order_z_menu T1 ON T0.int_product = T1.int_id
+// 			WHERE T0.int_id = $_REQUEST[int_id];";
+//             $result = mysqli_query($con, $sql) or die($sql);
+//             $record = mysql_fetch_row($result);
+//             if ($record[0] == "RVG073-1")
+//                 $maxQTY = 900;
+//         }
+
+//         IF ($_REQUEST[int_qty] > $maxQTY) {
+//             $qty = $maxQTY;
+//             echo "<script>alert('每項目數量最多只可為「" . $maxQTY . "」');</script>";
+//         } ELSE {
+//             $qty = $_REQUEST[int_qty];
+//         }
+
+//         IF ($_REQUEST[int_qty] % $base != 0) {
+//             $qty = $oqty;
+//             echo "<script>alert('該項目數量必須以「" . $base . "」為單位');</script>";
+//         } else IF ($_REQUEST[int_qty] < $min) {
+//             $qty = $oqty;
+//             echo "<script>alert('該項目最少落單數量為「" . $min . "」');</script>";
+//         }
+
+//         $sql = "UPDATE tbl_order_z_dept SET int_qty_init = $qty, int_qty = $qty ";
+//         $sql .= "WHERE int_id = $_REQUEST[int_id] ";
+//         mysqli_query($con, $sql) or die($sql);
+//         break;
+// }
 
 ?>
 <html>
@@ -337,10 +337,10 @@ switch ($action) {
 			INNER JOIN tbl_order_z_cat ON tbl_order_z_group.int_cat = tbl_order_z_cat.int_id
 	WHERE
 		tbl_order_z_dept.int_user = '$order_user'
-			AND tbl_order_z_dept.status IN (0 , 1)
+			AND tbl_order_z_dept.status IN (0 , 1 , 99)
 			AND tbl_order_z_dept.int_qty >= 0
 			AND
-			 DATE(DATE_ADD(tbl_order_z_dept.order_date, INTERVAL 1+chr_phase DAY)) = ";
+			 DATE(DATE_ADD(tbl_order_z_dept.insert_date, INTERVAL 1+chr_phase DAY)) = ";
 
              if($advancePlusOne >= 0){
                 $sql .= "DATE(DATE_ADD(NOW(), INTERVAL $advancePlusOne DAY))";

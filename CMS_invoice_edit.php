@@ -101,11 +101,11 @@ IF ($showDate == "") $showDate = $today;
 
         </tr>
         <?php
-        $sql = "SELECT chr_po_no, DATE(order_date) as order_date, DATE(DATE_ADD(order_date, INTERVAL 1+chr_phase DAY)) as deli_date, SUM(int_default_price * ifnull(T0.int_qty_received,T0.int_qty)) as po_total, 'warehouse' as order_type , int_user , T2.chr_report_name 
+        $sql = "SELECT chr_po_no, DATE(order_date) as order_date, DATE(DATE_ADD(insert_date, INTERVAL 1+chr_phase DAY)) as deli_date, SUM(int_default_price * ifnull(T0.int_qty_received,T0.int_qty)) as po_total, 'warehouse' as order_type , int_user , T2.chr_report_name 
                 FROM tbl_order_z_dept T0 
                     LEFT JOIN tbl_order_z_menu T1 ON T0.int_product = T1.int_id
                     LEFT JOIN tbl_user T2 ON T0.int_user = T2.int_id
-                WHERE DATE(DATE_ADD(order_date, INTERVAL 1+chr_phase DAY)) = '$showDate'
+                WHERE DATE(DATE_ADD(insert_date, INTERVAL 1+chr_phase DAY)) = '$showDate'
                 AND T0.status in (1,99)
                 GROUP BY chr_po_no , int_user
                 ORDER BY deli_date desc , T2.txt_login, chr_po_no;";
@@ -122,7 +122,7 @@ IF ($showDate == "") $showDate = $today;
             ?>
             <tr>
                 <td align="center">
-                    <a href="CMS_invoice_detail.php?po=<?= $record['chr_po_no'] ?>&id=<?= $record['int_user'] ?> "><?= $record['chr_po_no'] ?></a>
+                    <a href="CMS_invoice_detail.php?po=<?= $record['chr_po_no'] ?>&id=<?= $record['int_user'] ?> " target="_blank"><?= $record['chr_po_no'] ?></a>
                 </td>
                 <td align="center">
 				<span>

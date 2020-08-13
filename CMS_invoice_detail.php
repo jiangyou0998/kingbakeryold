@@ -475,7 +475,7 @@ $po_header = mysqli_fetch_assoc($po_header);
         <input type="hidden" name="po" value="<?= $_GET[po] ?>"/>
         <!--	<button style="font-size:24px; padding:4px; "  onclick="checkSubmit();" value="確認收貨"/>-->
         <button class="btn btn-primary" type="button" onclick="checkSubmit();">&nbsp;確認收貨&nbsp;</button>
-        <button class="btn btn-danger" type="button" onclick="location='grpo.php';">&nbsp;返回&nbsp;</button>
+        <!-- <button class="btn btn-danger" type="button" onclick="location='grpo.php';">&nbsp;返回&nbsp;</button> -->
     </form>
 
 </div>
