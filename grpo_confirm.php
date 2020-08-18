@@ -27,8 +27,8 @@ if ($sqlWhen != '') {
     $sql .= $sqlWhen;
     $sql .= "END,";
 }
-$sql .= sprintf("received_date = '%s' ,", date('Y-m-d H:i:s'));
-$sql .= sprintf("status = %d ", 99);
+$sql .= sprintf("received_date = '%s' ", date('Y-m-d H:i:s'));
+// $sql .= sprintf("status = %d ", 99);
 
 $sql .= " WHERE int_id IN ($ids);";
 

@@ -12,7 +12,8 @@ $sql = "SELECT T0.int_id, DATE(order_date) as order_date,  DATE(DATE_ADD(order_d
 	LEFT JOIN tbl_order_z_menu T1 ON T0.int_product = T1.int_id
     LEFT JOIN tbl_order_z_unit T2 ON T1.int_unit = T2.int_id
     LEFT JOIN tbl_user T3 ON T0.int_user = T3.int_id
- WHERE chr_po_no = '$_GET[po]' AND int_user = $_GET[id]
+ WHERE chr_po_no = '$_GET[po]' AND int_user = $_GET[id] AND
+ T0.status != 4
  GROUP BY int_product, chr_dept
  ORDER BY T1.chr_no ";
 $po_detail = mysqli_query($con, $sql) or die($sql);
@@ -416,9 +417,14 @@ $po_header = mysqli_fetch_assoc($po_header);
                                         5=>'打錯單',
                                         6=>'抄碼',
                                         7=>'運送途中損爛',
-                                        8=>'不明原因'
+                                        8=>'運輸送錯分店',
+                                        9=>'缺貨',
+                                        10=>'廠派貨',
+                                        11=>'分店要求扣數',
+                                        12=>'分店要求加單',
+                                        13=>'不明原因'
                                     ];
-                                    var_dump($row['reason']);
+                                    // var_dump($row['reason']);
 
                                     foreach ($reasonArr as $key => $value) {
                                         if ($row['reason'] == $value){
