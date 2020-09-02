@@ -166,12 +166,14 @@ $po_header = mysqli_fetch_assoc($po_header);
                 var id = $(this).data("id");
                 // 數據庫有記錄的才寫入對象;
                 if (mysqlid) {
-                    var item = {'mysqlid': mysqlid, 'receivedqty': receivedqty};
+                    
                     //實收與落單數不同時寫入原因
                     if (receivedqty != qty) {
+                        var item = {'mysqlid': mysqlid, 'receivedqty': receivedqty};
                         item.reason = $(".reason[data-id=" + id + "] option:selected").text();
+                        updatearray.push(item);
                     }
-                    updatearray.push(item);
+                    
                 }
 
             });
@@ -385,7 +387,7 @@ $po_header = mysqli_fetch_assoc($po_header);
                                                        data-price="<?= $row[price] ?>"
                                                        data-dept="<?= $dept ?>"
                                                        data-id="<?= $itemID ?>"
-                                                       data-qty="<?= ($row[qty][$dept][deptqty]) ? number_format($row[qty][$dept][deptqty], 0, '.', ',') : '0' ?>"
+                                                       data-qty="<?= ($row[qty][$dept][qty]) ? number_format($row[qty][$dept][qty], 0, '.', ',') : '0' ?>"
                                                        value="<?= ($row[qty][$dept][qty]) ? number_format($row[qty][$dept][qty], 0, '.', ',') : '0' ?>"
                                                        class="dept-input" type="number" autocomplete="off"
                                                        style="width:95%; margin:auto;"/>
