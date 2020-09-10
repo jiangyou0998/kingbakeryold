@@ -1,5 +1,12 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
 session_start();
 if (!($_SESSION[authenticated])) {
     $_SESSION['status'] = 'neverLogin';
@@ -61,6 +68,100 @@ if (isset($_POST['submit'])) {
         $insert_Result = mysqli_query($con, $insertSQL) or die($insertSQL);
         $sql_update = "UPDATE tbl_repair_project_no SET int_no = int_no + 1";
         $update_Result = mysqli_query($con, $sql_update) or die($sql_update);
+
+        //獲取新插入id
+        $sql_getid = "SELECT LAST_INSERT_ID();";
+        $resultGetid = mysqli_query($con, $sql_getid);
+        $resultArr = mysqli_fetch_array($resultGetid);
+        $supportId = $resultArr[0];
+
+        //獲取剛插入的維修單信息
+        $sql_support = "SELECT 
+            tbl_repair_project.chr_no as support_no,
+            tbl_user.txt_name as username,
+            tbl_user.chr_email as email,
+            tbl_repair_project.chr_ip as ip,
+            tbl_repair_loc.chr_name as local,
+            tbl_repair_item.chr_name as item,
+            tbl_repair_detail.chr_name as detail,
+            tbl_repair_project.int_important as important,
+            tbl_repair_project.chr_machine_code as machine_code,
+            tbl_repair_project.chr_other as other,
+            tbl_repair_project.chr_pic as pic
+            FROM tbl_repair_project
+            left join tbl_repair_loc on tbl_repair_loc.int_id = tbl_repair_project.int_repair_loc
+            left join tbl_repair_item on tbl_repair_item.int_id = tbl_repair_project.int_repair_item
+            left join tbl_repair_detail on tbl_repair_detail.int_id = tbl_repair_project.int_repair_detail
+            left join tbl_user on tbl_user.int_id = tbl_repair_project.int_user
+            where tbl_repair_project.int_id = $supportId;";
+        $resultSupport = mysqli_query($con, $sql_support) or die($sql_support);
+        $support = mysqli_fetch_assoc($resultSupport);
+
+        switch ($support['important']) {
+            case "3":
+                $support['important'] = "高";
+                break;
+            case "4":
+                $support['important'] = "中";
+                break;
+            case "5":
+                $support['important'] = "低";
+                break;
+            default:
+                break;
+        }
+
+        //發送郵件
+        $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+        try {
+            //服务器配置
+            $mail->CharSet = "UTF-8";                     //设定邮件编码
+            $mail->SMTPDebug = 0;                        // 调试模式输出
+            $mail->isSMTP();                             // 使用SMTP
+
+            $mail->Host = "corpmail1.netvigator.com";
+            $mail->Port = 25;
+
+            $mail->FromName = $support['username'];
+            $mail->From = $support['email'];
+            $mail->SMTPDebug = 1;
+            $mail->AddAddress("jianli@kingbakery.com.hk");
+            $mail->AddAddress("keungng@kingbakery.com.hk");
+            $mail->AddAddress("vincentyeung@kingbakery.com.hk");
+            $mail->AddAddress("cecillau@kingbakery.com.hk");
+            //$mail->AddBCC("yuecheung.lau@gmail.com");
+            $mail->CharSet = "utf-8";
+            $mail->Encoding = "base64";
+            $mail->WordWrap = 50;                                 // set word wrap to 50 characters
+            $mail->IsHTML(true);
+
+            if($support['pic']){
+                $mail->AddAttachment("D:\\intranet\\wwwroot2\\repairproject\\".$support['pic']);
+            }
+
+
+            //Content
+            $mail->isHTML(true);                                  // 是否以HTML文档格式发送  发送后客户端可直接显示对应HTML内容
+            $mail->Subject = $support['username'] . $support['support_no'];
+            $mail->Body = '<h1>有新的維修項目</h1>' 
+            .'IP:'.$support['ip']."<br>"
+            .'分店:'.$support['username']."<br>"
+            .'緊急性:'.$support['important']."<br>"
+            .'位置:'.$support['local']."<br>"
+            .'維修項目:'.$support['item']."<br>"
+            .'求助事宜:'.$support['detail']."<br>"
+            .'機器號碼#:'.$support['machine_code']."<br>"
+            .'其他資料提供:'.$support['other']."<br>"
+            .'時間:'. date('Y-m-d H:i:s')."<br><br><br>";
+            $mail->AltBody = '如果邮件客户端不支持HTML则显示此内容';
+
+            $mail->send();
+            echo '邮件发送成功';
+        } catch (Exception $e) {
+            echo '邮件发送失败: ', $mail->ErrorInfo;
+        }
+        
+
 
         if ($insert_Result) {
             echo '<script language="javascript">alert("成功發出維修項目#' . $row['chr_case_num'] . '"); window.location.href ="repair_project.php"; </script>';

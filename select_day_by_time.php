@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 session_start();
 
 if (!($_SESSION[authenticated])) {
@@ -75,7 +75,7 @@ $advDays = $_REQUEST[advDays];
             font-size: 160%;
         }
 
-        -->
+       
     </style>
 </head>
 
@@ -125,4 +125,3 @@ $advDays = $_REQUEST[advDays];
 
 </body>
 </html>
- -->
