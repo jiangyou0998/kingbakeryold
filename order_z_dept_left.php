@@ -505,6 +505,8 @@ switch ($dateofweek) {
                 $count = 0;
 
                 while ($record = mysqli_fetch_assoc($result)) {
+                    //注意記錄是否能下單的值要重新變為0
+                    $haveoutdate = 0;
                     if ($count & 1) {
                         $bg = "#ffcc33";
                     } else {

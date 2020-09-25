@@ -111,6 +111,43 @@ if (isset($_POST['submit'])) {
                 break;
         }
 
+        $nowUTC = time();
+        // $UTC = gmdate("Hi",$nowUTC);
+        $date = gmdate("Ymd",$nowUTC);
+        // $startTime = date('Y-m-d H:i:s');
+        // $endTime = date('Y-m-d H:i:s',strtotime("+2 hour"));
+        $secondPerHour = 3600;
+        $startTime = gmdate("H",$nowUTC + $secondPerHour);
+        $endTime = gmdate("H",$nowUTC + 3*$secondPerHour);
+        $body = '<h1>有新的維修項目</h1>' 
+            .'IP:'.$support['ip']."<br>"
+            .'分店:'.$support['username']."<br>"
+            .'緊急性:'.$support['important']."<br>"
+            .'位置:'.$support['local']."<br>"
+            .'維修項目:'.$support['item']."<br>"
+            .'求助事宜:'.$support['detail']."<br>"
+            .'機器號碼#:'.$support['machine_code']."<br>"
+            .'其他資料提供:'.$support['other']."<br>"
+            .'時間:'. date('Y-m-d H:i:s')."<br><br><br>";
+
+
+//每行前面不能加tab
+$ical_content = "BEGIN:VCALENDAR
+VERSION:2.0
+PRODID://Drupal iCal API//CN
+BEGIN:VEVENT
+UID:
+DTSTAMP:".$date."T".$startTime."0000Z
+DTSTART:".$date."T".$startTime."0000Z
+DTEND:".$date."T".$endTime."0000Z
+SUMMARY:".$support['item'] . $support['detail']."
+LOCATION:".$support['username']."
+DESCRIPTION:有新的維修項目
+END:VEVENT
+END:VCALENDAR";
+
+
+
         //發送郵件
         $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
         try {
@@ -143,17 +180,10 @@ if (isset($_POST['submit'])) {
             //Content
             $mail->isHTML(true);                                  // 是否以HTML文档格式发送  发送后客户端可直接显示对应HTML内容
             $mail->Subject = $support['username'] . $support['support_no'];
-            $mail->Body = '<h1>有新的維修項目</h1>' 
-            .'IP:'.$support['ip']."<br>"
-            .'分店:'.$support['username']."<br>"
-            .'緊急性:'.$support['important']."<br>"
-            .'位置:'.$support['local']."<br>"
-            .'維修項目:'.$support['item']."<br>"
-            .'求助事宜:'.$support['detail']."<br>"
-            .'機器號碼#:'.$support['machine_code']."<br>"
-            .'其他資料提供:'.$support['other']."<br>"
-            .'時間:'. date('Y-m-d H:i:s')."<br><br><br>";
-            $mail->AltBody = '如果邮件客户端不支持HTML则显示此内容';
+            $mail->Body = $body;
+            // $mail->AltBody = '如果邮件客户端不支持HTML则显示此内容';
+            $mail->addStringAttachment($ical_content,'ical.ics','base64','text/calendar');
+            
 
             $mail->send();
             echo '邮件发送成功';

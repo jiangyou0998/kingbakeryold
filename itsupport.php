@@ -109,7 +109,47 @@ if (isset($_POST['submit'])) {
         }
 
         //發送郵件
-        $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+        $mail = new PHPMailer(true); // 类似phpexcel=》LExcelHelper的使用
+
+        $inviteName = $support['username'];
+        
+        $nowUTC = time();
+        // $UTC = gmdate("Hi",$nowUTC);
+        $date = gmdate("Ymd",$nowUTC);
+        // $startTime = date('Y-m-d H:i:s');
+        // $endTime = date('Y-m-d H:i:s',strtotime("+2 hour"));
+        $secondPerHour = 3600;
+        $startTime = gmdate("H",$nowUTC + $secondPerHour);
+        $endTime = gmdate("H",$nowUTC + 3*$secondPerHour);
+        $body = '<h1>有新的IT求助</h1>' 
+            .'IP:'.$support['ip']."<br>"
+            .'分店/部門:'.$support['username']."<br>"
+            .'緊急性:'.$support['important']."<br>"
+            .'器材:'.$support['item']."<br>"
+            .'求助事宜:'.$support['detail']."<br>"
+            .'機器號碼#:'.$support['machine_code']."<br>"
+            .'其他資料提供:'.$support['other']."<br>"
+            .'時間:'. date('Y-m-d H:i:s')."<br><br><br>";
+
+    
+        $address = $support['email'];
+        $title = '維修';
+
+//每行前面不能加tab
+$ical_content = "BEGIN:VCALENDAR
+VERSION:2.0
+PRODID://Drupal iCal API//CN
+BEGIN:VEVENT
+UID:
+DTSTAMP:".$date."T".$startTime."0000Z
+DTSTART:".$date."T".$startTime."0000Z
+DTEND:".$date."T".$endTime."0000Z
+SUMMARY:".$support['item'] . $support['detail']."
+LOCATION:".$support['username']."
+DESCRIPTION:有新的IT求助
+END:VEVENT
+END:VCALENDAR";
+
         try {
             //服务器配置
             $mail->CharSet = "UTF-8";                     //设定邮件编码
@@ -123,7 +163,7 @@ if (isset($_POST['submit'])) {
             $mail->From = $support['email'];
             $mail->SMTPDebug = 1;
             $mail->AddAddress("jianli@kingbakery.com.hk");
-            $mail->AddAddress("cecillau@kingbakery.com.hk");
+            // $mail->AddAddress("cecillau@kingbakery.com.hk");
             //$mail->AddBCC("yuecheung.lau@gmail.com");
             $mail->CharSet = "utf-8";
             $mail->Encoding = "base64";
@@ -138,16 +178,13 @@ if (isset($_POST['submit'])) {
             //Content
             $mail->isHTML(true);                                  // 是否以HTML文档格式发送  发送后客户端可直接显示对应HTML内容
             $mail->Subject = $support['username'] . $support['support_no'];
-            $mail->Body = '<h1>有新的IT求助</h1>' 
-            .'IP:'.$support['ip']."<br>"
-            .'分店/部門:'.$support['username']."<br>"
-            .'緊急性:'.$support['important']."<br>"
-            .'器材:'.$support['item']."<br>"
-            .'求助事宜:'.$support['detail']."<br>"
-            .'機器號碼#:'.$support['machine_code']."<br>"
-            .'其他資料提供:'.$support['other']."<br>"
-            .'時間:'. date('Y-m-d H:i:s')."<br><br><br>";
-            $mail->AltBody = '如果邮件客户端不支持HTML则显示此内容';
+            $mail->Body = $body;
+            // $mail->Ical = $ical_content;
+            // $mail->AltBody = $ical_content;
+            //For sending ical
+            // if(!empty($ical)){
+            $mail->addStringAttachment($ical_content,'ical.ics','base64','text/calendar');
+            // }
 
             $mail->send();
             echo '邮件发送成功';
