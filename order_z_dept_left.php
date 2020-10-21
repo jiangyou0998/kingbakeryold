@@ -327,7 +327,8 @@ switch ($dateofweek) {
 		tbl_order_z_menu.int_id AS itemID,
 		tbl_order_z_menu.int_base,
 		tbl_order_z_menu.int_min,
-        tbl_order_z_menu.chr_canordertime
+        tbl_order_z_menu.chr_canordertime,
+        tbl_order_z_cat.int_id AS cat_id
 		
 	FROM
 		tbl_order_z_dept
@@ -381,6 +382,23 @@ switch ($dateofweek) {
                             //送貨日期不在可下單日期時
                             if (!in_array($deliW, $canOrderTime)) {
                                 echo "<img title='不在貨期' src='images/del_3.png' width='20' height='20'>";
+                                $haveoutdate = 1;
+                            }
+
+                            $deli_date = date('Y-m-d', $timestamp + 86400 * ($_SESSION['advance'] + 1));
+                            $cat_id = $record['cat_id'];
+                            // var_dump($deli_date == '2020-10-22');
+                            // var_dump(in_array($order_user,[6,7,8,31,32,77]));
+                            // var_dump($_SESSION);
+                            // var_dump($cat_id == 5);
+
+                            //臨時開啟
+                            if ($deli_date == '2020-10-22' && in_array($order_user,[6,7,8,31,32,77]) && $cat_id == 5){
+                                 $haveoutdate = 0;
+                            }
+
+                            //臨時關閉
+                            if ($deli_date == '2020-10-24' && in_array($order_user,[6,7,8,31,32,77]) && $cat_id == 5){
                                 $haveoutdate = 1;
                             }
 

@@ -14,6 +14,12 @@ $curtime = date('Hi', $timestamp);
 $deliW = date('w', $timestamp + 86400 * ($_SESSION['advance'] + 1));
 //	var_dump($deliW);
 $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id];
+
+//查詢當前大類id
+$sql_select = "SELECT int_cat FROM tbl_order_z_group WHERE int_id = " . $_REQUEST['groupid'];
+$result_select = mysqli_query($con, $sql_select);
+$record_select = mysqli_fetch_array($result_select);
+$cat_id = $record_select[0];
 //echo $curtime;
 //echo $_SESSION['advance'];
 
@@ -350,6 +356,26 @@ $order_user = $_SESSION[order_user] ? $_SESSION[order_user] : $_SESSION[user_id]
                         }
 
 //	echo $record['status'];
+
+                        //特殊日子
+                        //判斷是否特殊日子,暫時寫死,根據日期,分店名,大類id開放
+                        //轉手貨id=5
+                        $deli_date = date('Y-m-d', $timestamp + 86400 * ($_SESSION['advance'] + 1));
+                        // var_dump($deli_date == '2020-10-22');
+                        // var_dump(in_array($order_user,[6,7,8,31,32,77]));
+                        // var_dump($_SESSION);
+                        // var_dump($cat_id == 5);
+
+                        //臨時開啟
+                        if ($deli_date == '2020-10-22' && in_array($order_user,[6,7,8,31,32,77]) && $cat_id == 5){
+                            $overTime = false;
+                        }
+
+                        //臨時關閉
+                        if ($deli_date == '2020-10-24' && in_array($order_user,[6,7,8,31,32,77]) && $cat_id == 5){
+                            $overTime = true;
+                        }
+                        
 
                         //$overTime == true 改變樣式
                         if ($overTime == true) {
