@@ -481,6 +481,7 @@ switch ($dateofweek) {
                 tbl_order_sample.user_id = $order_user
                 AND tbl_order_sample.sampledate like '%$dateofweek%'
                 AND tbl_order_sample_item.disabled = 0
+                AND tbl_order_z_menu.status not in (2)
                 AND tbl_order_sample.disabled = 0
                     
             ORDER BY tbl_order_z_menu.chr_no;";

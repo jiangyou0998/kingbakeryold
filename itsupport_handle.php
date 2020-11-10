@@ -12,7 +12,7 @@ if ($_POST[action] == "update") {
     $sql = "UPDATE tbl_itsupport SET last_update_date = NOW(), last_update_user = $_SESSION[user_id], txt_comment = '$_POST[comment]' WHERE int_id = $_POST[id]";
     mysqli_query($con, $sql) or die($sql);
     if ($_POST[complete]) {
-        $sql = "UPDATE tbl_itsupport SET int_status = '99' WHERE int_id = $_POST[id]";
+        $sql = "UPDATE tbl_itsupport SET int_status = '99' , complete_date = '$_POST[cDate]' , handle_staff = '$_POST[staff]' , finished_start_time = '$_POST[start]' , finished_end_time = '$_POST[end]' WHERE int_id = $_POST[id]";
         mysqli_query($con, $sql) or die($sql);
     }
 
@@ -23,7 +23,8 @@ if ($_POST[action] == "update") {
 $sql = "SELECT T0.int_id as pj_id, T0.chr_no, T0.int_important, T0.int_status, T0.chr_machine_code,
 	DATE(T0.report_date) as date, DATEDIFF(CURDATE(), DATE(report_date)) as datediff, 
 	chr_other, chr_pic, T1.chr_name as itm, T2.chr_name as dtl, T3.txt_name as usr,
-	T4.txt_name as update_usr, DATE(T0.last_update_date) as update_date, txt_comment
+	T4.txt_name as update_usr, DATE(T0.last_update_date) as update_date, txt_comment ,
+    T0.complete_date , T0.handle_staff , T0.finished_start_time ,T0.finished_end_time
 FROM tbl_itsupport T0
 	LEFT JOIN tbl_itsupport_item T1 ON T0.int_itsupport_item = T1.int_id
 	LEFT JOIN tbl_itsupport_detail T2 ON T0.int_itsupport_detail = T2.int_id
@@ -39,6 +40,8 @@ $project = mysqli_fetch_assoc($result);
     <meta http-equiv="Content-Type" content="text/html; charset=big5"/>
     <title>內聯網</title>
     <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/My97DatePicker/WdatePicker.js"></script>
+    <link href="My97DatePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css">
 </head>
 <style>
     * {
@@ -92,10 +95,37 @@ $project = mysqli_fetch_assoc($result);
             <tr>
                 <td style="width:30%; vertical-align:top;">跟進結果</td>
             </tr>
+
             <tr>
                 <td colspan="2"><textarea style="margin: 0px; width: 100%; height: 100px; resize: none;"
                                           name="comment"><?= $project[txt_comment] ?></textarea></td>
             </tr>
+
+            <tr>
+            <td style="width:30%">完成日期</td>
+                <td>
+                    <input name="cDate" onclick="WdatePicker();" size="10"
+                           value="<?= date("Y-m-d", gettimeofday('sec')) ?>"/>
+                </td>
+            </tr>
+
+            <tr>
+            <td style="width:30%">到店日期</td>
+                <td>
+                    <input name="start" onclick="WdatePicker({dateFmt:'H:mm'});" size="10"
+                          autocomplete="off" value=""/>-
+                    <input name="end" onclick="WdatePicker({dateFmt:'H:mm'});" size="10"
+                          autocomplete="off" value=""/>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width:30%">維修員</td>
+                <td>
+                    <input name="staff" size="10"/>
+                </td>
+            </tr>
+
             <tr>
                 <td style="width:30%">已完成</td>
                 <td>
@@ -103,6 +133,7 @@ $project = mysqli_fetch_assoc($result);
                     <input type="checkbox" name="complete" value="1">
                 </td>
             </tr>
+
             <tr>
                 <td align="center" colspan="2"><input type="submit" value="提交" style="font-size:18px;"/></td>
             </tr>
@@ -113,6 +144,18 @@ $project = mysqli_fetch_assoc($result);
         <tr>
             <td style="width:30%; vertical-align:top;">跟進結果</td>
             <td style="word-break: break-all;"><?= $project[txt_comment] ?></td>
+        </tr>
+        <tr>
+            <td style="width:30%; vertical-align:top;">完成日期</td>
+            <td style="word-break: break-all;"><?= $project[complete_date] ?></td>
+        </tr>
+        <tr>
+            <td style="width:30%; vertical-align:top;">到店時間</td>
+            <td style="word-break: break-all;"><?= $project[finished_start_time] ?>-<?= $project[finished_end_time] ?></td>
+        </tr>
+        <tr>
+            <td style="width:30%; vertical-align:top;">維修員</td>
+            <td style="word-break: break-all;"><?= $project[handle_staff] ?></td>
         </tr>
 
     </table>
