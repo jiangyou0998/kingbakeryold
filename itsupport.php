@@ -110,9 +110,7 @@ if (isset($_POST['submit'])) {
 
         //發送郵件
         $mail = new PHPMailer(true); // 类似phpexcel=》LExcelHelper的使用
-
-        $inviteName = $support['username'];
-        
+      
         $nowUTC = time();
         // $UTC = gmdate("Hi",$nowUTC);
         $date = gmdate("Ymd",$nowUTC);
@@ -131,9 +129,6 @@ if (isset($_POST['submit'])) {
             .'其他資料提供:'.$support['other']."<br>"
             .'時間:'. date('Y-m-d H:i:s')."<br><br><br>";
 
-    
-        $address = $support['email'];
-        $title = '維修';
 
 //每行前面不能加tab
 $ical_content = "BEGIN:VCALENDAR
@@ -290,14 +285,14 @@ END:VCALENDAR";
 
             if (document.getElementById('sel_project_type').selectedIndex == 0) {
 
-                alert('請選擇「位置」選項');
+                alert('請選擇「器材」選項');
                 document.getElementById("insertSubmit").disabled = false;
                 return false;
             }
 
             if (document.getElementById('sel_project').selectedIndex == 0) {
 
-                alert('請選擇「維修項目」選項');
+                alert('請選擇「求助事宜」選項');
                 document.getElementById("insertSubmit").disabled = false;
                 return false;
             }
@@ -381,7 +376,7 @@ END:VCALENDAR";
         }
 
         function _func_delete(id, code) {
-            var answer = confirm("確定取消編號為【" + code + "】的維修項目嗎？");
+            var answer = confirm("確定取消編號為【" + code + "】的IT求助項目嗎？");
             if (!answer) {
                 return false;
             } else {
@@ -432,7 +427,7 @@ END:VCALENDAR";
 </div>
 
 <div align="center" style="width:994px">
-    <h1><u>維修項目</u></h1>
+    <h1><u>IT求助項目</u></h1>
 </div>
 <div align="center" style="width:994px">
     <h2>新輸入</h2>
@@ -699,7 +694,7 @@ if (mysqli_num_rows($result) == 0) {
 
             <td align="center" width="8%"><b>分店/部門</b></td>
             <td align="center" width="5%"><b>緊急性</b></td>
-            <td align="center" width="8%"><b>維修項目</b></td>
+            <td align="center" width="8%"><b>器材</b></td>
             <td align="center" width="10%"><b>求助事宜</b></td>
             <td align="center" width="7%"><b>#機器號碼</b></td>
             <td align="center" width="10%"><b>其他資料提供</b></td>
@@ -817,7 +812,7 @@ FROM tbl_itsupport T0
 
                 <td align="center" width="8%"><b>分店/部門</b></td>
                 <td align="center" width="5%"><b>緊急性</b></td>
-                <td align="center" width="8%"><b>維修項目</b></td>
+                <td align="center" width="8%"><b>器材</b></td>
                 <td align="center" width="10%"><b>求助事宜</b></td>
                 <td align="center" width="7%"><b>#機器號碼</b></td>
                 <td align="center" width="10%"><b>其他資料提供</b></td>

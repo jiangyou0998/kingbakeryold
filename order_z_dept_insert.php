@@ -24,7 +24,16 @@ if ($insertDatas) {
     $user = mysqli_fetch_assoc($u_result);
 //    var_dump($user['chr_pocode']);die;
 
-    $sql = "INSERT INTO tbl_order_z_dept (order_date, int_user, int_product, int_qty, chr_ip, status, chr_phase, chr_dept, chr_po_no, int_qty_init, insert_date) ";
+    //2020-12-01 查詢價格,落單時記錄落單價格  
+    $pricesql = "SELECT int_id,int_default_price FROM tbl_order_z_menu;";
+    //  die($sql);
+    $p_result = mysqli_query($con, $pricesql) or die($pricesql);
+    while ($record = mysqli_fetch_assoc($p_result)) {
+        $price[$record['int_id']] = $record['int_default_price'];
+    }
+    // var_dump($price);die;
+
+    $sql = "INSERT INTO tbl_order_z_dept (order_date, int_user, int_product, int_qty, chr_ip, status, chr_phase, chr_dept, chr_po_no, order_price, int_qty_init, insert_date) ";
     $sql .= "VALUES ";
 
     $insertDatasLength = count($insertDatas);
@@ -60,6 +69,9 @@ if ($insertDatas) {
         $sql .= "','";
         //chr_po_no
         $sql .= date("ymd", strtotime("+" . ($_SESSION['advance'] + 1) . " day")) . $user['chr_pocode'];
+        $sql .= "','";
+        //order_price
+        $sql .= $price[$insertData['itemid']];
         //int_qty_init, insert_date
         $sql .= "', 1, NOW()) ";
 
